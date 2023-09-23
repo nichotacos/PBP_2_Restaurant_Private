@@ -17,3 +17,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/test.jpeg
+    - assets/images/Dessert.png
+    - assets/images/Drink.png
+    - assets/images/Humberger.png
+    - assets/images/Meat.png
+    - assets/images/Noodles.png
+    - assets/images/Pizza.png
+    - assets/images/Salad.png
+    - assets/images/Snack.png
