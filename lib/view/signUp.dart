@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pbp_2_restaurant/View/login.dart';
+import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/component/form_component.dart';
 
 class signUpView extends StatefulWidget {

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/view/home.dart';
+import 'package:pbp_2_restaurant/view/home.dart';
 import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
-
-
+import 'package:pbp_2_restaurant/view/homePage.dart';
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+
 void main() {
   runApp(const MyApp());
 }

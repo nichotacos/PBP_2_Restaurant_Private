@@ -42,3 +42,5 @@ flutter:
 linter:
   rules:
     - depend_on_referenced_packages
+    - depend_on_referenced_packages
+
