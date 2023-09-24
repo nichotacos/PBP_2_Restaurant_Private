@@ -21,6 +21,16 @@ flutter:
   uses-material-design: true
 
   assets:
+<<<<<<< HEAD
+    - assets/images/burger/beef-burger-deluxe.png
+    - assets/images/burger/beef-burger.png
+    - assets/images/burger/bigmac.png
+    - assets/images/burger/cheeseburger-deluxe.png
+    - assets/images/burger/cheeseburger.png
+    - assets/images/burger/chicken-muffin-with-egg.png
+    - assets/images/burger/chicken-muffin.png
+    - assets/images/burger/egg-and-cheese-muffin.png
+=======
     - assets/images/test.jpeg
     - assets/images/Dessert.png
     - assets/images/Drink.png
@@ -35,3 +45,4 @@ flutter:
 linter:
   rules:
     - depend_on_referenced_packages
+>>>>>>> bca6db5c82cc831ce2ed052f613a25846ae993eb
