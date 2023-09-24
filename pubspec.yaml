@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: 2.3.3
+
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +30,8 @@ flutter:
     - assets/images/Pizza.png
     - assets/images/Salad.png
     - assets/images/Snack.png
+    - assets/images/Banner-Home.png
+
+linter:
+  rules:
+    - depend_on_referenced_packages
