@@ -15,25 +15,26 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Card(
+                  Card(child: InkWell(                  
                       child: Column(
-                    children: [
-                      Container(
-                        width: 75,
-                        height: 50,
-                        child: Image.asset(
-                          "assets/images/Humberger.png",
-                        ),
+                        children: [
+                          Container(
+                            width: 75,
+                            height: 50,
+                            child: Image.asset(
+                              "assets/images/Humberger.png",
+                            ),
+                          ),
+                          Text(
+                            "Hamburger",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Hamburger",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  )),
-                  Card(
+                      ),),
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -50,8 +51,8 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
-                  Card(
+                  )),),
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -68,8 +69,8 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
-                  Card(
+                  ))),
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -86,7 +87,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
+                  ))),
                 ],
               ),
               const SizedBox(
@@ -95,7 +96,7 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Card(
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -112,8 +113,8 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
-                  Card(
+                  ))),
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -130,8 +131,8 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
-                  Card(
+                  ))),
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -148,8 +149,8 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
-                  Card(
+                  ))),
+                  Card(child: InkWell(
                       child: Column(
                     children: [
                       Container(
@@ -166,8 +167,11 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
+                  ))),
                 ],
+              ),
+              Row(
+                children: [],
               )
             ],
           ),
