@@ -79,6 +79,9 @@ class HomePage extends StatelessWidget {
                         "assets/images/Humberger.png",
                       ),
                     ),
+                    SizedBox(
+                      height: 2,
+                    ),
                     Text(
                       "Hamburger",
                       style: TextStyle(
@@ -100,6 +103,9 @@ class HomePage extends StatelessWidget {
                       "assets/images/Pizza.png",
                     ),
                   ),
+                  SizedBox(
+                    height: 2,
+                  ),
                   Text(
                     "Pizza",
                     style: TextStyle(
@@ -119,6 +125,9 @@ class HomePage extends StatelessWidget {
                   child: Image.asset(
                     "assets/images/Noodles.png",
                   ),
+                ),
+                SizedBox(
+                  height: 2,
                 ),
                 Text(
                   "Noodles",
@@ -166,6 +175,9 @@ class HomePage extends StatelessWidget {
                     "assets/images/Salad.png",
                   ),
                 ),
+                SizedBox(
+                  height: 2,
+                ),
                 Text(
                   "Salad",
                   style: TextStyle(
@@ -184,6 +196,9 @@ class HomePage extends StatelessWidget {
                   child: Image.asset(
                     "assets/images/Dessert.png",
                   ),
+                ),
+                SizedBox(
+                  height: 2,
                 ),
                 Text(
                   "Dessert",
@@ -204,6 +219,9 @@ class HomePage extends StatelessWidget {
                     "assets/images/Snack.png",
                   ),
                 ),
+                SizedBox(
+                  height: 2,
+                ),
                 Text(
                   "Snack",
                   style: TextStyle(
@@ -222,6 +240,9 @@ class HomePage extends StatelessWidget {
                   child: Image.asset(
                     "assets/images/Drink.png",
                   ),
+                ),
+                SizedBox(
+                  height: 2,
                 ),
                 Text(
                   "Drink",
