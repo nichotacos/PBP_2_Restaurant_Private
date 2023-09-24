@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/images/Banner-Home.png'),
           fit: BoxFit.cover,
         ),
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
+        const Row(
           children: [
             Text(
               ' Food Category',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guidedlayout2_1205/view/home.dart';
-import 'package:guidedlayout2_1205/view/register.dart';
+import 'package:pbp_2_restaurant/view/home.dart';
+import 'package:pbp_2_restaurant/view/signUp.dart';
 
 class LoginView extends StatefulWidget {
   final Map? data;
@@ -115,12 +115,6 @@ class _LoginViewState extends State<LoginView> {
                             },
                             child: const Text('Login'),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              pushRegister(context);
-                            },
-                            child: const Text('Forgot Password ?'),
-                          ),
                         ],
                       ),
                     ],
@@ -156,7 +150,7 @@ class _LoginViewState extends State<LoginView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const RegisterView(),
+        builder: (_) => const signUpView(),
       ),
     );
   }
