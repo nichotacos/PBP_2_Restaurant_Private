@@ -22,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Color.fromARGB(255, 207, 207, 207),
+        indicatorColor: const Color.fromARGB(255, 207, 207, 207),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(

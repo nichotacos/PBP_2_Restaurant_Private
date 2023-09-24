@@ -1,5 +1,9 @@
+
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pbp_2_restaurant/burger_grid.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -39,7 +43,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/images/Banner-Home.png'),
           fit: BoxFit.cover,
         ),
@@ -51,7 +55,7 @@ class HomePage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
+        const Row(
           children: [
             Text(
               ' Food Category',
@@ -69,23 +73,27 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Card(
+              color: Colors.white,
               child: InkWell(
+                onTap: (){
+                },
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       width: 75,
                       height: 50,
                       child: Image.asset(
                         "assets/images/Humberger.png",
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 2,
                     ),
-                    Text(
+                    const Text(
                       "Hamburger",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 52, 52, 52),
                       ),
                     ),
                   ],
@@ -93,65 +101,71 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Card(
+              color: Colors.white,
               child: InkWell(
                   child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 75,
                     height: 50,
                     child: Image.asset(
                       "assets/images/Pizza.png",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
-                  Text(
+                  const Text(
                     "Pizza",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 52, 52, 52),
                     ),
                   ),
                 ],
               )),
             ),
             Card(
+                color: Colors.white,
                 child: InkWell(
                     child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 50,
                   child: Image.asset(
                     "assets/images/Noodles.png",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
-                Text(
+                const Text(
                   "Noodles",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                 ),
               ],
             ))),
             Card(
+                color: Colors.white,
                 child: InkWell(
                     child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 50,
                   child: Image.asset(
                     "assets/images/Meat.png",
                   ),
                 ),
-                Text(
+                const Text(
                   "Meat",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                 ),
               ],
@@ -165,96 +179,104 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Card(
+              color: Colors.white,
                 child: InkWell(
                     child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 50,
                   child: Image.asset(
                     "assets/images/Salad.png",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
-                Text(
+                const Text(
                   "Salad",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                 ),
               ],
             ))),
             Card(
+              color: Colors.white,
                 child: InkWell(
                     child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 50,
                   child: Image.asset(
                     "assets/images/Dessert.png",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
-                Text(
+                const Text(
                   "Dessert",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                 ),
               ],
             ))),
             Card(
+              color: Colors.white,
                 child: InkWell(
                     child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 50,
                   child: Image.asset(
                     "assets/images/Snack.png",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
-                Text(
+                const Text(
                   "Snack",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                 ),
               ],
             ))),
             Card(
+              color: Colors.white,
                 child: InkWell(
                     child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 75,
                   height: 50,
                   child: Image.asset(
                     "assets/images/Drink.png",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
-                Text(
+                const Text(
                   "Drink",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                 ),
               ],
             ))),
           ],
         ),
-        Row(
+        const Row(
           children: [],
         )
       ],
