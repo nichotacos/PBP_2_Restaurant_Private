@@ -183,14 +183,6 @@ class _signUpViewState extends State<signUpView> {
                             title: Text('Data Berhasil Disimpan'),
                           ),
                         );
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (_) => LoginView(
-                        //       data: formData,
-                        //     ),
-                        //   ),
-                        // );
                       } else {
                         showDialog(
                           context: context,
@@ -246,19 +238,6 @@ class _signUpViewState extends State<signUpView> {
                           ),
                         );
                       }
-
-                      // Map<String, dynamic> formData = {};
-                      // formData['username'] = usernameController.text;
-                      // formData['password'] = passwordController.text;
-
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (_) => LoginView(
-                      //       data: formData,
-                      //     ),
-                      //   ),
-                      // );
                     }
                   },
                   child: const Text('Sign Up'),
