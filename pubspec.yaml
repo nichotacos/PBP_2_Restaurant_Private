@@ -38,6 +38,8 @@ flutter:
     - assets/images/Salad.png
     - assets/images/Snack.png
     - assets/images/Banner-Home.png
+    - assets/images/images1.jpg
+    - assets/images/images2.jpg
 
 linter:
   rules:
