@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/component/form_component.dart';
@@ -16,8 +18,9 @@ class _signUpViewState extends State<signUpView> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController notelpController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
-  bool isLaki = false;
+  bool? isLaki;
   bool isAgreementAccepted = false;
+  bool successful = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,63 +123,142 @@ class _signUpViewState extends State<signUpView> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Jenis Kelamin: '),
-                      Radio(
-                        value: true,
-                        groupValue: isLaki,
-                        onChanged: (value) {
-                          setState(() {
-                            isLaki = value as bool;
-                          });
-                        },
-                      ),
-                      Text('Laki-laki'),
-                      Radio(
-                        value: false,
-                        groupValue: isLaki,
-                        onChanged: (value) {
-                          setState(() {
-                            isLaki = value as bool;
-                          });
-                        },
-                      ),
-                      Text('Perempuan'),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Jenis Kelamin: '),
+                    Radio(
+                      value: false,
+                      groupValue: isLaki,
+                      onChanged: (value) {
+                        setState(() {
+                          isLaki = value as bool;
+                        });
+                      },
+                    ),
+                    const Text('Laki-laki'),
+                    Radio(
+                      value: true,
+                      groupValue: isLaki,
+                      onChanged: (value) {
+                        setState(() {
+                          isLaki = value as bool;
+                        });
+                      },
+                    ),
+                    const Text('Perempuan'),
+                  ],
                 ),
                 Container(
                   margin: const EdgeInsets.fromLTRB(30, 0, 25, 0),
                   child: CheckboxListTile(
-                    title: Text("Saya setuju dengan User Agreement"),
+                    title: const Text("Saya setuju dengan User Agreement"),
                     value: isAgreementAccepted,
                     onChanged: (value) {
-                      setState(() {
-                        isAgreementAccepted = value!;
-                      });
+                      setState(
+                        () {
+                          isAgreementAccepted = value!;
+                        },
+                      );
                     },
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Map<String, dynamic> formData = {};
-                      formData['username'] = usernameController.text;
-                      formData['password'] = passwordController.text;
-                      showDialog(context: context, builder: (_) => const AlertDialog(
-                        title: const Text('Berhasil Sign-Up'),
-                      ))
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => LoginView(
-                            data: formData,
+                      String message = '';
+
+                      if (isLaki == null) {
+                        message = 'Jenis kelamin belum dipilih. ';
+                      }
+
+                      if (!isAgreementAccepted) {
+                        message += 'Anda belum menyetujui User Agreement.';
+                      }
+
+                      if (message.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (_) => const AlertDialog(
+                            title: Text('Data Berhasil Disimpan'),
                           ),
-                        ),
-                      );
+                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (_) => LoginView(
+                        //       data: formData,
+                        //     ),
+                        //   ),
+                        // );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: const Text('Data Gagal Disimpan'),
+                            content: Text(message),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Tutup'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      if (isLaki != null && isAgreementAccepted) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => AlertDialog(
+                            title: const Text('Data Berhasil Disimpan'),
+                            content: const SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Text('Berhasil Sign-Up'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Map<String, dynamic> formData = {};
+                                  formData['username'] =
+                                      usernameController.text;
+                                  formData['password'] =
+                                      passwordController.text;
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => LoginView(
+                                        data: formData,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: const Text('Ok'),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+
+                      // Map<String, dynamic> formData = {};
+                      // formData['username'] = usernameController.text;
+                      // formData['password'] = passwordController.text;
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (_) => LoginView(
+                      //       data: formData,
+                      //     ),
+                      //   ),
+                      // );
                     }
                   },
                   child: const Text('Sign Up'),
