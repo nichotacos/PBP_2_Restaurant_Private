@@ -13,7 +13,6 @@ class _MyGridViewState extends State<MyGridView> {
 
   List<bool> isExpandedList = [false, false, false, false];
 
- 
 
   final double defaultSize = 150.0; // Ukuran default gambar
 
