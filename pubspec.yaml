@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: 2.3.3
+
 
 dev_dependencies:
   flutter_test:
@@ -19,6 +21,7 @@ flutter:
   uses-material-design: true
 
   assets:
+<<<<<<< HEAD
     - assets/images/burger/beef-burger-deluxe.png
     - assets/images/burger/beef-burger.png
     - assets/images/burger/bigmac.png
@@ -27,3 +30,19 @@ flutter:
     - assets/images/burger/chicken-muffin-with-egg.png
     - assets/images/burger/chicken-muffin.png
     - assets/images/burger/egg-and-cheese-muffin.png
+=======
+    - assets/images/test.jpeg
+    - assets/images/Dessert.png
+    - assets/images/Drink.png
+    - assets/images/Humberger.png
+    - assets/images/Meat.png
+    - assets/images/Noodles.png
+    - assets/images/Pizza.png
+    - assets/images/Salad.png
+    - assets/images/Snack.png
+    - assets/images/Banner-Home.png
+
+linter:
+  rules:
+    - depend_on_referenced_packages
+>>>>>>> bca6db5c82cc831ce2ed052f613a25846ae993eb
