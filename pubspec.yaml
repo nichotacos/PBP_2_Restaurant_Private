@@ -6,6 +6,7 @@ version: 0.1.0
 environment:
   sdk: ">=3.0.6 <4.0.0"
 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -18,7 +19,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   assets:
     - assets/images/burger/beef-burger-deluxe.png
     - assets/images/burger/beef-burger.png
@@ -38,3 +38,7 @@ flutter:
     - assets/images/Salad.png
     - assets/images/Snack.png
     - assets/images/Banner-Home.png
+
+linter:
+  rules:
+    - depend_on_referenced_packages
