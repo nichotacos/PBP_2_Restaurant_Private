@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pbp_2_restaurant/burger_grid.dart';
+import 'package:pbp_2_restaurant/view/discount.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,6 +29,7 @@ class HomePage extends StatelessWidget {
           children: [
             Positioned(child: _buildHighlight()),
             Positioned(child: _buildCategory()),
+            Positioned(child: MyGridView()),
           ],
         ),
       ),
