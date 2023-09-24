@@ -4,7 +4,7 @@ import 'package:pbp_2_restaurant/data/burgers.dart';
 import 'package:pbp_2_restaurant/models/show_burgers.dart';
 
 class BurgerGrid extends StatefulWidget {
-  const BurgerGrid(void Function() rollIndex, {super.key});
+  const BurgerGrid({super.key});
 
   @override
   State<BurgerGrid> createState() => _BurgerGridState();
@@ -19,15 +19,9 @@ class _BurgerGridState extends State<BurgerGrid> {
   bool status = false;
   int index = 0;
 
-  void rollIndex() {
-    setState(() {
-      index++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    Widget incrementIndex = BurgerGrid(rollIndex);
+    //Widget incrementIndex = BurgerGrid(rollIndex);
     final Size size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
