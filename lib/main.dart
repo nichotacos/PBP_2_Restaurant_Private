@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:pbp_2_restaurant/burger_grid.dart';
-
-const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
-=======
+import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/view/home.dart';
->>>>>>> bca6db5c82cc831ce2ed052f613a25846ae993eb
+import 'package:pbp_2_restaurant/view/home.dart';
+import 'package:pbp_2_restaurant/burger_grid.dart';
+import 'package:pbp_2_restaurant/view/homePage.dart';
+import 'package:pbp_2_restaurant/view/homePage.dart';
+const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +13,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: darkBlue),
+      // theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: darkBlue),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -26,13 +24,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.red,
         ),
         body: const Center(
-          child: BurgerGrid(),
+          child: LoginView(),
         ),
       ),
-=======
-    return const MaterialApp(
-      home: HomeView(),
->>>>>>> bca6db5c82cc831ce2ed052f613a25846ae993eb
     );
   }
 }

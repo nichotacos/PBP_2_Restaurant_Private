@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
 
 /// Flutter code sample for [NavigationBar].
@@ -22,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Color.fromARGB(255, 207, 207, 207),
+        indicatorColor: const Color.fromARGB(255, 207, 207, 207),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
@@ -49,11 +50,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: <Widget>[
         HomePage(),
-        Container(
-          color: Colors.green,
-          alignment: Alignment.center,
-          child: const Text('Page 2'),
-        ),
+        BurgerGrid(),
         Container(
           color: Colors.blue,
           alignment: Alignment.center,
