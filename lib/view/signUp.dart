@@ -16,6 +16,8 @@ class _signUpViewState extends State<signUpView> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController notelpController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
+  bool isLaki = false;
+  bool isAgreementAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -76,35 +78,49 @@ class _signUpViewState extends State<signUpView> {
                   hintTxt: "No Telp",
                   helperTxt: "082123456789",
                   iconData: Icons.phone_android),
-              TextFormField(
-                controller: birthDateController,
-                readOnly: true,
-                decoration: const InputDecoration(
-                  hintText: 'Tanggal Lahir',
-                  prefixIcon: Icon(Icons.calendar_today),
-                  labelText: 'Tanggal Lahir',
-                  helperText: 'Pilih Tanggal Lahir Anda',
-                ),
-                onTap: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1960),
-                    lastDate: DateTime.now(),
-                  ).then((pickedDate) {
-                    if (pickedDate != null) {
-                      setState(() {
-                        birthDateController.text =
-                            pickedDate.toLocal().toString().split(' ')[0];
-                      });
+              inputForm(
+                  ((p0) {
+                    if (p0 == null || p0.isEmpty) {
+                      return 'Tanggal Lahir tidak boleh kosong';
                     }
+                    return null;
+                  }),
+                  controller: birthDateController,
+                  hintTxt: "Tanggal Lahir",
+                  helperTxt: "Pilih Tanggal Lahir Anda",
+                  iconData: Icons.calendar_today,
+                  readOnly: true,
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1960),
+                      lastDate: DateTime.now(),
+                    ).then((pickedDate) {
+                      if (pickedDate != null) {
+                        setState(() {
+                          birthDateController.text =
+                              pickedDate.toLocal().toString().split(' ')[0];
+                        });
+                      }
+                    });
+                  }),
+              CheckboxListTile(
+                title: Text("Jenis Kelamin"),
+                value: isLaki,
+                onChanged: (value) {
+                  setState(() {
+                    isLaki = value!;
                   });
                 },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Tanggal Lahir tidak boleh kosong';
-                  }
-                  return null;
+              ),
+              CheckboxListTile(
+                title: Text("Saya setuju dengan User Agreement"),
+                value: isAgreementAccepted,
+                onChanged: (value) {
+                  setState(() {
+                    isAgreementAccepted = value!;
+                  });
                 },
               ),
               ElevatedButton(
