@@ -2,15 +2,32 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:pbp_2_restaurant/Widget/itemBottomNavBar.dart';
+import 'package:pbp_2_restaurant/appBar/appbarView.dart';
+import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
-import '../appBar/appBarView.dart';
+class itemPagePizza extends StatefulWidget {
+  const itemPagePizza(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.quantity,
+      required this.id_user});
 
-class itemPagePizza extends StatelessWidget {
-  const itemPagePizza({super.key});
+  final String? name;
+  final int? id, quantity, id_user;
+
+  @override
+  State<itemPagePizza> createState() => _itemPagePizzaState();
+}
+
+class _itemPagePizzaState extends State<itemPagePizza> {
+  TextEditingController controllerQuantity = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.id != null) {
+      controllerQuantity.text = widget.quantity.toString();
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -86,7 +103,7 @@ class itemPagePizza extends StatelessWidget {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -95,8 +112,8 @@ class itemPagePizza extends StatelessWidget {
                                     color: Colors.white,
                                     size: 20,
                                   ),
-                                  Text(
-                                    "1",
+                                  TextField(
+                                    controller: controllerQuantity,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -165,7 +182,72 @@ class itemPagePizza extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: itemBottomNavBar(),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Total",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "\Rp100.000",
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                ],
+              ),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  if (widget.id == null) {
+                    await addToChart();
+                  } else {
+                    await editChart(widget.id!);
+                  }
+                  Navigator.pop(context);
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(
+                      vertical: 13,
+                      horizontal: 15,
+                    ),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                ),
+                icon: Icon(CupertinoIcons.cart),
+                label: Text(
+                  "Add to Cart",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  Future<void> addToChart() async {
+    await SQLHelper.addToChart("Pizza", int.parse(controllerQuantity.text),
+        "assets/images/Pizza.png", "The Pizza Burger in the world", 10, 1);
+  }
+
+  Future<void> editChart(int id) async {
+    await SQLHelper.editChart(id, "Pizza", int.parse(controllerQuantity.text),
+        "assets/images/Pizza.png", "The Best Pizza in the world", 10, 1);
   }
 }

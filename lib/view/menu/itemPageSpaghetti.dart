@@ -2,15 +2,32 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:pbp_2_restaurant/Widget/itemBottomNavBar.dart';
+import 'package:pbp_2_restaurant/appBar/appbarView.dart';
+import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
-import '../appBar/appBarView.dart';
+class itemPageSpaghetti extends StatefulWidget {
+  const itemPageSpaghetti(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.quantity,
+      required this.id_user});
 
-class itemPageFrenchFries extends StatelessWidget {
-  const itemPageFrenchFries({super.key});
+  final String? name;
+  final int? id, quantity, id_user;
+
+  @override
+  State<itemPageSpaghetti> createState() => _itemPageSpaghettiState();
+}
+
+class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
+  TextEditingController controllerQuantity = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.id != null) {
+      controllerQuantity.text = widget.quantity.toString();
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -20,7 +37,7 @@ class itemPageFrenchFries extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "images/appBarView_images/FrenchFries.jpeg",
+                "images/appBarView_images/Spaghetti.jpeg",
                 height: 300,
                 width: double.infinity,
               ),
@@ -73,7 +90,7 @@ class itemPageFrenchFries extends StatelessWidget {
                         child: Row(
                           children: [
                             const Text(
-                              "French Fries",
+                              "Spaghetti",
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
@@ -81,12 +98,12 @@ class itemPageFrenchFries extends StatelessWidget {
                             ),
                             Container(
                               width: 90,
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -95,8 +112,8 @@ class itemPageFrenchFries extends StatelessWidget {
                                     color: Colors.white,
                                     size: 20,
                                   ),
-                                  Text(
-                                    "1",
+                                  TextField(
+                                    controller: controllerQuantity,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -118,7 +135,7 @@ class itemPageFrenchFries extends StatelessWidget {
                           vertical: 10,
                         ),
                         child: Text(
-                          "French fries are a beloved, crispy snack that hails from the United States but has become a global sensation. These golden, deep-fried potato strips are typically seasoned with salt, making them the perfect combination of crispy on the outside and tender on the inside. French fries are a classic accompaniment to burgers, hot dogs, and other fast-food favorites, but they're also enjoyed as a standalone treat. Their irresistible taste and addictive crunch make them a popular choice for people of all ages.",
+                          "Spaghetti is a classic Italian pasta dish known for its long, thin noodles typically made from durum wheat semolina. It is often served with a rich and flavorful tomato-based sauce, seasoned with garlic, onions, and herbs, and commonly accompanied by meatballs or grated Parmesan cheese. Spaghetti is loved for its simplicity, versatility, and the delightful combination of tender pasta and savory sauce, making it a popular choice in Italian and international cuisine",
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.justify,
                         ),
@@ -165,7 +182,78 @@ class itemPageFrenchFries extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: itemBottomNavBar(),
+      bottomNavigationBar: BottomAppBar(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        height: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Total",
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  "\Rp100.000",
+                  style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
+                ),
+              ],
+            ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                  if (widget.id == null) {
+                    await addToChart();
+                  } else {
+                    await editChart(widget.id!);
+                  }
+                  Navigator.pop(context);
+                },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
+                padding: MaterialStateProperty.all(
+                  EdgeInsets.symmetric(
+                    vertical: 13,
+                    horizontal: 15,
+                  ),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+              ),
+              icon: Icon(CupertinoIcons.cart),
+              label: Text(
+                "Add to Cart",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
     );
   }
+
+  Future<void> addToChart() async {
+    await SQLHelper.addToChart(
+        "Spaghetti",
+        int.parse(controllerQuantity.text),
+        "assets/images/Noodles.png",
+        "The Best Beef Spaghetti in the world",
+        10,
+        1);
+  }
+
+  Future<void> editChart(int id) async {
+    await SQLHelper.editChart(id, "Spaghetti", int.parse(controllerQuantity.text),
+        "assets/images/Noodles.png", "The Best Spaghetti in the world", 10, 1);
+  }
 }
+

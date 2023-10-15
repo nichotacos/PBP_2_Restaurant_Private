@@ -2,15 +2,32 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:pbp_2_restaurant/Widget/itemBottomNavBar.dart';
+import 'package:pbp_2_restaurant/appBar/appbarView.dart';
+import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
-import '../appBar/appBarView.dart';
+class itemPageFrenchFries extends StatefulWidget {
+  const itemPageFrenchFries(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.quantity,
+      required this.id_user});
 
-class itemPageBurger extends StatelessWidget {
-  const itemPageBurger({super.key});
+  final String? name;
+  final int? id, quantity, id_user;
+
+  @override
+  State<itemPageFrenchFries> createState() => _itemPageFrenchFriesState();
+}
+
+class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
+  TextEditingController controllerQuantity = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.id != null) {
+      controllerQuantity.text = widget.quantity.toString();
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -20,7 +37,7 @@ class itemPageBurger extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "images/appBarView_images/Burger.jpeg",
+                "images/appBarView_images/FrenchFries.jpeg",
                 height: 300,
                 width: double.infinity,
               ),
@@ -73,7 +90,7 @@ class itemPageBurger extends StatelessWidget {
                         child: Row(
                           children: [
                             const Text(
-                              "Krabby Patty",
+                              "French Fries",
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
@@ -86,7 +103,7 @@ class itemPageBurger extends StatelessWidget {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -95,8 +112,8 @@ class itemPageBurger extends StatelessWidget {
                                     color: Colors.white,
                                     size: 20,
                                   ),
-                                  Text(
-                                    "1",
+                                  TextField(
+                                    controller: controllerQuantity,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -118,7 +135,7 @@ class itemPageBurger extends StatelessWidget {
                           vertical: 10,
                         ),
                         child: Text(
-                          "A burger is a delicious sandwich typically made with a grilled or fried patty of ground meat, often beef, served in a bun. It's often garnished with various toppings like lettuce, tomato, cheese, onions, and condiments such as ketchup and mayonnaise, creating a satisfying and flavorful meal that's a favorite among many",
+                          "French fries are a beloved, crispy snack that hails from the United States but has become a global sensation. These golden, deep-fried potato strips are typically seasoned with salt, making them the perfect combination of crispy on the outside and tender on the inside. French fries are a classic accompaniment to burgers, hot dogs, and other fast-food favorites, but they're also enjoyed as a standalone treat. Their irresistible taste and addictive crunch make them a popular choice for people of all ages.",
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.justify,
                         ),
@@ -165,7 +182,78 @@ class itemPageBurger extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: itemBottomNavBar(),
+      bottomNavigationBar: BottomAppBar(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        height: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Total",
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  "\Rp100.000",
+                  style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
+                ),
+              ],
+            ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                  if (widget.id == null) {
+                    await addToChart();
+                  } else {
+                    await editChart(widget.id!);
+                  }
+                  Navigator.pop(context);
+                },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
+                padding: MaterialStateProperty.all(
+                  EdgeInsets.symmetric(
+                    vertical: 13,
+                    horizontal: 15,
+                  ),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+              ),
+              icon: Icon(CupertinoIcons.cart),
+              label: Text(
+                "Add to Cart",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
     );
   }
+
+  Future<void> addToChart() async {
+    await SQLHelper.addToChart(
+        "French Fries",
+        int.parse(controllerQuantity.text),
+        "assets/images/Snack.png",
+        "The Best French Fries in the world",
+        10,
+        1);
+  }
+
+  Future<void> editChart(int id) async {
+    await SQLHelper.editChart(id, "French Fries", int.parse(controllerQuantity.text),
+        "assets/images/Snack.png", "French Fries in the world", 10, 1);
+  }
 }
+

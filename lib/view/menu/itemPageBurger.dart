@@ -2,15 +2,32 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:pbp_2_restaurant/Widget/itemBottomNavBar.dart';
+import 'package:pbp_2_restaurant/appBar/appbarView.dart';
+import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
-import '../appBar/appBarView.dart';
+class itemPageBurger extends StatefulWidget {
+  const itemPageBurger(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.quantity,
+      required this.id_user});
 
-class itemPageSpaghetti extends StatelessWidget {
-  const itemPageSpaghetti({super.key});
+  final String? name;
+  final int? id, quantity, id_user;
+
+  @override
+  State<itemPageBurger> createState() => _itemPageBurgerState();
+}
+
+class _itemPageBurgerState extends State<itemPageBurger> {
+  TextEditingController controllerQuantity = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.id != null) {
+      controllerQuantity.text = widget.quantity.toString();
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -20,7 +37,7 @@ class itemPageSpaghetti extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "images/appBarView_images/Spaghetti.jpeg",
+                "images/appBarView_images/Burger.jpeg",
                 height: 300,
                 width: double.infinity,
               ),
@@ -73,7 +90,7 @@ class itemPageSpaghetti extends StatelessWidget {
                         child: Row(
                           children: [
                             const Text(
-                              "Spaghetti",
+                              "Krabby Patty",
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
@@ -81,12 +98,12 @@ class itemPageSpaghetti extends StatelessWidget {
                             ),
                             Container(
                               width: 90,
-                              padding: const EdgeInsets.all(5),
+                              padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -95,8 +112,8 @@ class itemPageSpaghetti extends StatelessWidget {
                                     color: Colors.white,
                                     size: 20,
                                   ),
-                                  Text(
-                                    "1",
+                                  TextField(
+                                    controller: controllerQuantity,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -118,7 +135,7 @@ class itemPageSpaghetti extends StatelessWidget {
                           vertical: 10,
                         ),
                         child: Text(
-                          "Spaghetti is a classic Italian pasta dish known for its long, thin noodles typically made from durum wheat semolina. It is often served with a rich and flavorful tomato-based sauce, seasoned with garlic, onions, and herbs, and commonly accompanied by meatballs or grated Parmesan cheese. Spaghetti is loved for its simplicity, versatility, and the delightful combination of tender pasta and savory sauce, making it a popular choice in Italian and international cuisine",
+                          "A burger is a delicious sandwich typically made with a grilled or fried patty of ground meat, often beef, served in a bun. It's often garnished with various toppings like lettuce, tomato, cheese, onions, and condiments such as ketchup and mayonnaise, creating a satisfying and flavorful meal that's a favorite among many",
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.justify,
                         ),
@@ -165,7 +182,77 @@ class itemPageSpaghetti extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: itemBottomNavBar(),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Total",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "\Rp100.000",
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                ],
+              ),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  if (widget.id == null) {
+                    await addToChart();
+                  } else {
+                    await editChart(widget.id!);
+                  }
+                  Navigator.pop(context);
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(
+                      vertical: 13,
+                      horizontal: 15,
+                    ),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                ),
+                icon: Icon(CupertinoIcons.cart),
+                label: Text(
+                  "Add to Cart",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  Future<void> addToChart() async {
+    await SQLHelper.addToChart(
+        "Burger",
+        int.parse(controllerQuantity.text),
+        "assets/images/burger/beef-burger.png",
+        "The Best Beef Burger in the world",
+        10,
+        1);
+  }
+
+  Future<void> editChart(int id) async {
+    await SQLHelper.editChart(id, "Burger", int.parse(controllerQuantity.text),
+        "assets/images/burger/beef-burger.png", "The Best Beef Burger in the world", 10, 1);
   }
 }
