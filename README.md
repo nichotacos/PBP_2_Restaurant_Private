@@ -6,7 +6,11 @@
 - Elyn Geby Monica Panjaitan (NPM 210711093)
 - Nicholas Yang (NPM 210711153)
 - Hariyanto Tandung (NPM 210711205)
+<<<<<<< HEAD
 - Dave Sebastian Petrus (210711487)
+=======
+- Dave Sebastian Petrus (NPM 210711487)
+>>>>>>> 4ab68aef5ecdf2ca6fb0e387a1ab55f95de117e6
 
 ## Deskripsi Project
 
