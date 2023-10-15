@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 
 class PopularView extends StatelessWidget {
+  const PopularView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 15, 
+        padding: const EdgeInsets.symmetric(
+          vertical: 15,
           horizontal: 5,
         ),
         child: Row(
           children: [
-
             // Single Item
             // for (int i=0; i<10; i++)
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
+              padding: const EdgeInsets.symmetric(horizontal: 7),
               child: Container(
                 width: 200,
                 height: 225,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    )
-                  ]
-                ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      )
+                    ]),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -44,15 +44,15 @@ class PopularView extends StatelessWidget {
                           height: 120,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "BURGER",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 4),
-                      Text(
+                      const SizedBox(height: 4),
+                      const Text(
                         "Komposisi: Roti Burger, Daging Ayam, Keju, Selada, "
                         "Tomat, Bawang Bombay, Timun, Jalapeno, Cabe Hijau / Merah",
                         style: TextStyle(
@@ -60,8 +60,8 @@ class PopularView extends StatelessWidget {
                           // fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 9),
-                      Row(
+                      const SizedBox(height: 9),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -86,24 +86,23 @@ class PopularView extends StatelessWidget {
             ),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
+              padding: const EdgeInsets.symmetric(horizontal: 7),
               child: Container(
                 width: 200,
                 height: 225,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    )
-                  ]
-                ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      )
+                    ]),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -114,23 +113,23 @@ class PopularView extends StatelessWidget {
                           height: 120,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "SPAGHETTI",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 4),
-                      Text(
+                      const SizedBox(height: 4),
+                      const Text(
                         "Komposisi: Italian Spaghetti Noodles, Sausage, Parsley Leaves",
                         style: TextStyle(
                           fontSize: 10,
                           // fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 9),
-                      Row(
+                      const SizedBox(height: 9),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -155,24 +154,23 @@ class PopularView extends StatelessWidget {
             ),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
+              padding: const EdgeInsets.symmetric(horizontal: 7),
               child: Container(
                 width: 200,
                 height: 225,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    )
-                  ]
-                ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      )
+                    ]),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -183,23 +181,23 @@ class PopularView extends StatelessWidget {
                           height: 120,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "FRENCH FRIES",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 4),
-                      Text(
+                      const SizedBox(height: 4),
+                      const Text(
                         "Komposisi: French Fries, Sauce (Spicy / Sweet / Spicy and Sweet) ",
                         style: TextStyle(
                           fontSize: 10,
                           // fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 9),
-                      Row(
+                      const SizedBox(height: 9),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(

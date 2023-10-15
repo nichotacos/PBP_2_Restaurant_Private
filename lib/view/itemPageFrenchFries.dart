@@ -7,16 +7,18 @@ import 'package:pbp_2_restaurant/Widget/itemBottomNavBar.dart';
 import '../appBar/appBarView.dart';
 
 class itemPageFrenchFries extends StatelessWidget {
+  const itemPageFrenchFries({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(top: 5),
         child: ListView(
           children: [
             appBarView(),
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Image.asset(
                 "images/appBarView_images/FrenchFries.jpeg",
                 height: 300,
@@ -35,7 +37,7 @@ class itemPageFrenchFries extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 60, bottom: 10),
+                        padding: const EdgeInsets.only(top: 60, bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -45,14 +47,15 @@ class itemPageFrenchFries extends StatelessWidget {
                               direction: Axis.horizontal,
                               itemCount: 5,
                               itemSize: 18,
-                              itemPadding: EdgeInsets.symmetric(horizontal: 4),
-                              itemBuilder: (context, _) => Icon(
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              itemBuilder: (context, _) => const Icon(
                                 Icons.star,
                                 color: Colors.red,
                               ),
                               onRatingUpdate: (index) {},
                             ),
-                            Text(
+                            const Text(
                               "\Rp100.000",
                               style: TextStyle(
                                 fontSize: 22,
@@ -63,13 +66,13 @@ class itemPageFrenchFries extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: 10,
                           bottom: 20,
                         ),
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               "French Fries",
                               style: TextStyle(
                                 fontSize: 28,
@@ -83,7 +86,7 @@ class itemPageFrenchFries extends StatelessWidget {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -110,7 +113,7 @@ class itemPageFrenchFries extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                         ),
@@ -120,7 +123,7 @@ class itemPageFrenchFries extends StatelessWidget {
                           textAlign: TextAlign.justify,
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 15,
                         ),

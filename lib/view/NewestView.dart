@@ -6,19 +6,16 @@ class NewestItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 10, 
-          horizontal: 10
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Column(
           children: [
             // First Item
             // for (int i=0; i<10; i++)
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Container(
-                width: 380,         // Ukuran Container Newest
-                height: 150,        // Ukuran Container Newest
+                width: 380, // Ukuran Container Newest
+                height: 150, // Ukuran Container Newest
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -27,14 +24,14 @@ class NewestItemView extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 3,
                       blurRadius: 10,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: (){},
+                      onTap: () {},
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
@@ -50,36 +47,31 @@ class NewestItemView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
+                          const Text(
                             "Pizza",
                             style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 25, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             "Taste Our Pizza, We Provide Our Great Foods ",
                             style: TextStyle(
                               fontSize: 15,
                             ),
                           ),
-
                           RatingBar.builder(
                             initialRating: 4,
                             minRating: 1,
                             direction: Axis.horizontal,
                             itemCount: 5,
                             itemSize: 25,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star, 
-                              color: Colors.red
-                            ), 
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 5),
+                            itemBuilder: (context, _) =>
+                                const Icon(Icons.star, color: Colors.red),
                             onRatingUpdate: (index) {},
                           ),
-
-                          Text(
-                            "\Rp 50.000", 
+                          const Text(
+                            "\Rp 50.000",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -89,8 +81,7 @@ class NewestItemView extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,12 +89,12 @@ class NewestItemView extends StatelessWidget {
                           Icon(
                             Icons.favorite_border,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                           Icon(
                             CupertinoIcons.cart,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                         ],
                       ),
@@ -113,11 +104,11 @@ class NewestItemView extends StatelessWidget {
               ),
             ),
 
-                        Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Container(
-                width: 380,         // Ukuran Container Newest
-                height: 150,        // Ukuran Container Newest
+                width: 380, // Ukuran Container Newest
+                height: 150, // Ukuran Container Newest
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -126,14 +117,14 @@ class NewestItemView extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 3,
                       blurRadius: 10,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: (){},
+                      onTap: () {},
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
@@ -149,36 +140,31 @@ class NewestItemView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
+                          const Text(
                             "Burger",
                             style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 25, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             "Taste Our Pizza, We Provide Our Great Foods ",
                             style: TextStyle(
                               fontSize: 15,
                             ),
                           ),
-
                           RatingBar.builder(
                             initialRating: 4,
                             minRating: 1,
                             direction: Axis.horizontal,
                             itemCount: 5,
                             itemSize: 25,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star, 
-                              color: Colors.red
-                            ), 
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 5),
+                            itemBuilder: (context, _) =>
+                                const Icon(Icons.star, color: Colors.red),
                             onRatingUpdate: (index) {},
                           ),
-
-                          Text(
-                            "\Rp 50.000", 
+                          const Text(
+                            "\Rp 50.000",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -188,8 +174,7 @@ class NewestItemView extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -197,12 +182,12 @@ class NewestItemView extends StatelessWidget {
                           Icon(
                             Icons.favorite_border,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                           Icon(
                             CupertinoIcons.cart,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                         ],
                       ),
@@ -212,11 +197,11 @@ class NewestItemView extends StatelessWidget {
               ),
             ),
 
-                        Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Container(
-                width: 380,         // Ukuran Container Newest
-                height: 150,        // Ukuran Container Newest
+                width: 380, // Ukuran Container Newest
+                height: 150, // Ukuran Container Newest
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -225,14 +210,14 @@ class NewestItemView extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 3,
                       blurRadius: 10,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: (){},
+                      onTap: () {},
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
@@ -248,36 +233,31 @@ class NewestItemView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
+                          const Text(
                             "French Fries",
                             style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 25, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             "Taste Our Pizza, We Provide Our Great Foods ",
                             style: TextStyle(
                               fontSize: 15,
                             ),
                           ),
-
                           RatingBar.builder(
                             initialRating: 4,
                             minRating: 1,
                             direction: Axis.horizontal,
                             itemCount: 5,
                             itemSize: 25,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star, 
-                              color: Colors.red
-                            ), 
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 5),
+                            itemBuilder: (context, _) =>
+                                const Icon(Icons.star, color: Colors.red),
                             onRatingUpdate: (index) {},
                           ),
-
-                          Text(
-                            "\Rp 50.000", 
+                          const Text(
+                            "\Rp 50.000",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -287,8 +267,7 @@ class NewestItemView extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -296,12 +275,12 @@ class NewestItemView extends StatelessWidget {
                           Icon(
                             Icons.favorite_border,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                           Icon(
                             CupertinoIcons.cart,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                         ],
                       ),
@@ -311,11 +290,11 @@ class NewestItemView extends StatelessWidget {
               ),
             ),
 
-                        Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Container(
-                width: 380,         // Ukuran Container Newest
-                height: 150,        // Ukuran Container Newest
+                width: 380, // Ukuran Container Newest
+                height: 150, // Ukuran Container Newest
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -324,14 +303,14 @@ class NewestItemView extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 3,
                       blurRadius: 10,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: (){},
+                      onTap: () {},
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
@@ -347,14 +326,12 @@ class NewestItemView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
+                          const Text(
                             "Spaghetti",
                             style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 25, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             "Taste Our Pizza, We Provide Our Great Foods ",
                             style: TextStyle(
                               fontSize: 15,
@@ -367,17 +344,16 @@ class NewestItemView extends StatelessWidget {
                             direction: Axis.horizontal,
                             itemCount: 5,
                             itemSize: 25,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star, 
-                              color: Colors.red
-                            ), 
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 5),
+                            itemBuilder: (context, _) =>
+                                const Icon(Icons.star, color: Colors.red),
                             onRatingUpdate: (index) {},
                           ),
 
                           // Harga
-                          Text(
-                            "\Rp 50.000", 
+                          const Text(
+                            "\Rp 50.000",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -389,7 +365,7 @@ class NewestItemView extends StatelessWidget {
                     ),
 
                     // Icon buat belanja
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -397,12 +373,12 @@ class NewestItemView extends StatelessWidget {
                           Icon(
                             Icons.favorite_border,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                           Icon(
                             CupertinoIcons.cart,
                             color: Colors.red,
-                            size: 20, 
+                            size: 20,
                           ),
                         ],
                       ),

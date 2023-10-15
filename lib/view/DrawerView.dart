@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 class DrawerView extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: [
+        children: const [
           DrawerHeader(
             padding: EdgeInsets.zero,
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green,          // Background Warna Bagian Profil
+                color: Colors.green, // Background Warna Bagian Profil
               ),
               accountName: Text(
                 "User",
@@ -19,7 +19,7 @@ class DrawerView extends StatelessWidget {
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
-              ), 
+              ),
               accountEmail: Text(
                 "email@gmail.com",
                 style: TextStyle(

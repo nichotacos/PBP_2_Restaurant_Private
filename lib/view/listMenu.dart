@@ -6,6 +6,8 @@ import 'package:pbp_2_restaurant/view/NewestView.dart';
 import 'package:pbp_2_restaurant/view/PopularView.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,32 +18,31 @@ class HomePage extends StatelessWidget {
 
           // Search
           Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 10, 
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
               horizontal: 10,
             ),
             child: Container(
               width: double.infinity,
               height: 50,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 10,
-                    offset: Offset(0, 3),
-                  )
-                ]
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    )
+                  ]),
               child: Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                 ),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       CupertinoIcons.search,
                       color: Colors.red,
                     ),
@@ -49,18 +50,18 @@ class HomePage extends StatelessWidget {
                       height: 50,
                       width: 300,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 15,
                         ),
                         child: TextFormField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "What do you want to looking for?",
                             border: InputBorder.none,
                           ),
                         ),
                       ),
                     ),
-                    Icon(Icons.filter_list),
+                    const Icon(Icons.filter_list),
                   ],
                 ),
               ),
@@ -68,13 +69,10 @@ class HomePage extends StatelessWidget {
           ),
 
           // Category
-          Padding(
-            padding: EdgeInsets.only(
-              top: 20, 
-              left: 10
-            ),
+          const Padding(
+            padding: EdgeInsets.only(top: 20, left: 10),
             child: Text(
-              "Categories", 
+              "Categories",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -85,13 +83,10 @@ class HomePage extends StatelessWidget {
           CategoriesView(),
 
           // Popular Items
-          Padding(
-            padding: EdgeInsets.only(
-              top: 20, 
-              left: 10
-            ),
+          const Padding(
+            padding: EdgeInsets.only(top: 20, left: 10),
             child: Text(
-              "Popular", 
+              "Popular",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -99,16 +94,13 @@ class HomePage extends StatelessWidget {
             ),
           ),
           // Popular
-          PopularView(),
+          const PopularView(),
 
           // Newest Items
-          Padding(
-            padding: EdgeInsets.only(
-              top: 20, 
-              left: 10
-            ),
+          const Padding(
+            padding: EdgeInsets.only(top: 20, left: 10),
             child: Text(
-              "Newest", 
+              "Newest",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -122,24 +114,24 @@ class HomePage extends StatelessWidget {
       ),
       drawer: DrawerView(),
       floatingActionButton: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 10,
-              offset: Offset(0, 3),
-            ),
-          ]),
-          child: FloatingActionButton(
-            onPressed: () {},
-            child: Icon(
-              CupertinoIcons.cart,
-              size: 30,
-              color: Colors.deepOrange,
-            ),
-            backgroundColor: Colors.white,
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
+        ]),
+        child: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(
+            CupertinoIcons.cart,
+            size: 30,
+            color: Colors.deepOrange,
+          ),
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }
