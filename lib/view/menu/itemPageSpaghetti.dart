@@ -23,11 +23,35 @@ class itemPageSpaghetti extends StatefulWidget {
 class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   TextEditingController controllerQuantity = TextEditingController();
 
+  void incrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      counter++;
+      controllerQuantity.text = counter.toString();
+    });
+  }
+
+  void decrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      if (counter > 1) {
+        counter--;
+        controllerQuantity.text = counter.toString();
+      }
+    });
+  }
+
+  var x = 0;
+
   @override
   Widget build(BuildContext context) {
     if (widget.id != null) {
       controllerQuantity.text = widget.quantity.toString();
+    } else if (x == 0) {
+      controllerQuantity.text = "1";
+      x = 1;
     }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -37,7 +61,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "images/appBarView_images/Spaghetti.jpeg",
+                "assets/images/appBarView_images/Spaghetti.jpeg",
                 height: 300,
                 width: double.infinity,
               ),
@@ -97,7 +121,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                               ),
                             ),
                             Container(
-                              width: 90,
+                              width: 120,
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.red,
@@ -107,22 +131,32 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    CupertinoIcons.minus,
-                                    color: Colors.white,
-                                    size: 20,
+                                IconButton(
+                                    onPressed: () {
+                                      decrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.minus,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
-                                  TextField(
-                                    controller: controllerQuantity,
+                                  Text(
+                                    controllerQuantity.text,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Icon(
-                                    CupertinoIcons.plus,
-                                    color: Colors.white,
-                                    size: 20,
+                                  IconButton(
+                                    onPressed: () {
+                                      incrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.plus,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -183,32 +217,32 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        height: 70,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Text(
-                  "Total",
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  "\Rp100.000",
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
-              ],
-            ),
-            ElevatedButton.icon(
-              onPressed: () async {
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Total",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "\Rp100.000",
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                ],
+              ),
+              ElevatedButton.icon(
+                onPressed: () async {
                   if (widget.id == null) {
                     await addToChart();
                   } else {
@@ -216,28 +250,28 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                   }
                   Navigator.pop(context);
                 },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
-                padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(
-                    vertical: 13,
-                    horizontal: 15,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(
+                      vertical: 13,
+                      horizontal: 15,
+                    ),
                   ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
                 ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20))),
+                icon: Icon(CupertinoIcons.cart),
+                label: Text(
+                  "Add to Cart",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
-              icon: Icon(CupertinoIcons.cart),
-              label: Text(
-                "Add to Cart",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 
@@ -252,8 +286,13 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelper.editChart(id, "Spaghetti", int.parse(controllerQuantity.text),
-        "assets/images/Noodles.png", "The Best Spaghetti in the world", 10, 1);
+    await SQLHelper.editChart(
+        id,
+        "Spaghetti",
+        int.parse(controllerQuantity.text),
+        "assets/images/Noodles.png",
+        "The Best Spaghetti in the world",
+        10,
+        1);
   }
 }
-

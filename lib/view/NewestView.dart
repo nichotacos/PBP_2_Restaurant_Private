@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
 
 class NewestItemView extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -31,7 +32,19 @@ class NewestItemView extends StatelessWidget {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => itemPageBurger(
+                              id: null,
+                              name: null,
+                              quantity: null,
+                              id_user: null,
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(

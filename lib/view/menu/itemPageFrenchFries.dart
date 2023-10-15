@@ -22,11 +22,33 @@ class itemPageFrenchFries extends StatefulWidget {
 
 class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   TextEditingController controllerQuantity = TextEditingController();
+  void incrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      counter++;
+      controllerQuantity.text = counter.toString();
+    });
+  }
+
+  void decrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      if (counter > 1) {
+        counter--;
+        controllerQuantity.text = counter.toString();
+      }
+    });
+  }
+
+  var x = 0;
 
   @override
   Widget build(BuildContext context) {
     if (widget.id != null) {
       controllerQuantity.text = widget.quantity.toString();
+    } else if (x == 0) {
+      controllerQuantity.text = "1";
+      x = 1;
     }
     return Scaffold(
       body: Padding(
@@ -37,7 +59,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "images/appBarView_images/FrenchFries.jpeg",
+                "assets/images/appBarView_images/FrenchFries.jpeg",
                 height: 300,
                 width: double.infinity,
               ),
@@ -97,7 +119,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                               ),
                             ),
                             Container(
-                              width: 90,
+                              width: 120,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.red,
@@ -107,22 +129,32 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    CupertinoIcons.minus,
-                                    color: Colors.white,
-                                    size: 20,
+                                IconButton(
+                                    onPressed: () {
+                                      decrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.minus,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
-                                  TextField(
-                                    controller: controllerQuantity,
+                                  Text(
+                                    controllerQuantity.text,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Icon(
-                                    CupertinoIcons.plus,
-                                    color: Colors.white,
-                                    size: 20,
+                                  IconButton(
+                                    onPressed: () {
+                                      incrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.plus,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
                                 ],
                               ),

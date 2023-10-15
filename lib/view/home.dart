@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/login.dart';
+import 'package:pbp_2_restaurant/view/chart.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 
@@ -54,11 +55,7 @@ class _HomeViewState extends State<HomeView> {
       body: <Widget>[
         HomePage(logUser: widget.user),
         BurgerGrid(),
-        Container(
-          color: Colors.blue,
-          alignment: Alignment.center,
-          child: Text('Logged In as ${widget.user!.username}!'),
-        ),
+        CartPage(),
         Container(
           color: Colors.blue,
           alignment: Alignment.center,
