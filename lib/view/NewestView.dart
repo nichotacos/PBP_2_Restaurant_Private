@@ -375,6 +375,7 @@ class NewestItemView extends StatelessWidget {
                             onRatingUpdate: (index) {},
                           ),
 
+                          // Harga
                           Text(
                             "\Rp 50.000", 
                             style: TextStyle(
