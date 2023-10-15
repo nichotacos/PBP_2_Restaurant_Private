@@ -387,6 +387,7 @@ class NewestItemView extends StatelessWidget {
                       ),
                     ),
 
+                    // Icon buat belanja
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Column(
