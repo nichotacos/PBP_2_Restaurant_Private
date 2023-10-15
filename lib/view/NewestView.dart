@@ -35,7 +35,7 @@ class NewestItemView extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "images/Pizza.jpeg",
+                          "assets/images/appBarView_images/Pizza.jpeg",
                           height: 150,
                           width: 175,
                         ),
@@ -128,7 +128,7 @@ class NewestItemView extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "images/Burger.jpeg",
+                          "assets/images/appBarView_images/Burger.jpeg",
                           height: 150,
                           width: 175,
                         ),
@@ -221,7 +221,7 @@ class NewestItemView extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "images/FrenchFries.jpeg",
+                          "assets/images/appBarView_images/FrenchFries.jpeg",
                           height: 150,
                           width: 175,
                         ),
@@ -314,7 +314,7 @@ class NewestItemView extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "images/Spaghetti.jpeg",
+                          "assets/images/appBarView_images/Spaghetti.jpeg",
                           height: 150,
                           width: 175,
                         ),
