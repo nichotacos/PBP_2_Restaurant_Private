@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/view/home.dart';
 import 'package:pbp_2_restaurant/view/register.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
@@ -14,21 +13,8 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-bool _iconBool = false;
 bool passwordVisible = false;
 User user = User();
-
-IconData _iconLight = Icons.wb_sunny;
-IconData _iconDark = Icons.nights_stay;
-
-ThemeData _lightTheme = ThemeData(
-  primarySwatch: Colors.red,
-  brightness: Brightness.light,
-);
-ThemeData _darkTheme = ThemeData(
-  primarySwatch: Colors.red,
-  brightness: Brightness.dark,
-);
 
 class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
@@ -80,9 +66,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    Map? dataForm = widget.data;
     return MaterialApp(
-      theme: _iconBool ? _darkTheme : _lightTheme,
       home: Scaffold(
         body: SafeArea(
           child: Column(
@@ -234,9 +218,9 @@ class _LoginViewState extends State<LoginView> {
                                           backgroundColor: const Color.fromARGB(
                                               255, 214, 19, 85),
                                           padding: const EdgeInsetsDirectional
-                                                  .symmetric(
-                                              horizontal: double.minPositive,
-                                              vertical: 15),
+                                              .symmetric(vertical: 15),
+                                          minimumSize:
+                                              const Size.fromHeight(20),
                                         ),
                                         onPressed: () async {
                                           onPressedLogin();
@@ -267,19 +251,21 @@ class _LoginViewState extends State<LoginView> {
                                           ],
                                         ),
                                       ),
-                                      ElevatedButton(
+                                      ElevatedButton.icon(
+                                        icon: const Icon(Icons.face_2_sharp,
+                                            color: Colors.black),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: const Color.fromARGB(
                                               255, 244, 244, 244),
                                           padding: const EdgeInsetsDirectional
-                                                  .symmetric(
-                                              horizontal: double.minPositive,
-                                              vertical: 15),
+                                              .symmetric(vertical: 15),
+                                          minimumSize:
+                                              const Size.fromHeight(20),
                                         ),
                                         onPressed: () async {
                                           onPressedLogin();
                                         },
-                                        child: const Text(
+                                        label: const Text(
                                           'Login with Google',
                                           style: TextStyle(
                                               fontSize: 16,
@@ -290,19 +276,21 @@ class _LoginViewState extends State<LoginView> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      ElevatedButton(
+                                      ElevatedButton.icon(
+                                        icon:
+                                            const Icon(Icons.facebook_outlined),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: const Color.fromARGB(
                                               255, 0, 133, 255),
                                           padding: const EdgeInsetsDirectional
-                                                  .symmetric(
-                                              horizontal: double.minPositive,
-                                              vertical: 15),
+                                              .symmetric(vertical: 15),
+                                          minimumSize:
+                                              const Size.fromHeight(20),
                                         ),
                                         onPressed: () async {
                                           onPressedLogin();
                                         },
-                                        child: const Text(
+                                        label: const Text(
                                           'Login with Facebook',
                                           style: TextStyle(
                                               fontSize: 16,
@@ -327,17 +315,6 @@ class _LoginViewState extends State<LoginView> {
               ),
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Tindakan yang ingin Anda lakukan saat FAB ditekan
-            setState(() {
-              _iconBool = !_iconBool;
-            });
-          }, // Icon yang akan ditampilkan di FAB
-          backgroundColor: Colors.blue,
-          child: Icon(
-              _iconBool ? _iconDark : _iconLight), // Warna latar belakang FAB
         ),
       ),
     );
@@ -366,22 +343,6 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-
-  // void login(User user) async {
-  //   if (user.username == usernameController.text) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Login Success'),
-  //       ),
-  //     );
-  //     pushRegister(context);
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Login Failed!'),
-  //       ),
-  //     );
-  //   }
 
   Future<void> checkLogin() async {
     await SQLHelper.checkLogin(
