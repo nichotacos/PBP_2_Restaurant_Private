@@ -5,8 +5,9 @@ import 'package:pbp_2_restaurant/view/homePage.dart';
 /// Flutter code sample for [NavigationBar].
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({super.key, required this.name});
 
+  final String? name;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -54,12 +55,15 @@ class _HomeViewState extends State<HomeView> {
         Container(
           color: Colors.blue,
           alignment: Alignment.center,
-          child: const Text('Page 3'),
+          child: Text('Logged In as ${widget.name}'),
         ),
         Container(
           color: Colors.blue,
           alignment: Alignment.center,
-          child: const Text('Page 3'),
+          child: Text(
+            'Hello ${widget.name}!',
+            style: const TextStyle(fontSize: 30),
+          ),
         ),
       ][currentPageIndex],
     );
