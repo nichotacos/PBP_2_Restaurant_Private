@@ -40,7 +40,7 @@ class PopularView extends StatelessWidget {
                       Container(
                         // alignment: Alignment.center,
                         child: Image.asset(
-                          "images/Burger.jpeg",
+                          "assets/images/appBarView_images/Burger.jpeg",
                           height: 120,
                         ),
                       ),
@@ -109,7 +109,7 @@ class PopularView extends StatelessWidget {
                       Container(
                         // alignment: Alignment.center,
                         child: Image.asset(
-                          "images/Spaghetti.jpeg",
+                          "assets/images/appBarView_images/Spaghetti.jpeg",
                           height: 120,
                         ),
                       ),
@@ -177,7 +177,7 @@ class PopularView extends StatelessWidget {
                       Container(
                         // alignment: Alignment.center,
                         child: Image.asset(
-                          "images/FrenchFries.jpeg",
+                          "assets/images/appBarView_images/FrenchFries.jpeg",
                           height: 120,
                         ),
                       ),

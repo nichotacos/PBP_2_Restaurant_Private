@@ -1,39 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pbp_2_restaurant/model/user.dart';
 
-class DrawerView extends StatelessWidget {
+class DrawerView extends StatefulWidget {
+  const DrawerView({super.key, required this.user});
+  final User? user;
+
+  @override
+  State<DrawerView> createState() => _DrawerViewState();
+}
+
+class _DrawerViewState extends State<DrawerView> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: const [
+        children: [
           DrawerHeader(
             padding: EdgeInsets.zero,
             child: UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.green, // Background Warna Bagian Profil
               ),
               accountName: Text(
-                "User",
-                style: TextStyle(
+                "${widget.user!.username}",
+                style: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               accountEmail: Text(
-                "email@gmail.com",
-                style: TextStyle(
+                "${widget.user!.email}",
+                style: const TextStyle(
                   fontSize: 15,
                 ),
               ),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage("images/PrettyDog.jpeg"),
+              currentAccountPicture: const CircleAvatar(
+                backgroundImage: AssetImage("assets/images/test.jpeg"),
               ),
             ),
           ),
 
           // Profile Account
-          ListTile(
+          const ListTile(
             leading: Icon(
               CupertinoIcons.home,
               color: Colors.black,
@@ -46,7 +55,7 @@ class DrawerView extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               CupertinoIcons.person,
               color: Colors.black,
@@ -59,7 +68,7 @@ class DrawerView extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               CupertinoIcons.cart,
               color: Colors.black,
@@ -72,7 +81,7 @@ class DrawerView extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               CupertinoIcons.heart_fill,
               color: Colors.red,
@@ -85,7 +94,7 @@ class DrawerView extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.settings,
               color: Colors.black,
@@ -98,7 +107,7 @@ class DrawerView extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.logout,
               color: Colors.black,

@@ -22,45 +22,38 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController passwordController = TextEditingController();
   bool showPassword = false;
 
-  onPressedLogin() async {
-    BuildContext currentContext = context;
+  void onPressedLogin() async {
     await Future.delayed(const Duration(seconds: 1));
     User? logUser = await SQLHelper.checkLogin(
         usernameController.text, passwordController.text);
 
-    if (logUser != null) {
-      //Login success
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(currentContext).showSnackBar(
-        const SnackBar(
-          content: Text('Login Success!'),
-          duration: Duration(seconds: 3),
-        ),
-      );
+    if (context.mounted) {
+      if (logUser != null) {
+        // Login success
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Login Success!'),
+            duration: Duration(seconds: 3),
+          ),
+        );
 
-      if (currentContext.mounted) return;
-      ScaffoldMessenger.of(currentContext).showSnackBar(
-        const SnackBar(
-          content: Text('Login Success!'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-
-      Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (_) => HomeView(
-                    name: logUser.username,
-                  )));
-    } else {
-      //Login failed
-      if (currentContext.mounted) return;
-      ScaffoldMessenger.of(currentContext).showSnackBar(
-        const SnackBar(
-          content: Text('Login failed. Please try again.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
+            builder: (_) => HomeView(
+              user: logUser,
+            ),
+          ),
+        );
+      } else {
+        // Login failed
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Login failed. Please try again.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
     }
   }
 

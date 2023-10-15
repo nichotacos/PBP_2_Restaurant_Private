@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           // Categories
-          CategoriesView(),
+          const CategoriesView(),
 
           // Popular Items
           const Padding(

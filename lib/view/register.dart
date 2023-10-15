@@ -202,7 +202,7 @@ class _RegisterViewState extends State<RegisterView> {
                             ),
                           ),
                         ),
-                        obscureText: passwordVisible ? true : false,
+                        obscureText: passwordVisible ? false : true,
                         validator: (value) =>
                             value == '' ? 'Please enter your password!' : null,
                       ),

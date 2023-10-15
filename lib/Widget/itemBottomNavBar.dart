@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class itemBottomNavBar extends StatelessWidget {
+  const itemBottomNavBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -11,7 +13,7 @@ class itemBottomNavBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+            const Row(
               children: [
                 Text(
                   "Total",
@@ -34,7 +36,7 @@ class itemBottomNavBar extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.red),
                 padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(
+                  const EdgeInsets.symmetric(
                     vertical: 13,
                     horizontal: 15,
                   ),
@@ -43,8 +45,8 @@ class itemBottomNavBar extends StatelessWidget {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
               ),
-              icon: Icon(CupertinoIcons.cart),
-              label: Text(
+              icon: const Icon(CupertinoIcons.cart),
+              label: const Text(
                 "Add to Cart",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),

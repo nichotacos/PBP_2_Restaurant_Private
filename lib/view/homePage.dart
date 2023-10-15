@@ -1,282 +1,148 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pbp_2_restaurant/burger_grid.dart';
-import 'package:pbp_2_restaurant/view/discount.dart';
+import 'package:pbp_2_restaurant/appBar/appbarView.dart';
+import 'package:pbp_2_restaurant/login.dart';
+import 'package:pbp_2_restaurant/view/CategoriesView.dart';
+import 'package:pbp_2_restaurant/view/DrawerView.dart';
+import 'package:pbp_2_restaurant/view/NewestView.dart';
+import 'package:pbp_2_restaurant/view/PopularView.dart';
+import 'package:pbp_2_restaurant/model/user.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.logUser});
 
+  final User? logUser;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 238, 238, 238),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Icon(
-          Icons.menu,
-          color: Colors.grey[900],
-        ),
-        title: Text(
-          "Sans Kitchen",
-          style: TextStyle(color: Colors.grey[900]),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Stack(
-          children: [
-            Positioned(child: _buildHighlight()),
-            Positioned(child: _buildCategory()),
-            const Positioned(child: MyGridView()),
-          ],
-        ),
-      ),
-    );
-  }
+      body: ListView(
+        children: [
+          // custom appBarView
+          appBarView(),
 
-  Widget _buildHighlight() {
-    return Container(
-      height: 200,
-      padding: const EdgeInsets.all(25),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        image: const DecorationImage(
-          image: AssetImage('assets/images/Banner-Home.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategory() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Row(
-          children: [
-            Text(
-              ' Food Category',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Column(
+          // Search
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 10,
+            ),
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: Offset(0, 3),
+                    )
+                  ]),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                child: Row(
                   children: [
-                    SizedBox(
-                      width: 75,
+                    const Icon(
+                      CupertinoIcons.search,
+                      color: Colors.red,
+                    ),
+                    Container(
                       height: 50,
-                      child: Image.asset(
-                        "assets/images/Humberger.png",
+                      width: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: "What do you want to looking for?",
+                            border: InputBorder.none,
+                          ),
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Text(
-                      "Hamburger",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
+                    const Icon(Icons.filter_list),
                   ],
                 ),
               ),
             ),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                  child: Column(
-                children: [
-                  SizedBox(
-                    width: 75,
-                    height: 50,
-                    child: Image.asset(
-                      "assets/images/Pizza.png",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  const Text(
-                    "Pizza",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 52, 52, 52),
-                    ),
-                  ),
-                ],
-              )),
+          ),
+
+          // Category
+          const Padding(
+            padding: EdgeInsets.only(top: 20, left: 10),
+            child: Text(
+              "Categories",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+              ),
             ),
-            Card(
-                color: Colors.white,
-                child: InkWell(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/images/Noodles.png",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Text(
-                      "Noodles",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
-                  ],
-                ))),
-            Card(
-                color: Colors.white,
-                child: InkWell(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/images/Meat.png",
-                      ),
-                    ),
-                    const Text(
-                      "Meat",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
-                  ],
-                ))),
-          ],
+          ),
+          // Categories
+          const CategoriesView(),
+
+          // Popular Items
+          const Padding(
+            padding: EdgeInsets.only(top: 20, left: 10),
+            child: Text(
+              "Popular",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+              ),
+            ),
+          ),
+          // Popular
+          const PopularView(),
+
+          // Newest Items
+          Padding(
+            padding: EdgeInsets.only(top: 20, left: 10),
+            child: Text(
+              "${widget.logUser!.username}",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+              ),
+            ),
+          ),
+
+          // Newest Item View
+          NewestItemView(),
+        ],
+      ),
+      drawer: DrawerView(user: widget.logUser),
+      floatingActionButton: Container(
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ]),
+        child: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(
+            CupertinoIcons.cart,
+            size: 30,
+            color: Colors.deepOrange,
+          ),
+          backgroundColor: Colors.white,
         ),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Card(
-                color: Colors.white,
-                child: InkWell(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/images/Salad.png",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Text(
-                      "Salad",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
-                  ],
-                ))),
-            Card(
-                color: Colors.white,
-                child: InkWell(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/images/Dessert.png",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Text(
-                      "Dessert",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
-                  ],
-                ))),
-            Card(
-                color: Colors.white,
-                child: InkWell(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/images/Snack.png",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Text(
-                      "Snack",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
-                  ],
-                ))),
-            Card(
-                color: Colors.white,
-                child: InkWell(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      width: 75,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/images/Drink.png",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Text(
-                      "Drink",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 52, 52, 52),
-                      ),
-                    ),
-                  ],
-                ))),
-          ],
-        ),
-        const Row(
-          children: [],
-        )
-      ],
+      ),
     );
   }
 }
