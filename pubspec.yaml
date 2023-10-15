@@ -6,7 +6,6 @@ version: 0.1.0
 environment:
   sdk: ">=3.0.6 <4.0.0"
 
-
 dependencies:
   flutter:
     sdk: flutter
@@ -15,6 +14,9 @@ dependencies:
   flutter_slidable: ^0.6.0
   smooth_page_indicator: ^1.0.0+2
   checkbox_formfield: ^0.2.0
+  clippy_flutter: ^2.0.0-nullsafety.1
+  cupertino_icons: ^1.0.2
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +46,13 @@ flutter:
     - assets/images/Banner-Home.png
     - assets/images/images1.jpg
     - assets/images/images2.jpg
+    - assets/images/appBarView_images/Burger.jpeg
+    - assets/images/appBarView_images/EsJeruk.jpeg
+    - assets/images/appBarView_images/EsTeh.jpeg
+    - assets/images/appBarView_images/FrenchFries.jpeg
+    - assets/images/appBarView_images/Pizza.jpeg
+    - assets/images/appBarView_images/PrettyDog.jpeg
+    - assets/images/appBarView_images/Spaghetti.jpeg
     - assets/ilustrations/ilustration-1.png
     - assets/ilustrations/ilustration-2.png
     - assets/ilustrations/pattern.png
@@ -52,4 +61,3 @@ linter:
   rules:
     - depend_on_referenced_packages
     - depend_on_referenced_packages
-
