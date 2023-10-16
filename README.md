@@ -6,11 +6,7 @@
 - Elyn Geby Monica Panjaitan (NPM 210711093)
 - Nicholas Yang (NPM 210711153)
 - Hariyanto Tandung (NPM 210711205)
-<<<<<<< HEAD
-- Dave Sebastian Petrus (210711487)
-=======
 - Dave Sebastian Petrus (NPM 210711487)
->>>>>>> 4ab68aef5ecdf2ca6fb0e387a1ab55f95de117e6
 
 ## Deskripsi Project
 
@@ -24,3 +20,10 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 - Enhance Login Page : eye toggle
 - Enhance Login Page : change theme by pressing floating action button
 - Apply Grid at home page
+
+### UGD Modul Data
+- Hariyanto Tandung (UI HomePage, UI Newest, UI Popular, and NavBar Profile)
+- Dave Sebastian Petrus (UI Cart, UI Item/Food Page, Create Cart, and Eye Toggle for Password)
+- Kevin Julian Rahadinata(Update, Edit, delete Cart, and Business Logic Cart)
+- Nicholas Yang (CRUD User, Email unique, Shared Preference, UI Login, and Register)  
+- Elyn Geby Monica(SqlHelper user at Cart, UI design in Figma, and Snackbar in Login)
