@@ -203,8 +203,11 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                         ),
                         obscureText: passwordVisible ? false : true,
-                        validator: (value) =>
-                            value == '' ? 'Please enter your password!' : null,
+                        validator: (value) => value == ''
+                            ? 'Please enter your password!'
+                            : (value!.length < 3
+                                ? 'Password length must be more than 3 characters!'
+                                : null),
                       ),
                       const SizedBox(height: 10),
                       TextFormField(

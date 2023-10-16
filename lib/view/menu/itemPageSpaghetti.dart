@@ -12,17 +12,14 @@ class itemPageSpaghetti extends StatefulWidget {
       required this.name,
       required this.quantity,
       required this.id_user});
-
   final String? name;
   final int? id, quantity, id_user;
-
   @override
   State<itemPageSpaghetti> createState() => _itemPageSpaghettiState();
 }
 
 class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   TextEditingController controllerQuantity = TextEditingController();
-
   void incrementCounter() {
     setState(() {
       int counter = int.parse(controllerQuantity.text);
@@ -42,16 +39,16 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   }
 
   var x = 0;
-
+  var y = 0;
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null) {
+    if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
-    } else if (x == 0) {
+      y = 1;
+    } else if (x == 0 && y == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -131,7 +128,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                IconButton(
+                                  IconButton(
                                     onPressed: () {
                                       decrementCounter();
                                     },
@@ -276,7 +273,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   }
 
   Future<void> addToChart() async {
-    await SQLHelperChart.addToChart(
+    await SQLHelper.addToChart(
         "Spaghetti",
         int.parse(controllerQuantity.text),
         "assets/images/Noodles.png",
@@ -286,7 +283,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelperChart.editChart(
+    await SQLHelper.editChart(
         id,
         "Spaghetti",
         int.parse(controllerQuantity.text),

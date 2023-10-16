@@ -12,10 +12,8 @@ class itemPageFrenchFries extends StatefulWidget {
       required this.name,
       required this.quantity,
       required this.id_user});
-
   final String? name;
   final int? id, quantity, id_user;
-
   @override
   State<itemPageFrenchFries> createState() => _itemPageFrenchFriesState();
 }
@@ -41,12 +39,13 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   }
 
   var x = 0;
-
+  var y = 0;
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null) {
+    if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
-    } else if (x == 0) {
+      y = 1;
+    } else if (x == 0 && y == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
@@ -274,7 +273,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   }
 
   Future<void> addToChart() async {
-    await SQLHelperChart.addToChart(
+    await SQLHelper.addToChart(
         "French Fries",
         int.parse(controllerQuantity.text),
         "assets/images/Snack.png",
@@ -284,7 +283,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelperChart.editChart(
+    await SQLHelper.editChart(
         id,
         "French Fries",
         int.parse(controllerQuantity.text),

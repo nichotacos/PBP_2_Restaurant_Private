@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart' as sql;
 
-class SQLHelperChart {
+class SQLHelper {
   //create db
   static Future<void> createTables(sql.Database database) async {
     await database.execute("""
@@ -11,8 +11,7 @@ class SQLHelperChart {
         image TEXT,
         desc TEXT,
         price INT,
-        id_user INTEGER,
-        CONSTRAINT FK_id_user FOREIGN KEY (id_user) REFERENCES user(id)
+        id_user INTEGER 
       )
     """);
   }
@@ -28,7 +27,7 @@ class SQLHelperChart {
   //insert Employee
   static Future<int> addToChart(String name, int quantity, String image,
       String desc, int price, int id_user) async {
-    final db = await SQLHelperChart.db();
+    final db = await SQLHelper.db();
 
     // Cek apakah "name" sudah ada dalam database
     final result =
@@ -65,14 +64,14 @@ class SQLHelperChart {
 
   //read Employee
   static Future<List<Map<String, dynamic>>> getChart() async {
-    final db = await SQLHelperChart.db();
+    final db = await SQLHelper.db();
     return db.query('toChart');
   }
 
   //update Employee
   static Future<int> editChart(int id, String name, int quantity, String image,
       String desc, int price, int id_user) async {
-    final db = await SQLHelperChart.db();
+    final db = await SQLHelper.db();
     final data = {
       'name': name,
       'quantity': quantity,
@@ -86,7 +85,7 @@ class SQLHelperChart {
 
   //delete Employee
   static Future<int> deleteChart(int id) async {
-    final db = await SQLHelperChart.db();
+    final db = await SQLHelper.db();
     return await db.delete('toChart', where: "id = $id");
   }
 }
