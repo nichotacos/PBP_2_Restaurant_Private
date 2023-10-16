@@ -40,7 +40,7 @@ class PopularView extends StatelessWidget {
                       Container(
                         // alignment: Alignment.center,
                         child: Image.asset(
-                          "assets/images/appBarView_images/Burger.jpeg",
+                          "assets/images/burger/beef-burger.png",
                           height: 120,
                         ),
                       ),

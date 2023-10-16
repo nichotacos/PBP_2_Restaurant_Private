@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: EdgeInsets.only(top: 20, left: 10),
             child: Text(
-              "${widget.logUser!.username}",
+              "Newest",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // Newest Item View
-          NewestItemView(),
+          NewestItemView(user: user),
         ],
       ),
       drawer: DrawerView(user: widget.logUser),
