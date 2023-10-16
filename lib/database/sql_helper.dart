@@ -46,6 +46,21 @@ class SQLHelper {
     return db.query('user');
   }
 
+  //read certain user
+  static Future<User?> getCertainUser(int? id) async {
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery(
+      "SELECT * FROM $User WHERE id = '$id'",
+    );
+
+    // ignore: prefer_is_empty
+    if (result.length > 0) {
+      return User.fromMap(result[0]);
+    }
+
+    return null;
+  }
+
   //update User
   static Future<int> editUser(int id, String username, String email,
       String password, String telephone, String bornDate) async {

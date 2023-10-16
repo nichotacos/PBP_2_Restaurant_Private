@@ -180,7 +180,9 @@ class _LoginViewState extends State<LoginView> {
                                   obscureText: passwordVisible ? true : false,
                                   validator: (value) => value == ''
                                       ? 'Please enter your password!'
-                                      : null,
+                                      : (value!.length < 3
+                                          ? 'Password length must be more than 3 characters!'
+                                          : null),
                                 ),
                                 Container(
                                   margin:

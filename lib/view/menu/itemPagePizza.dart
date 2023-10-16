@@ -41,13 +41,12 @@ class _itemPagePizzaState extends State<itemPagePizza> {
   }
 
   var x = 0;
-  var y = 0;
+
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null && y == 0) {
+    if (widget.id != null) {
       controllerQuantity.text = widget.quantity.toString();
-      y = 1;
-    } else if (x == 0 && y == 0) {
+    } else if (x == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
@@ -68,16 +67,17 @@ class _itemPagePizzaState extends State<itemPagePizza> {
             Arc(
               edge: Edge.TOP,
               arcType: ArcType.CONVEY,
-              height: 30,
+              height: 20,
               child: Container(
+                height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 60, bottom: 10),
+                        padding: const EdgeInsets.only(top: 40, bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -101,6 +101,7 @@ class _itemPagePizzaState extends State<itemPagePizza> {
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
+                              textAlign: TextAlign.end,
                             ),
                           ],
                         ),
@@ -120,8 +121,10 @@ class _itemPagePizzaState extends State<itemPagePizza> {
                               ),
                             ),
                             Container(
-                              width: 120,
-                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.only(left: 20),
+                              height: 30,
+                              width: 110,
+                              padding: const EdgeInsets.all(0),
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
@@ -136,16 +139,18 @@ class _itemPagePizzaState extends State<itemPagePizza> {
                                     },
                                     icon: Icon(
                                       CupertinoIcons.minus,
-                                      color: Colors.white,
                                       size: 20,
                                     ),
+                                    color: Colors.white,
                                   ),
-                                  Text(
-                                    controllerQuantity.text,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: controllerQuantity,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                   IconButton(
                                     onPressed: () {
@@ -153,9 +158,9 @@ class _itemPagePizzaState extends State<itemPagePizza> {
                                     },
                                     icon: Icon(
                                       CupertinoIcons.plus,
-                                      color: Colors.white,
                                       size: 20,
                                     ),
+                                    color: Colors.white,
                                   ),
                                 ],
                               ),
@@ -275,12 +280,18 @@ class _itemPagePizzaState extends State<itemPagePizza> {
   }
 
   Future<void> addToChart() async {
-    await SQLHelper.addToChart("Pizza", int.parse(controllerQuantity.text),
+    await SQLHelperChart.addToChart("Pizza", int.parse(controllerQuantity.text),
         "assets/images/Pizza.png", "The Pizza Burger in the world", 10, 1);
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelper.editChart(id, "Pizza", int.parse(controllerQuantity.text),
-        "assets/images/Pizza.png", "The Best Pizza in the world", 10, 1);
+    await SQLHelperChart.editChart(
+        id,
+        "Pizza",
+        int.parse(controllerQuantity.text),
+        "assets/images/Pizza.png",
+        "The Best Pizza in the world",
+        10,
+        1);
   }
 }

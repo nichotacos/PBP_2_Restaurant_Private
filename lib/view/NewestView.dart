@@ -1,9 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
+import 'package:pbp_2_restaurant/view/menu/itemPagePizza.dart';
+import 'package:pbp_2_restaurant/model/user.dart';
 
-class NewestItemView extends StatelessWidget {
+class NewestItemView extends StatefulWidget {
+  const NewestItemView({super.key, required this.user});
+
+  final User? user;
+
+  @override
+  State<NewestItemView> createState() => _NewestItemViewState();
+}
+
+class _NewestItemViewState extends State<NewestItemView> {
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -32,19 +43,16 @@ class NewestItemView extends StatelessWidget {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => itemPageBurger(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => itemPagePizza(
                               id: null,
-                              name: null,
+                              name: 'Pizza',
                               quantity: null,
-                              id_user: null,
-                            ),
-                          ),
-                        );
-                      },
+                              id_user: widget.user!.id),
+                        ),
+                      ),
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
