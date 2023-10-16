@@ -24,3 +24,6 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 - Enhance Login Page : eye toggle
 - Enhance Login Page : change theme by pressing floating action button
 - Apply Grid at home page
+
+### UGD Modul Data
+- Hariyanto Tandung (UI HomePage & NavBar Profile)
