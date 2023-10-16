@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // Newest Item View
-          NewestItemView(user: user),
+          NewestItemView(user: widget.logUser),
         ],
       ),
       drawer: DrawerView(user: widget.logUser),

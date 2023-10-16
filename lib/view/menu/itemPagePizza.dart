@@ -22,11 +22,33 @@ class itemPagePizza extends StatefulWidget {
 
 class _itemPagePizzaState extends State<itemPagePizza> {
   TextEditingController controllerQuantity = TextEditingController();
+  void incrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      counter++;
+      controllerQuantity.text = counter.toString();
+    });
+  }
+
+  void decrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      if (counter > 1) {
+        counter--;
+        controllerQuantity.text = counter.toString();
+      }
+    });
+  }
+
+  var x = 0;
 
   @override
   Widget build(BuildContext context) {
     if (widget.id != null) {
       controllerQuantity.text = widget.quantity.toString();
+    } else if (x == 0) {
+      controllerQuantity.text = "1";
+      x = 1;
     }
     return Scaffold(
       body: Padding(
@@ -42,143 +64,159 @@ class _itemPagePizzaState extends State<itemPagePizza> {
                 width: double.infinity,
               ),
             ),
-            // Arc(
-            //   edge: Edge.TOP,
-            //   arcType: ArcType.CONVEY,
-            //   height: double.infinity,
-            //   child: Container(
-            //     width: double.infinity,
-            //     color: Colors.white,
-            //     child: Padding(
-            //       padding: const EdgeInsets.symmetric(horizontal: 20),
-            //       child: Column(
-            //         children: [
-            //           Padding(
-            //             padding: const EdgeInsets.only(top: 60, bottom: 10),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 RatingBar.builder(
-            //                   initialRating: 4,
-            //                   minRating: 1,
-            //                   direction: Axis.horizontal,
-            //                   itemCount: 5,
-            //                   itemSize: 18,
-            //                   itemPadding:
-            //                       const EdgeInsets.symmetric(horizontal: 4),
-            //                   itemBuilder: (context, _) => const Icon(
-            //                     Icons.star,
-            //                     color: Colors.red,
-            //                   ),
-            //                   onRatingUpdate: (index) {},
-            //                 ),
-            //                 const Text(
-            //                   "\Rp100.000",
-            //                   style: TextStyle(
-            //                     fontSize: 22,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(
-            //               top: 10,
-            //               bottom: 20,
-            //             ),
-            //             child: Row(
-            //               children: [
-            //                 const Text(
-            //                   "Hot Pizza",
-            //                   style: TextStyle(
-            //                     fontSize: 28,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //                 Container(
-            //                   width: 90,
-            //                   padding: const EdgeInsets.all(5),
-            //                   decoration: BoxDecoration(
-            //                     color: Colors.red,
-            //                     borderRadius: BorderRadius.circular(10),
-            //                   ),
-            //                   child: Row(
-            //                     mainAxisAlignment:
-            //                         MainAxisAlignment.spaceBetween,
-            //                     children: [
-            //                       const Icon(
-            //                         CupertinoIcons.minus,
-            //                         color: Colors.white,
-            //                         size: 20,
-            //                       ),
-            //                       TextField(
-            //                         controller: controllerQuantity,
-            //                         style: const TextStyle(
-            //                             fontSize: 16,
-            //                             color: Colors.white,
-            //                             fontWeight: FontWeight.bold),
-            //                       ),
-            //                       const Icon(
-            //                         CupertinoIcons.plus,
-            //                         color: Colors.white,
-            //                         size: 20,
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           const Padding(
-            //             padding: EdgeInsets.symmetric(
-            //               vertical: 10,
-            //             ),
-            //             child: Text(
-            //               "A hot pizza is a delightful culinary creation, featuring a thin or thick crust, generously topped with bubbling, melted cheese and a medley of savory ingredients",
-            //               style: TextStyle(fontSize: 16),
-            //               textAlign: TextAlign.justify,
-            //             ),
-            //           ),
-            //           const Padding(
-            //             padding: EdgeInsets.symmetric(
-            //               vertical: 15,
-            //             ),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 Text(
-            //                   "Delivery Time:",
-            //                   style: TextStyle(
-            //                       fontSize: 16,
-            //                       fontWeight: FontWeight.bold,
-            //                       fontStyle: FontStyle.italic),
-            //                 ),
-            //                 Row(
-            //                   children: [
-            //                     Padding(
-            //                       padding: EdgeInsets.symmetric(horizontal: 5),
-            //                       child: Icon(
-            //                         CupertinoIcons.clock,
-            //                         color: Colors.red,
-            //                       ),
-            //                     ),
-            //                     Text(
-            //                       "30 Minutes",
-            //                       style: TextStyle(
-            //                         fontSize: 16,
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Arc(
+              edge: Edge.TOP,
+              arcType: ArcType.CONVEY,
+              height: 20,
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40, bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RatingBar.builder(
+                              initialRating: 4,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              itemCount: 5,
+                              itemSize: 18,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.red,
+                              ),
+                              onRatingUpdate: (index) {},
+                            ),
+                            const Text(
+                              "\Rp100.000",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.end,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Hot Pizza",
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 20),
+                              height: 30,
+                              width: 110,
+                              padding: const EdgeInsets.all(0),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      decrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.minus,
+                                      size: 20,
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: controllerQuantity,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      incrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.plus,
+                                      size: 20,
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          "A hot pizza is a delightful culinary creation, featuring a thin or thick crust, generously topped with bubbling, melted cheese and a medley of savory ingredients",
+                          style: TextStyle(fontSize: 16),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Delivery Time:",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: Icon(
+                                    CupertinoIcons.clock,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                Text(
+                                  "30 Minutes",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -242,12 +280,18 @@ class _itemPagePizzaState extends State<itemPagePizza> {
   }
 
   Future<void> addToChart() async {
-    await SQLHelper.addToChart("Pizza", int.parse(controllerQuantity.text),
+    await SQLHelperChart.addToChart("Pizza", int.parse(controllerQuantity.text),
         "assets/images/Pizza.png", "The Pizza Burger in the world", 10, 1);
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelper.editChart(id, "Pizza", int.parse(controllerQuantity.text),
-        "assets/images/Pizza.png", "The Best Pizza in the world", 10, 1);
+    await SQLHelperChart.editChart(
+        id,
+        "Pizza",
+        int.parse(controllerQuantity.text),
+        "assets/images/Pizza.png",
+        "The Best Pizza in the world",
+        10,
+        1);
   }
 }

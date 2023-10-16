@@ -48,7 +48,7 @@ class _NewestItemViewState extends State<NewestItemView> {
                         MaterialPageRoute(
                           builder: (_) => itemPagePizza(
                               id: null,
-                              name: null,
+                              name: 'Pizza',
                               quantity: null,
                               id_user: widget.user!.id),
                         ),

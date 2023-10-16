@@ -23,10 +23,33 @@ class itemPageBurger extends StatefulWidget {
 class _itemPageBurgerState extends State<itemPageBurger> {
   TextEditingController controllerQuantity = TextEditingController();
 
+  void incrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      counter++;
+      controllerQuantity.text = counter.toString();
+    });
+  }
+
+  void decrementCounter() {
+    setState(() {
+      int counter = int.parse(controllerQuantity.text);
+      if (counter > 1) {
+        counter--;
+        controllerQuantity.text = counter.toString();
+      }
+    });
+  }
+
+  var x = 0;
+
   @override
   Widget build(BuildContext context) {
     if (widget.id != null) {
       controllerQuantity.text = widget.quantity.toString();
+    } else if (x == 0) {
+      controllerQuantity.text = "1";
+      x = 1;
     }
     return Scaffold(
       body: Padding(
@@ -37,7 +60,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "images/appBarView_images/Burger.jpeg",
+                "assets/images/appBarView_images/Burger.jpeg",
                 height: 300,
                 width: double.infinity,
               ),
@@ -97,7 +120,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                               ),
                             ),
                             Container(
-                              width: 90,
+                              width: 120,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.red,
@@ -107,22 +130,32 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    CupertinoIcons.minus,
-                                    color: Colors.white,
-                                    size: 20,
+                                  IconButton(
+                                    onPressed: () {
+                                      decrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.minus,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
-                                  TextField(
-                                    controller: controllerQuantity,
+                                  Text(
+                                    controllerQuantity.text,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Icon(
-                                    CupertinoIcons.plus,
-                                    color: Colors.white,
-                                    size: 20,
+                                  IconButton(
+                                    onPressed: () {
+                                      incrementCounter();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.plus,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -242,7 +275,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
   }
 
   Future<void> addToChart() async {
-    await SQLHelper.addToChart(
+    await SQLHelperChart.addToChart(
         "Burger",
         int.parse(controllerQuantity.text),
         "assets/images/burger/beef-burger.png",
@@ -252,7 +285,13 @@ class _itemPageBurgerState extends State<itemPageBurger> {
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelper.editChart(id, "Burger", int.parse(controllerQuantity.text),
-        "assets/images/burger/beef-burger.png", "The Best Beef Burger in the world", 10, 1);
+    await SQLHelperChart.editChart(
+        id,
+        "Burger",
+        int.parse(controllerQuantity.text),
+        "assets/images/burger/beef-burger.png",
+        "The Best Beef Burger in the world",
+        10,
+        1);
   }
 }
