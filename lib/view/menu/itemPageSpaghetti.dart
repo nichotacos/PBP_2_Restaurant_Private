@@ -42,14 +42,12 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   }
 
   var x = 0;
-  var y = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null && y == 0) {
+    if (widget.id != null) {
       controllerQuantity.text = widget.quantity.toString();
-      y = 1;
-    } else if (x == 0 && y == 0) {
+    } else if (x == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
@@ -133,7 +131,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  IconButton(
+                                IconButton(
                                     onPressed: () {
                                       decrementCounter();
                                     },
