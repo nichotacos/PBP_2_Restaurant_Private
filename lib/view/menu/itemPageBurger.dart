@@ -41,13 +41,14 @@ class _itemPageBurgerState extends State<itemPageBurger> {
     });
   }
 
+  var y = 0;
   var x = 0;
-
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null) {
+    if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
-    } else if (x == 0) {
+      y = 1;
+    } else if (x == 0 && y == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
