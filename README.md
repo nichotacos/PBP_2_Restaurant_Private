@@ -23,7 +23,7 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 
 ### UGD Modul Data
 - Hariyanto Tandung (UI HomePage, UI Newest, UI Popular, and NavBar Profile)
-- Dave Sebastian Petrus (UI Cart, Create Cart, and Eye Toggle for Password)
+- Dave Sebastian Petrus (UI Cart, UI Item/Food Page, Create Cart, and Eye Toggle for Password)
 - Kevin Julian Rahadinata(Update, Edit, delete Cart, and Business Logic Cart)
 - Nicholas Yang (CRUD User, Email unique, Shared Preference, UI Login, and Register)  
 - Elyn Geby Monica(SqlHelper user at Cart, UI design in Figma, and Snackbar in Login)
