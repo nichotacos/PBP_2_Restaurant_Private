@@ -41,12 +41,13 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   }
 
   var x = 0;
-
+  var y = 0;
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null) {
+    if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
-    } else if (x == 0) {
+      y = 1;
+    } else if (x == 0 && y == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
@@ -129,7 +130,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                IconButton(
+                                  IconButton(
                                     onPressed: () {
                                       decrementCounter();
                                     },
@@ -215,32 +216,32 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        height: 70,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Text(
-                  "Total",
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  "\Rp100.000",
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
-              ],
-            ),
-            ElevatedButton.icon(
-              onPressed: () async {
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Total",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "\Rp100.000",
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                ],
+              ),
+              ElevatedButton.icon(
+                onPressed: () async {
                   if (widget.id == null) {
                     await addToChart();
                   } else {
@@ -248,28 +249,28 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                   }
                   Navigator.pop(context);
                 },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
-                padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(
-                    vertical: 13,
-                    horizontal: 15,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(
+                      vertical: 13,
+                      horizontal: 15,
+                    ),
                   ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
                 ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20))),
+                icon: Icon(CupertinoIcons.cart),
+                label: Text(
+                  "Add to Cart",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
-              icon: Icon(CupertinoIcons.cart),
-              label: Text(
-                "Add to Cart",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 
@@ -284,8 +285,13 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   }
 
   Future<void> editChart(int id) async {
-    await SQLHelper.editChart(id, "French Fries", int.parse(controllerQuantity.text),
-        "assets/images/Snack.png", "French Fries in the world", 10, 1);
+    await SQLHelper.editChart(
+        id,
+        "French Fries",
+        int.parse(controllerQuantity.text),
+        "assets/images/Snack.png",
+        "French Fries in the world",
+        10,
+        1);
   }
 }
-
