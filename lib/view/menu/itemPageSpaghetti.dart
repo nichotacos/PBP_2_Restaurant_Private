@@ -2,6 +2,7 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
@@ -21,7 +22,16 @@ class itemPageSpaghetti extends StatefulWidget {
 }
 
 class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
+  final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
+  List<Map<String, dynamic>> chart = [];
+  var desc =
+      "Spaghetti is a classic Italian pasta dish known for its long, thin noodles typically made from durum wheat semolina. It is often served with a rich and flavorful tomato-based sauce, seasoned with garlic, onions, and herbs, and commonly accompanied by meatballs or grated Parmesan cheese. Spaghetti is loved for its simplicity, versatility, and the delightful combination of tender pasta and savory sauce, making it a popular choice in Italian and international cuisine";
+  speak(String text) async {
+    await fLutterTts.setLanguage("en-US");
+    await fLutterTts.setPitch(1);
+    await fLutterTts.speak(text);
+  }
 
   void incrementCounter() {
     setState(() {
@@ -122,6 +132,11 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            IconButton(
+                              icon: const Icon(Icons.volume_up),
+                              onPressed: () => speak(desc),
+                            ),
+                            SizedBox(width: 40),
                             Container(
                               width: 120,
                               padding: const EdgeInsets.all(5),
@@ -166,12 +181,12 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                           ],
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                         ),
                         child: Text(
-                          "Spaghetti is a classic Italian pasta dish known for its long, thin noodles typically made from durum wheat semolina. It is often served with a rich and flavorful tomato-based sauce, seasoned with garlic, onions, and herbs, and commonly accompanied by meatballs or grated Parmesan cheese. Spaghetti is loved for its simplicity, versatility, and the delightful combination of tender pasta and savory sauce, making it a popular choice in Italian and international cuisine",
+                          desc,
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.justify,
                         ),

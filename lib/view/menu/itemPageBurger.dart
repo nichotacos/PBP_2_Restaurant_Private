@@ -2,6 +2,7 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
@@ -21,7 +22,28 @@ class itemPageBurger extends StatefulWidget {
 }
 
 class _itemPageBurgerState extends State<itemPageBurger> {
+  final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
+  List<Map<String, dynamic>> chart = [];
+  var desc =
+      "A burger is a delicious sandwich typically made with a grilled or fried patty of ground meat, often beef, served in a bun. It's often garnished with various toppings like lettuce, tomato, cheese, onions, and condiments such as ketchup and mayonnaise, creating a satisfying and flavorful meal that's a favorite among many";
+  speak(String text) async {
+    await fLutterTts.setLanguage("en-US");
+    await fLutterTts.setPitch(1);
+    await fLutterTts.speak(text);
+  }
+
+  void initState() {
+    super.initState();
+    refresh(); // Panggil refresh saat halaman dimuat
+  }
+
+  Future<void> refresh() async {
+    final data = await SQLHelper.getChart();
+    setState(() {
+      chart = data;
+    });
+  }
 
   void incrementCounter() {
     setState(() {
@@ -120,6 +142,11 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            IconButton(
+                              icon: const Icon(Icons.volume_up),
+                              onPressed: () => speak(desc),
+                            ),
+                            SizedBox(width: 40),
                             Container(
                               width: 120,
                               padding: EdgeInsets.all(5),
@@ -164,14 +191,18 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                           ],
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                         ),
-                        child: Text(
-                          "A burger is a delicious sandwich typically made with a grilled or fried patty of ground meat, often beef, served in a bun. It's often garnished with various toppings like lettuce, tomato, cheese, onions, and condiments such as ketchup and mayonnaise, creating a satisfying and flavorful meal that's a favorite among many",
-                          style: TextStyle(fontSize: 16),
-                          textAlign: TextAlign.justify,
+                        child: Column(
+                          children: [
+                            Text(
+                              desc,
+                              style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
                         ),
                       ),
                       const Padding(
