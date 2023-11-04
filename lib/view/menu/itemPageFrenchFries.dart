@@ -261,6 +261,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                   } else {
                     await editChart(widget.id!);
                   }
+                  await fLutterTts.stop();
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(

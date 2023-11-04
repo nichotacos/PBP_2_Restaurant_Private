@@ -279,6 +279,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                   } else {
                     await editChart(widget.id!);
                   }
+                  await fLutterTts.stop();
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(

@@ -30,6 +30,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
     await fLutterTts.setPitch(1);
     await fLutterTts.speak(text);
   }
+
   void incrementCounter() {
     setState(() {
       int counter = int.parse(controllerQuantity.text);
@@ -53,11 +54,8 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
 
   @override
   Widget build(BuildContext context) {
-  
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
-      y = 1;
-    } else if (x == 0 && y == 0) {
       y = 1;
     } else if (x == 0 && y == 0) {
       controllerQuantity.text = "1";
@@ -264,6 +262,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                   } else {
                     await editChart(widget.id!);
                   }
+                  await fLutterTts.stop();
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(

@@ -261,6 +261,7 @@ class _itemPagePizzaState extends State<itemPagePizza> {
                   } else {
                     await editChart(widget.id!);
                   }
+                  await fLutterTts.stop();
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(
