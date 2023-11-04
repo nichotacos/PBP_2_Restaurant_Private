@@ -13,10 +13,8 @@ class itemPageSpaghetti extends StatefulWidget {
       required this.name,
       required this.quantity,
       required this.id_user});
-
   final String? name;
   final int? id, quantity, id_user;
-
   @override
   State<itemPageSpaghetti> createState() => _itemPageSpaghettiState();
 }
@@ -32,7 +30,6 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
     await fLutterTts.setPitch(1);
     await fLutterTts.speak(text);
   }
-
   void incrementCounter() {
     setState(() {
       int counter = int.parse(controllerQuantity.text);
@@ -57,13 +54,15 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
   @override
   Widget build(BuildContext context) {
     if (widget.id != null && y == 0) {
+    if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
+      y = 1;
+    } else if (x == 0 && y == 0) {
       y = 1;
     } else if (x == 0 && y == 0) {
       controllerQuantity.text = "1";
       x = 1;
     }
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),

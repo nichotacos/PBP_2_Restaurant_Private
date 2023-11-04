@@ -3,6 +3,7 @@ import 'package:pbp_2_restaurant/view/home.dart';
 import 'package:pbp_2_restaurant/view/register.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 class LoginView extends StatefulWidget {
@@ -26,6 +27,9 @@ class _LoginViewState extends State<LoginView> {
     await Future.delayed(const Duration(seconds: 1));
     User? logUser = await SQLHelper.checkLogin(
         usernameController.text, passwordController.text);
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', usernameController.text);
 
     if (context.mounted) {
       if (logUser != null) {

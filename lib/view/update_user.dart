@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateUser extends StatefulWidget {
   const UpdateUser({super.key, required this.user});

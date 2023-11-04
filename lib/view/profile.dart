@@ -4,6 +4,7 @@ import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/view/update_user.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.user});
@@ -23,9 +24,12 @@ class _ProfilePageState extends State<ProfilePage> {
   //   });
   // }
 
+  String username = '';
+
   @override
   void initState() {
     super.initState();
+    _getUser();
 
     refresh(); // Panggil refresh saat halaman dimuat
   }
@@ -36,6 +40,21 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       user = data;
     });
+  }
+
+  void _getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? savedId = prefs.getInt('id');
+    String? savedUsername = prefs.getString('username');
+    print(savedUsername);
+
+    if (savedUsername != null) {
+      setState(() {
+        username = savedUsername;
+      });
+    } else {
+      print('No data');
+    }
   }
 
   @override
@@ -71,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Username: ${widget.user!.username}',
+                          'Username: $username',
                           style: const TextStyle(fontSize: 20),
                           textAlign: TextAlign.start,
                         ),
@@ -111,6 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                     child: const Text('Update Data'),
                   ),
+                  ElevatedButton(onPressed: _getUser, child: Text('call')),
                 ],
               ),
             ],

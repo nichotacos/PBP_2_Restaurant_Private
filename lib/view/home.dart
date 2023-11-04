@@ -6,6 +6,7 @@ import 'package:pbp_2_restaurant/view/chart.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Flutter code sample for [NavigationBar].
 

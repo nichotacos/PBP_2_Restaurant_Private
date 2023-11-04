@@ -13,10 +13,8 @@ class itemPagePizza extends StatefulWidget {
       required this.name,
       required this.quantity,
       required this.id_user});
-
   final String? name;
   final int? id, quantity, id_user;
-
   @override
   State<itemPagePizza> createState() => _itemPagePizzaState();
 }
