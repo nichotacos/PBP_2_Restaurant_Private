@@ -53,7 +53,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null && y == 0) {
+  
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
       y = 1;
