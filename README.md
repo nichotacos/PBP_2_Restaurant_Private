@@ -34,3 +34,4 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 - 2. Generate QR dan scan QR untuk nambah poin user
 
 - Implementasi Geolocator untuk menetapkan alamat pengguna berdasarkan lokasi utama
+- Penggunaan text-to-speech pada deskripsi makanan
