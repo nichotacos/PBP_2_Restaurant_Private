@@ -59,7 +59,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         children: [
           ElevatedButton(
               onPressed: () async {
-                // await updateImage(widget.user!.id as int);
+                await updateImage(widget.user!.id as int);
                 await refresh();
 
                 if (widget.user!.imageData == base64File) {
@@ -96,16 +96,16 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     );
   }
 
-  // Future<void> updateImage(int userId) async {
-  //   try {
-  //     // await SQLHelper.saveImage(base64File, userId);
-  //     // Other operations or actions after a successful update can be placed here
-  //     await SQLHelper.editImage(
-  //         base64File, userId, widget.user!.username as String);
-  //   } catch (e) {
-  //     // Handle any exceptions or errors that occur during the database update
-  //     print('Error while updating image: $e');
-  //     // Perform necessary actions based on the error, such as showing an error message to the user
-  //   }
-  // }
+  Future<void> updateImage(int userId) async {
+    try {
+      // await SQLHelper.saveImage(base64File, userId);
+      // Other operations or actions after a successful update can be placed here
+      await SQLHelper.editImage(
+          base64File, userId, widget.user!.username as String);
+    } catch (e) {
+      // Handle any exceptions or errors that occur during the database update
+      print('Error while updating image: $e');
+      // Perform necessary actions based on the error, such as showing an error message to the user
+    }
+  }
 }

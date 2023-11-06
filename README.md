@@ -27,3 +27,4 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 - Kevin Julian Rahadinata(Update, Edit, delete Cart, and Business Logic Cart)
 - Nicholas Yang (CRUD User, Email unique, Shared Preference, UI Login, and Register)  
 - Elyn Geby Monica(SqlHelper user at Cart, UI design in Figma, and Snackbar in Login)
+
