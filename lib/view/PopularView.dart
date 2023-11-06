@@ -102,6 +102,7 @@ class PopularView extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
+              
               child: InkWell(
                 onTap: () {
                   Navigator.push(

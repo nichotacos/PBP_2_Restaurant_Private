@@ -2,6 +2,7 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 
@@ -19,7 +20,17 @@ class itemPageFrenchFries extends StatefulWidget {
 }
 
 class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
+  final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
+  List<Map<String, dynamic>> chart = [];
+  var desc =
+      "French fries are a beloved, crispy snack that hails from the United States but has become a global sensation. These golden, deep-fried potato strips are typically seasoned with salt, making them the perfect combination of crispy on the outside and tender on the inside. French fries are a classic accompaniment to burgers, hot dogs, and other fast-food favorites, but they're also enjoyed as a standalone treat. Their irresistible taste and addictive crunch make them a popular choice for people of all ages.";
+  speak(String text) async {
+    await fLutterTts.setLanguage("en-US");
+    await fLutterTts.setPitch(1);
+    await fLutterTts.speak(text);
+  }
+
   void incrementCounter() {
     setState(() {
       int counter = int.parse(controllerQuantity.text);
@@ -117,6 +128,11 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            IconButton(
+                              icon: const Icon(Icons.volume_up),
+                              onPressed: () => speak(desc),
+                            ),
+                            SizedBox(width: 40),
                             Container(
                               width: 120,
                               padding: EdgeInsets.all(5),
@@ -161,12 +177,12 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                           ],
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                         ),
                         child: Text(
-                          "French fries are a beloved, crispy snack that hails from the United States but has become a global sensation. These golden, deep-fried potato strips are typically seasoned with salt, making them the perfect combination of crispy on the outside and tender on the inside. French fries are a classic accompaniment to burgers, hot dogs, and other fast-food favorites, but they're also enjoyed as a standalone treat. Their irresistible taste and addictive crunch make them a popular choice for people of all ages.",
+                          desc,
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.justify,
                         ),
@@ -245,6 +261,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
                   } else {
                     await editChart(widget.id!);
                   }
+                  await fLutterTts.stop();
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(
