@@ -30,8 +30,8 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 
 ### UGD Hardware
 - Implementasi kamera:
-- 1. Update foto profile dan simpan ke database
-- 2. Generate QR dan scan QR untuk nambah poin user
+- 1. Update foto profile dan simpan ke database (Nicholas Yang)
+- 2. Generate QR dan scan QR untuk nambah poin user (Dave Sebastian Petrus dan Hariyanto Tandung)
 
-- Implementasi Geolocator untuk menetapkan alamat pengguna berdasarkan lokasi utama
-- Penggunaan text-to-speech pada deskripsi makanan
+- Implementasi Geolocator untuk menetapkan alamat pengguna berdasarkan lokasi utama (Elyn Geby Monica Panjaitan)
+- Penggunaan text-to-speech pada deskripsi makanan (Kevin Julian Rahadinata)
