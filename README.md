@@ -27,3 +27,10 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 - Kevin Julian Rahadinata(Update, Edit, delete Cart, and Business Logic Cart)
 - Nicholas Yang (CRUD User, Email unique, Shared Preference, UI Login, and Register)  
 - Elyn Geby Monica(SqlHelper user at Cart, UI design in Figma, and Snackbar in Login)
+
+### UGD Hardware
+- Implementasi kamera:
+- 1. Update foto profile dan simpan ke database
+- 2. Generate QR dan scan QR untuk nambah poin user
+
+- Implementasi Geolocator untuk menetapkan alamat pengguna berdasarkan lokasi utama
