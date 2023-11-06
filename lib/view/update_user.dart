@@ -330,13 +330,12 @@ class _UpdateUserState extends State<UpdateUser> {
 
   Future<void> editUser(int? id) async {
     await SQLHelper.editUser(
-      id!,
-      usernameController.text,
-      emailController.text,
-      passwordController.text,
-      notelpController.text,
-      birthDateController.text,
-    );
+        id!,
+        usernameController.text,
+        emailController.text,
+        passwordController.text,
+        notelpController.text,
+        birthDateController.text);
   }
 
   Future<int> uniqueValidation(String element, String column) async {

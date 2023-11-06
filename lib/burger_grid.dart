@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/data/burgers.dart';
-import 'package:pbp_2_restaurant/models/show_burgers.dart';
 
 class BurgerGrid extends StatefulWidget {
   const BurgerGrid({super.key});
@@ -21,7 +19,6 @@ class _BurgerGridState extends State<BurgerGrid> {
 
   @override
   Widget build(BuildContext context) {
-    
     //Widget incrementIndex = BurgerGrid(rollIndex);
     final Size size = MediaQuery.of(context).size;
 
