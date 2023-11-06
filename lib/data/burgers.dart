@@ -1,5 +1,3 @@
-import 'package:pbp_2_restaurant/models/show_burgers.dart';
-
 const burgers = [
   'Beef Burger',
   'Beef Burger Deluxe',

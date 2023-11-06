@@ -1,5 +1,8 @@
 // import 'dart:js_interop_unsafe';
 
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
@@ -13,7 +16,8 @@ class SQLHelper {
         email TEXT UNIQUE,
         password TEXT,
         telephone VARCHAR(20) UNIQUE,
-        bornDate VARCHAR(10)
+        bornDate VARCHAR(10),
+        imageData TEXT
       )
     """);
   }
@@ -30,12 +34,17 @@ class SQLHelper {
   static Future<int> addUser(String username, String email, String password,
       String telephone, String bornDate) async {
     final db = await SQLHelper.db();
+    Uint8List imageData =
+        (await rootBundle.load('assets/images/test.jpeg')).buffer.asUint8List();
+    String base64Image = base64Encode(imageData);
     final data = {
       'username': username,
       'email': email,
       'password': password,
       'telephone': telephone,
-      'bornDate': bornDate
+      'bornDate': bornDate,
+      'imageData': base64Image,
+      'address': null
     };
     return await db.insert('user', data);
   }
@@ -62,8 +71,14 @@ class SQLHelper {
   }
 
   //update User
-  static Future<int> editUser(int id, String username, String email,
-      String password, String telephone, String bornDate) async {
+  static Future<int> editUser(
+    int id,
+    String username,
+    String email,
+    String password,
+    String telephone,
+    String bornDate,
+  ) async {
     final db = await SQLHelper.db();
     final data = {
       'username': username,
@@ -105,4 +120,24 @@ class SQLHelper {
 
     return result.length;
   }
+
+  // static Future<void> saveImage(String base64ImageInput, int userId) async {
+  //   final db = await SQLHelper.db();
+  //   await db.transaction(
+  //     (txn) async {
+  //       await txn.execute(
+  //         "UPDATE $User SET imageData = $base64ImageInput' WHERE id = '$userId'",
+  //       );
+  //     },
+  //   );
+  // }
+
+  // static Future<int> editImage(
+  //     String base64ImageInput, int userId, String username) async {
+  //   final db = await SQLHelper.db();
+
+  //   final data = {'imageData': base64ImageInput};
+
+  //   return await db.update('user', data, where: 'id = ?', whereArgs: [userId]);
+  // }
 }

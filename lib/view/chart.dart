@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPagePizza.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
 
 class CartPage extends StatefulWidget {
+  const CartPage({super.key});
+
   @override
   State<CartPage> createState() => _CartPageState();
 }

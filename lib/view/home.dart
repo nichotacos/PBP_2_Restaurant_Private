@@ -61,14 +61,6 @@ class _HomeViewState extends State<HomeView> {
           title: 'keranjang dek',
         ),
         CartPage(),
-        // Container(
-        //   color: Colors.blue,
-        //   alignment: Alignment.center,
-        //   child: Text(
-        //     'Hello ${widget.user!.username}!',
-        //     style: const TextStyle(fontSize: 30),
-        //   ),
-        // ),
         ProfilePage(user: widget.user),
       ][currentPageIndex],
     );

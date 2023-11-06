@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/login.dart';
-import 'package:pbp_2_restaurant/view/home.dart';
-import 'package:pbp_2_restaurant/view/home.dart';
-import 'package:pbp_2_restaurant/burger_grid.dart';
-import 'package:pbp_2_restaurant/view/homePage.dart';
-import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/view/register.dart';
 import 'package:pbp_2_restaurant/view/starting-page/boarding-page.dart';
 
@@ -106,6 +101,7 @@ class _TestPageState extends State<TestPage> {
                             Text(user[index]['password']),
                             Text(user[index]['telephone']),
                             Text(user[index]['bornDate']),
+                            Text(user[index]['imageData'])
                           ],
                         ),
                       ),
