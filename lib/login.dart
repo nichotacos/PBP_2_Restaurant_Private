@@ -46,6 +46,7 @@ class _LoginViewState extends State<LoginView> {
           MaterialPageRoute(
             builder: (_) => HomeView(
               user: logUser,
+              pageIndex: 0,
             ),
           ),
         );

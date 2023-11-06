@@ -17,7 +17,7 @@ dependencies:
   clippy_flutter: ^2.0.0-nullsafety.1
   cupertino_icons: ^1.0.2
   flutter_rating_bar: ^4.0.1
-  flutter_tts: ^3.2.2
+  flutter_tts: ^3.8.3
   shared_preferences: ^2.2.2
   camera: ^0.10.5+2 #access to hardware
   mobile_scanner: ^3.2.0 #scan qr code
@@ -26,6 +26,7 @@ dependencies:
   gallery_saver: ^2.3.2
   geolocator: ^10.1.0
   geocoding: ^2.1.1
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:

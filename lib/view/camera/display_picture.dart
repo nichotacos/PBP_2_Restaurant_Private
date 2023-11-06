@@ -57,12 +57,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
-            child: Text(fileResult!.toString()),
-          ),
-          SizedBox(
-            child: Text(fileResult!.path),
-          ),
           ElevatedButton(
               onPressed: () async {
                 // await updateImage(widget.user!.id as int);
@@ -78,27 +72,20 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => HomeView(user: widget.user),
+                      builder: (_) => HomeView(
+                        user: widget.user,
+                        pageIndex: 3,
+                      ),
                     ),
                   );
                 }
               },
               child: const Text('Save')),
           WillPopScope(
-              child: Image.file(fileResult!),
-              onWillPop: () async {
-                widget.cameraController.resumePreview();
-                return true;
-              }),
-          SizedBox(
-            height: 80,
-            child: Text(base64File),
-          ),
-          WillPopScope(
-              child: Image.memory(
-                decode,
-                height: 150,
-                width: 150,
+              child: Image.file(
+                fileResult!,
+                height: 450,
+                width: 450,
               ),
               onWillPop: () async {
                 widget.cameraController.resumePreview();

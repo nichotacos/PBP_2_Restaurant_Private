@@ -11,6 +11,7 @@ import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pbp_2_restaurant/view/camera/camera.dart';
+import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.user});
@@ -154,8 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const Color.fromARGB(255, 255, 240, 240),
                             child: CircleAvatar(
                               radius: 60,
-                              backgroundImage:
-                                  MemoryImage(
+                              backgroundImage: MemoryImage(
                                 base64.decode(widget.user!.imageData as String),
                               ),
                             ),
@@ -258,14 +258,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Email',
+                          'Poin',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey),
                         ),
                         Text(
-                          '${widget.user!.email}',
+                          '${widget.user!.poin}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -307,6 +307,33 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {},
               child: const Text(
                 'Edit Profile',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 214, 19, 85),
+                padding: const EdgeInsetsDirectional.symmetric(vertical: 18),
+                minimumSize: const Size.fromHeight(20),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => QRCameraPage(
+                      user: widget.user,
+                    ),
+                  ),
+                );
+              },
+              child: const Text(
+                'QR Scan',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,

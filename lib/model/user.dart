@@ -8,6 +8,7 @@ class User {
   final String? bornDate;
   String? imageData;
   String? address;
+  int? poin;
 
   User(
       {this.id,
@@ -17,11 +18,12 @@ class User {
       this.telephone,
       this.bornDate,
       this.imageData,
-      this.address});
+      this.address,
+      this.poin});
 
   @override
   String toString() =>
-      'id: $id, username: $username, email: $email, password: $password, telephone: $telephone, bornDate: $bornDate, address: $address';
+      'id: $id, username: $username, email: $email, password: $password, telephone: $telephone, bornDate: $bornDate, address: $address, poin: $poin';
 
   Map<String, dynamic> toMap() {
     return {
@@ -32,7 +34,8 @@ class User {
       'telephone': telephone,
       'bornDate': bornDate,
       'imageData': imageData,
-      'address': address
+      'address': address,
+      'poin': poin
     };
   }
 
@@ -44,5 +47,6 @@ class User {
         telephone = map['telephone'],
         bornDate = map['bornDate'],
         imageData = map['imageData'],
-        address = map['address'];
+        address = map['address'],
+        poin = map['poin'];
 }

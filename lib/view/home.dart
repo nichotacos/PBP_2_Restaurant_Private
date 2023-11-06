@@ -7,18 +7,21 @@ import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
 
 /// Flutter code sample for [NavigationBar].
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key, required this.user});
+  const HomeView({super.key, required this.user, required this.pageIndex});
 
   final User? user;
+  final int pageIndex;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  // int currentPageIndex = widget.pageIndex;
   int currentPageIndex = 0;
 
   @override
@@ -57,10 +60,10 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: <Widget>[
         HomePage(logUser: widget.user),
-        TestPage(
+        const TestPage(
           title: 'keranjang dek',
         ),
-        CartPage(),
+        const CartPage(),
         ProfilePage(user: widget.user),
       ][currentPageIndex],
     );

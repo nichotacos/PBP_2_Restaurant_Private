@@ -17,7 +17,9 @@ class SQLHelper {
         password TEXT,
         telephone VARCHAR(20) UNIQUE,
         bornDate VARCHAR(10),
-        imageData TEXT
+        imageData TEXT,
+        address TEXT,
+        poin INTEGER DEFAULT 0
       )
     """);
   }
@@ -44,7 +46,8 @@ class SQLHelper {
       'telephone': telephone,
       'bornDate': bornDate,
       'imageData': base64Image,
-      'address': null
+      'address': null,
+      'poin': 0
     };
     return await db.insert('user', data);
   }
@@ -140,4 +143,10 @@ class SQLHelper {
 
   //   return await db.update('user', data, where: 'id = ?', whereArgs: [userId]);
   // }
+
+  static Future<int> editPoin(int id, int poin) async {
+    final db = await SQLHelper.db();
+    final data = {'poin': poin};
+    return await db.update('user', data, where: "id = $id");
+  }
 }
