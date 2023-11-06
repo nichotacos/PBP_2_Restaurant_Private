@@ -6,12 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/view/geolocator/select_address.dart';
+import 'package:pbp_2_restaurant/view/map/current_location_screen.dart';
+import 'package:pbp_2_restaurant/view/map/simple_map_screen.dart';
 import 'package:pbp_2_restaurant/view/update_user.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
+import 'package:pbp_2_restaurant/view/viewMap/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pbp_2_restaurant/view/camera/camera.dart';
 import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
+import 'package:pbp_2_restaurant/geolocator/select_address.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.user});
@@ -286,7 +291,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsetsDirectional.symmetric(vertical: 18),
                 minimumSize: const Size.fromHeight(20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => HomeScreen()));
+              },
               child: const Text(
                 'Set Address',
                 style: TextStyle(
