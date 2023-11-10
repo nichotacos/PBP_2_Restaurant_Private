@@ -226,7 +226,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: Colors.grey),
                         ),
                         Text(
-                          '${widget.user!.id}',
+                          '${widget.user!.username}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
