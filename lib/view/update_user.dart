@@ -281,13 +281,9 @@ class _UpdateUserState extends State<UpdateUser> {
                                     onPressed: () async {
                                       await editUser(widget.user!.id);
 
-                                      // ignore: use_build_context_synchronously
-                                      Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) => ProfilePage(
-                                                      user: widget.user!)))
-                                          .then((value) => refresh());
+                                      if (context.mounted) {
+                                        Navigator.pop(context);
+                                      }
                                     },
                                     child: const Text('Ok'),
                                   )

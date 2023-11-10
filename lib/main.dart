@@ -56,62 +56,63 @@ class _TestPageState extends State<TestPage> {
       appBar: AppBar(
         title: const Text("EMPLOYEE"),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            child: const Text('regist dek'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const RegisterView(
-                      id: null,
-                      username: null,
-                      email: null,
-                      password: null,
-                      telephone: null,
-                      bornDate: null),
-                ),
-              );
-            },
-          ),
-          ElevatedButton(
-            child: const Text('login dek'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginView()),
-              );
-            },
-          ),
-          SizedBox(
-            height: 700,
-            child: ListView.builder(
-              itemCount: user.length,
-              itemBuilder: (context, index) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(user[index]['email']),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(user[index]['username']),
-                            Text(user[index]['password']),
-                            Text(user[index]['telephone']),
-                            Text(user[index]['bornDate']),
-                            Text(user[index]['imageData'])
-                          ],
-                        ),
-                      ),
-                    ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: const Text('regist dek'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const RegisterView(
+                        id: null,
+                        username: null,
+                        email: null,
+                        password: null,
+                        telephone: null,
+                        bornDate: null),
                   ),
                 );
               },
             ),
-          ),
-        ],
+            ElevatedButton(
+              child: const Text('login dek'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginView()),
+                );
+              },
+            ),
+            SizedBox(
+              height: 700,
+              child: ListView.builder(
+                itemCount: user.length,
+                itemBuilder: (context, index) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(user[index]['email']),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(user[index]['username']),
+                              Text(user[index]['password']),
+                              Text(user[index]['telephone']),
+                              Text(user[index]['bornDate'])
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/main.dart';
-import 'package:pbp_2_restaurant/view/chart.dart';
+import 'package:pbp_2_restaurant/view/cart.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
@@ -63,7 +63,9 @@ class _HomeViewState extends State<HomeView> {
         const TestPage(
           title: 'keranjang dek',
         ),
-        const CartPage(),
+        CartPage(
+          user: widget.user,
+        ),
         ProfilePage(user: widget.user),
       ][currentPageIndex],
     );

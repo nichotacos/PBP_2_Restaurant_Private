@@ -1,22 +1,20 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pbp_2_restaurant/login.dart';
+import 'package:flutter/services.dart';
 import 'package:pbp_2_restaurant/model/user.dart';
-import 'package:pbp_2_restaurant/view/geolocator/select_address.dart';
-import 'package:pbp_2_restaurant/view/map/current_location_screen.dart';
-import 'package:pbp_2_restaurant/view/map/simple_map_screen.dart';
 import 'package:pbp_2_restaurant/view/update_user.dart';
-import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/view/viewMap/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pbp_2_restaurant/view/camera/camera.dart';
 import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
-import 'package:pbp_2_restaurant/geolocator/select_address.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.user});
@@ -28,6 +26,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  File? image;
+  String id = const Uuid().v1();
+
   void refresh() async {
     List<Map<String, dynamic>> user = [];
     final data = await SQLHelper.getUser();
@@ -128,7 +129,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     actions: [
                                       TextButton.icon(
                                         onPressed: () {
-                                          Navigator.pop(context);
+                                          Navigator.of(context).pop();
+                                          pickImage();
                                         },
                                         icon: const Icon(Icons.image_outlined),
                                         label:
@@ -292,8 +294,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 minimumSize: const Size.fromHeight(20),
               ),
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()));
               },
               child: const Text(
                 'Set Address',
@@ -312,7 +314,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsetsDirectional.symmetric(vertical: 18),
                 minimumSize: const Size.fromHeight(20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => UpdateUser(user: widget.user))));
+              },
               child: const Text(
                 'Edit Profile',
                 style: TextStyle(
@@ -360,5 +367,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> getUser() async {
     await SQLHelper.getUser();
+  }
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+      await SQLHelper.editImage(base64Encode(imageTemp.readAsBytesSync()),
+          widget.user!.id!, widget.user!.username!.toString());
+      setState(() =>
+          widget.user!.imageData = base64Encode(imageTemp.readAsBytesSync()));
+    } on PlatformException catch (e) {
+      const SnackBar(content: Text('Failed to Pick Image!'));
+    }
   }
 }
