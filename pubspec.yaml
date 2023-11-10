@@ -25,9 +25,16 @@ dependencies:
   path_provider: ^2.0.15 #generate path to save file
   qr_flutter: ^4.1.0
   gallery_saver: ^2.3.2
-  geolocator: ^10.1.0
+  geolocator: ^8.0.1
   url_launcher: ^6.1.14
-  geocoding: ^2.1.1
+  geocoding: ^2.0.1
+  image_picker: ^1.0.4
+  pdf: ^3.10.6
+  printing: ^5.11.1
+  intl: ^0.18.1
+  uuid: ^4.2.1
+  barcode_widget: ^2.0.4
+  responsive_sizer: ^3.2.0
 
 dev_dependencies:
   flutter_test:

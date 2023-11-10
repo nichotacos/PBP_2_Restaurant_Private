@@ -135,14 +135,14 @@ class SQLHelper {
   //   );
   // }
 
-  // static Future<int> editImage(
-  //     String base64ImageInput, int userId, String username) async {
-  //   final db = await SQLHelper.db();
+  static Future<int> editImage(
+      String base64ImageInput, int userId, String username) async {
+    final db = await SQLHelper.db();
 
-  //   final data = {'imageData': base64ImageInput};
+    final data = {'imageData': base64ImageInput};
 
-  //   return await db.update('user', data, where: 'id = ?', whereArgs: [userId]);
-  // }
+    return await db.update('user', data, where: 'id = ?', whereArgs: [userId]);
+  }
 
   static Future<int> editPoin(int id, int poin) async {
     final db = await SQLHelper.db();
