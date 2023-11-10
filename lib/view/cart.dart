@@ -213,8 +213,8 @@ class _CartPageState extends State<CartPage> {
             }),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          createPdf(
+        onPressed: () async {
+          await createPdf(
             widget.user!.username.toString(),
             widget.user!.telephone.toString(),
             widget.user!.email.toString(),

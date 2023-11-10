@@ -23,6 +23,7 @@ Future<void> createPdf(
   BuildContext context,
   List<toChart> soldProducts,
 ) async {
+  print(base64Image);
   final doc = pw.Document();
   final now = DateTime.now();
   final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
@@ -46,7 +47,7 @@ Future<void> createPdf(
         decoration: pw.BoxDecoration(
           border: pw.Border.all(
             color: PdfColor.fromHex('#FFBD59'),
-            width: 10,
+            width: 1,
           ),
         ),
       );
@@ -68,6 +69,7 @@ Future<void> createPdf(
 
   doc.addPage(
     pw.MultiPage(
+        maxPages: 5,
         pageTheme: pdfTheme,
         header: (pw.Context context) {
           return headerPDF();
@@ -80,19 +82,18 @@ Future<void> createPdf(
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
                   pw.Container(
-                    margin:
-                        pw.EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
                   ),
-                  pw.Image(pw.MemoryImage(base64Decode(base64Image))),
+                  // pw.Image(pw.MemoryImage(base64Decode(base64Image))),
                   personalDataFromInput(
                       nameController, phoneController, emailController),
-                  pw.SizedBox(height: 100),
+                  pw.SizedBox(height: 1),
                   topOfInvoice(imageInvoice),
                   barcodeGaris(id),
-                  pw.SizedBox(height: 50),
-                  contentOfInvoice(table),
+                  pw.SizedBox(height: 5),
+                  // contentOfInvoice(table),
                   barcodeKotak(id),
-                  pw.SizedBox(height: 10),
+                  pw.SizedBox(height: 1),
                 ]))
           ];
         },
@@ -104,14 +105,14 @@ Future<void> createPdf(
         }),
   );
 
-  if (context.mounted) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PreviewScreen(doc: doc),
-      ),
-    );
-  }
+  // if (context.mounted) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => PreviewScreen(doc: doc),
+    ),
+  );
+  // }
 }
 
 pw.Header headerPDF() {
@@ -136,7 +137,7 @@ pw.Header headerPDF() {
         '- Modul 8 Library -',
         style: pw.TextStyle(
           fontWeight: pw.FontWeight.bold,
-          fontSize: 120,
+          fontSize: 12,
         ),
       ),
     ),
@@ -147,9 +148,9 @@ pw.Padding imageFromInput(
     pw.ImageProvider Function(Uint8List imageBytes) pdfImageProvider,
     Uint8List imageBytes) {
   return pw.Padding(
-    padding: pw.EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 1),
     child: pw.FittedBox(
-      child: pw.Image(pdfImageProvider(imageBytes), width: 330),
+      child: pw.Image(pdfImageProvider(imageBytes), width: 33),
       fit: pw.BoxFit.fitHeight,
       alignment: pw.Alignment.center,
     ),
@@ -160,8 +161,8 @@ pw.Padding personalDataFromInput(
     String nameController, String phoneController, String addressController) {
   return pw.Padding(
     padding: pw.EdgeInsets.symmetric(
-      horizontal: 50,
-      vertical: 10,
+      horizontal: 5,
+      vertical: 1,
     ),
     child: pw.Table(
       border: pw.TableBorder.all(),
@@ -174,7 +175,7 @@ pw.Padding personalDataFromInput(
                 'Name',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -184,7 +185,7 @@ pw.Padding personalDataFromInput(
                 nameController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -198,7 +199,7 @@ pw.Padding personalDataFromInput(
                 'Phone Number',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -208,7 +209,7 @@ pw.Padding personalDataFromInput(
                 phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -222,7 +223,7 @@ pw.Padding personalDataFromInput(
                 'Email',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -232,7 +233,7 @@ pw.Padding personalDataFromInput(
                 addressController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -322,8 +323,8 @@ pw.Padding barcodeKotak(String id) {
           errorCorrectLevel: BarcodeQRCorrectionLevel.high,
         ),
         data: id,
-        width: 150,
-        height: 150,
+        width: 15,
+        height: 15,
       ),
     ),
   );
@@ -339,7 +340,7 @@ pw.Container barcodeGaris(String id) {
       child: pw.BarcodeWidget(
         barcode: Barcode.code128(escapes: true),
         data: id,
-        width: 100,
+        width: 10,
         height: 50,
       ),
     ),
@@ -349,6 +350,6 @@ pw.Container barcodeGaris(String id) {
 pw.Center footerPDF(String formattedDate) => pw.Center(
       child: pw.Text(
         'Created At $formattedDate',
-        style: pw.TextStyle(fontSize: 100, color: PdfColors.blue),
+        style: pw.TextStyle(fontSize: 10, color: PdfColors.blue),
       ),
     );
