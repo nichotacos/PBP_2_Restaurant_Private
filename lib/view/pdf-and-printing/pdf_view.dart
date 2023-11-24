@@ -21,7 +21,9 @@ Future<void> createPdf(
   String id,
   String base64Image,
   BuildContext context,
-  List<toChart> soldProducts,
+  String nama,
+  String qty,
+  String price,
 ) async {
   print(base64Image);
   final doc = pw.Document();
@@ -32,7 +34,8 @@ Future<void> createPdf(
       (await rootBundle.load("assets/ilustrations/ilustration-1.png"))
           .buffer
           .asUint8List();
-  final imageInvoice = pw.MemoryImage(imageLogo);
+  // final imageInvoice = pw.MemoryImage(imageLogo);
+  final imageInvoice = pw.MemoryImage(base64Decode(base64Image));
 
   pw.ImageProvider pdfImageProvider(Uint8List imageBytes) {
     return pw.MemoryImage(imageBytes);
@@ -54,18 +57,18 @@ Future<void> createPdf(
     },
   );
 
-  final List<CustomRow> elements = [
-    CustomRow('Item Name', 'Item Price', 'Amount', 'Sub Total Products'),
-    for (var product in soldProducts)
-      CustomRow(
-        product.name!,
-        product.price!.toString(),
-        product.quantity!.toString(),
-        (product.price! * product.quantity!).toStringAsFixed(2),
-      ),
-    CustomRow('Total', '', '', 'Rp ${getSubTotal(soldProducts)}'),
-  ];
-  pw.Widget table = itemColumn(elements);
+  // final List<CustomRow> elements = [
+  //   CustomRow('Item Name', 'Item Price', 'Amount', 'Sub Total Products'),
+  //   for (var product in soldProducts)
+  //     CustomRow(
+  //       product.name!,
+  //       product.price!.toString(),
+  //       product.quantity!.toString(),
+  //       (product.price! * product.quantity!).toStringAsFixed(2),
+  //     ),
+  //   CustomRow('Total', '', '', 'Rp ${getSubTotal(soldProducts)}'),
+  // ];
+  // pw.Widget table = itemColumn(elements);
 
   doc.addPage(
     pw.MultiPage(
@@ -86,7 +89,7 @@ Future<void> createPdf(
                   ),
                   // pw.Image(pw.MemoryImage(base64Decode(base64Image))),
                   personalDataFromInput(
-                      nameController, phoneController, emailController),
+                      nameController, phoneController, emailController,nama, qty, price),
                   pw.SizedBox(height: 1),
                   topOfInvoice(imageInvoice),
                   barcodeGaris(id),
@@ -157,8 +160,8 @@ pw.Padding imageFromInput(
   );
 }
 
-pw.Padding personalDataFromInput(
-    String nameController, String phoneController, String addressController) {
+pw.Padding personalDataFromInput(String nameController, String phoneController,
+    String addressController, String nama, String qty, String price) {
   return pw.Padding(
     padding: pw.EdgeInsets.symmetric(
       horizontal: 5,
@@ -239,6 +242,78 @@ pw.Padding personalDataFromInput(
             ),
           ],
         ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Makanan',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                nama,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Kuantitas',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                qty,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Price',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                price,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     ),
   );
@@ -250,7 +325,7 @@ pw.Padding topOfInvoice(pw.MemoryImage imageInvoice) {
     child: pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       children: [
-        pw.Image(imageInvoice, height: 30, width: 30),
+        pw.Image(imageInvoice, height: 200, width: 200),
         pw.Expanded(
           child: pw.Column(
             children: [
@@ -323,8 +398,8 @@ pw.Padding barcodeKotak(String id) {
           errorCorrectLevel: BarcodeQRCorrectionLevel.high,
         ),
         data: id,
-        width: 15,
-        height: 15,
+        width: 200,
+        height: 200,
       ),
     ),
   );
