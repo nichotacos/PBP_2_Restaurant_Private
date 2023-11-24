@@ -15,15 +15,16 @@ import 'package:pbp_2_restaurant/view/pdf-and-printing/item_doc.dart';
 // import 'package:responsive_sizer/responsive_sizer.dart';
 
 Future<void> createPdf(
-    String nameController,
-    String phoneController,
-    String emailController,
-    String id,
-    String base64Image,
-    BuildContext context,
-    String nama,
-    String qty,
-    String price) async {
+  String nameController,
+  String phoneController,
+  String emailController,
+  String id,
+  String base64Image,
+  BuildContext context,
+  String nama,
+  String qty,
+  String price,
+) async {
   print(base64Image);
   final doc = pw.Document();
   final now = DateTime.now();
@@ -33,7 +34,8 @@ Future<void> createPdf(
       (await rootBundle.load("assets/ilustrations/ilustration-1.png"))
           .buffer
           .asUint8List();
-  final imageInvoice = pw.MemoryImage(imageLogo);
+  // final imageInvoice = pw.MemoryImage(imageLogo);
+  final imageInvoice = pw.MemoryImage(base64Decode(base64Image));
 
   pw.ImageProvider pdfImageProvider(Uint8List imageBytes) {
     return pw.MemoryImage(imageBytes);
@@ -84,6 +86,7 @@ Future<void> createPdf(
                     children: [
                   pw.Container(
                     margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                    margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
                   ),
                   // pw.Image(pw.MemoryImage(base64Decode(base64Image))),
                   personalDataFromInput(nameController, phoneController,
@@ -92,6 +95,8 @@ Future<void> createPdf(
                   pw.SizedBox(height: 1),
                   topOfInvoice(imageInvoice),
                   barcodeGaris(id),
+                  pw.SizedBox(height: 5),
+                  // contentOfInvoice(table),
                   pw.SizedBox(height: 5),
                   // contentOfInvoice(table),
                   barcodeKotak(id),
@@ -107,6 +112,14 @@ Future<void> createPdf(
         }),
   );
 
+  // if (context.mounted) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => PreviewScreen(doc: doc),
+    ),
+  );
+  // }
   // if (context.mounted) {
   Navigator.push(
     context,
@@ -188,6 +201,7 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 10,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -211,6 +225,7 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
                   fontSize: 10,
                 ),
               ),
@@ -308,6 +323,79 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 10,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Makanan',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                nama,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Kuantitas',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                qty,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Price',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                price,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -324,7 +412,7 @@ pw.Padding topOfInvoice(pw.MemoryImage imageInvoice) {
     child: pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       children: [
-        pw.Image(imageInvoice, height: 30, width: 30),
+        pw.Image(imageInvoice, height: 200, width: 200),
         pw.Expanded(
           child: pw.Column(
             children: [
@@ -397,8 +485,8 @@ pw.Padding barcodeKotak(String id) {
           errorCorrectLevel: BarcodeQRCorrectionLevel.high,
         ),
         data: id,
-        width: 15,
-        height: 15,
+        width: 200,
+        height: 200,
       ),
     ),
   );
