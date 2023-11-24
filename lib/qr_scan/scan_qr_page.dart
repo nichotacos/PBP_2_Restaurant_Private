@@ -5,12 +5,13 @@ import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/constant/app_constant.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pbp_2_restaurant/qr_scan/scanner_error_widget.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class BarcodeScannerPageView extends StatefulWidget {
   const BarcodeScannerPageView({Key? key, required this.user})
       : super(key: key);
-  final User? user;
+  final User user;
 
   @override
   State<BarcodeScannerPageView> createState() => _BarcodeScannerPageViewState();

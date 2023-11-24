@@ -8,14 +8,15 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:pbp_2_restaurant/utils/logging_utils.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/view/home.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
   final CameraController cameraController;
-  final User? user;
+  final User user;
 
   const DisplayPictureScreen(
       {Key? key,

@@ -15,14 +15,16 @@ import 'package:pbp_2_restaurant/view/pdf-and-printing/item_doc.dart';
 // import 'package:responsive_sizer/responsive_sizer.dart';
 
 Future<void> createPdf(
-  String nameController,
-  String phoneController,
-  String emailController,
-  String id,
-  String base64Image,
-  BuildContext context,
-  List<toChart> soldProducts,
-) async {
+    String nameController,
+    String phoneController,
+    String emailController,
+    String id,
+    String base64Image,
+    BuildContext context,
+    String nama,
+    String qty,
+    String price) async {
+  print(base64Image);
   final doc = pw.Document();
   final now = DateTime.now();
   final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
@@ -46,28 +48,29 @@ Future<void> createPdf(
         decoration: pw.BoxDecoration(
           border: pw.Border.all(
             color: PdfColor.fromHex('#FFBD59'),
-            width: 10,
+            width: 1,
           ),
         ),
       );
     },
   );
 
-  final List<CustomRow> elements = [
-    CustomRow('Item Name', 'Item Price', 'Amount', 'Sub Total Products'),
-    for (var product in soldProducts)
-      CustomRow(
-        product.name!,
-        product.price!.toString(),
-        product.quantity!.toString(),
-        (product.price! * product.quantity!).toStringAsFixed(2),
-      ),
-    CustomRow('Total', '', '', 'Rp ${getSubTotal(soldProducts)}'),
-  ];
-  pw.Widget table = itemColumn(elements);
+  // final List<CustomRow> elements = [
+  //   CustomRow('Item Name', 'Item Price', 'Amount', 'Sub Total Products'),
+  //   for (var product in soldProducts)
+  //     CustomRow(
+  //       product.name!,
+  //       product.price!.toString(),
+  //       product.quantity!.toString(),
+  //       (product.price! * product.quantity!).toStringAsFixed(2),
+  //     ),
+  //   CustomRow('Total', '', '', 'Rp ${getSubTotal(soldProducts)}'),
+  // ];
+  // pw.Widget table = itemColumn(elements);
 
   doc.addPage(
     pw.MultiPage(
+        maxPages: 5,
         pageTheme: pdfTheme,
         header: (pw.Context context) {
           return headerPDF();
@@ -80,19 +83,19 @@ Future<void> createPdf(
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
                   pw.Container(
-                    margin:
-                        pw.EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
                   ),
-                  pw.Image(pw.MemoryImage(base64Decode(base64Image))),
-                  personalDataFromInput(
-                      nameController, phoneController, emailController),
-                  pw.SizedBox(height: 100),
+                  // pw.Image(pw.MemoryImage(base64Decode(base64Image))),
+                  personalDataFromInput(nameController, phoneController,
+                      emailController, nama, qty, price),
+
+                  pw.SizedBox(height: 1),
                   topOfInvoice(imageInvoice),
                   barcodeGaris(id),
-                  pw.SizedBox(height: 50),
-                  contentOfInvoice(table),
+                  pw.SizedBox(height: 5),
+                  // contentOfInvoice(table),
                   barcodeKotak(id),
-                  pw.SizedBox(height: 10),
+                  pw.SizedBox(height: 1),
                 ]))
           ];
         },
@@ -104,14 +107,14 @@ Future<void> createPdf(
         }),
   );
 
-  if (context.mounted) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PreviewScreen(doc: doc),
-      ),
-    );
-  }
+  // if (context.mounted) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => PreviewScreen(doc: doc),
+    ),
+  );
+  // }
 }
 
 pw.Header headerPDF() {
@@ -136,7 +139,7 @@ pw.Header headerPDF() {
         '- Modul 8 Library -',
         style: pw.TextStyle(
           fontWeight: pw.FontWeight.bold,
-          fontSize: 120,
+          fontSize: 12,
         ),
       ),
     ),
@@ -147,21 +150,21 @@ pw.Padding imageFromInput(
     pw.ImageProvider Function(Uint8List imageBytes) pdfImageProvider,
     Uint8List imageBytes) {
   return pw.Padding(
-    padding: pw.EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 1),
     child: pw.FittedBox(
-      child: pw.Image(pdfImageProvider(imageBytes), width: 330),
+      child: pw.Image(pdfImageProvider(imageBytes), width: 33),
       fit: pw.BoxFit.fitHeight,
       alignment: pw.Alignment.center,
     ),
   );
 }
 
-pw.Padding personalDataFromInput(
-    String nameController, String phoneController, String addressController) {
+pw.Padding personalDataFromInput(String nameController, String phoneController,
+    String addressController, String nama, String qty, String price) {
   return pw.Padding(
     padding: pw.EdgeInsets.symmetric(
-      horizontal: 50,
-      vertical: 10,
+      horizontal: 5,
+      vertical: 1,
     ),
     child: pw.Table(
       border: pw.TableBorder.all(),
@@ -174,7 +177,7 @@ pw.Padding personalDataFromInput(
                 'Name',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -184,7 +187,7 @@ pw.Padding personalDataFromInput(
                 nameController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -198,7 +201,7 @@ pw.Padding personalDataFromInput(
                 'Phone Number',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -208,7 +211,7 @@ pw.Padding personalDataFromInput(
                 phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -222,7 +225,7 @@ pw.Padding personalDataFromInput(
                 'Email',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -232,7 +235,79 @@ pw.Padding personalDataFromInput(
                 addressController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 100,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Makanan',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                nama,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Kuantitas',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                qty,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Price',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                price,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -275,7 +350,7 @@ pw.Padding topOfInvoice(pw.MemoryImage imageInvoice) {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text(
-                        'Our Cinema',
+                        'Our Restaurant',
                         style: const pw.TextStyle(
                           fontSize: 10,
                           color: PdfColors.blue800,
@@ -322,8 +397,8 @@ pw.Padding barcodeKotak(String id) {
           errorCorrectLevel: BarcodeQRCorrectionLevel.high,
         ),
         data: id,
-        width: 150,
-        height: 150,
+        width: 15,
+        height: 15,
       ),
     ),
   );
@@ -339,7 +414,7 @@ pw.Container barcodeGaris(String id) {
       child: pw.BarcodeWidget(
         barcode: Barcode.code128(escapes: true),
         data: id,
-        width: 100,
+        width: 10,
         height: 50,
       ),
     ),
@@ -349,6 +424,6 @@ pw.Container barcodeGaris(String id) {
 pw.Center footerPDF(String formattedDate) => pw.Center(
       child: pw.Text(
         'Created At $formattedDate',
-        style: pw.TextStyle(fontSize: 100, color: PdfColors.blue),
+        style: pw.TextStyle(fontSize: 10, color: PdfColors.blue),
       ),
     );

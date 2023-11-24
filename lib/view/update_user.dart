@@ -2,14 +2,15 @@ import 'package:checkbox_formfield/checkbox_list_tile_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateUser extends StatefulWidget {
   const UpdateUser({super.key, required this.user});
 
-  final User? user;
+  final User user;
 
   @override
   State<UpdateUser> createState() => _UpdateUserState();

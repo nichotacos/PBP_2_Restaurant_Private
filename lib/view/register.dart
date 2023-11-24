@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:checkbox_formfield/checkbox_formfield.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/component/form_component.dart';
 import 'package:pbp_2_restaurant/main.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/client/user_client.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView(
@@ -54,6 +58,46 @@ class _RegisterViewState extends State<RegisterView> {
       notelpController.text = widget.telephone!;
       birthDateController.text = widget.bornDate!;
     }
+
+    void onSubmit() async {
+      if (!_formKey.currentState!.validate()) return;
+      Uint8List imageData = (await rootBundle.load('assets/images/test.jpeg'))
+          .buffer
+          .asUint8List();
+      String base64Image = base64Encode(imageData);
+
+      User input = User(
+        id: 4,
+        username: usernameController.text,
+        password: passwordController.text,
+        email: emailController.text,
+        telephone: notelpController.text,
+        bornDate: birthDateController.text,
+        imageData: base64Image,
+        address: null,
+        poin: 0,
+      );
+
+      try {
+        if (widget.id == null) {
+          await UserClient.create(input);
+        }
+
+        showSnackBar(context, 'Register Success', Colors.green);
+        Navigator.pop(context);
+
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (_) => const MyApp(),
+        //   ),
+        // );
+      } catch (e) {
+        showSnackBar(context, e.toString(), Colors.red);
+        Navigator.pop(context);
+      }
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -338,19 +382,20 @@ class _RegisterViewState extends State<RegisterView> {
                                   title: const Text('Data Berhasil Disimpan'),
                                   actions: <Widget>[
                                     TextButton(
-                                      onPressed: () async {
-                                        if (widget.id == null) {
-                                          await addUser();
-                                        }
+                                      // onPressed: () async {
+                                      //   if (widget.id == null) {
+                                      //     await addUser();
+                                      //   }
 
-                                        // ignore: use_build_context_synchronously
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => const MyApp(),
-                                          ),
-                                        );
-                                      },
+                                      //   // ignore: use_build_context_synchronously
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (_) => const MyApp(),
+                                      //     ),
+                                      //   );
+                                      // },
+                                      onPressed: onSubmit,
                                       child: const Text('Ok'),
                                     )
                                   ],

@@ -9,7 +9,8 @@ import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
 import 'package:pbp_2_restaurant/view/pdf-and-printing/pdf_view.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:uuid/uuid.dart';
 
 class CartPage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _CartPageState extends State<CartPage> {
   Future<void> refresh() async {
     final data = await SQLHelper.getChart();
     setState(() {
-      chart = data;
+      chart2 = data.cast<toChart>();
     });
   }
 
@@ -213,15 +214,17 @@ class _CartPageState extends State<CartPage> {
             }),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          createPdf(
+        onPressed: () async {
+          await createPdf(
             widget.user!.username.toString(),
             widget.user!.telephone.toString(),
             widget.user!.email.toString(),
             id,
             widget.user!.imageData.toString(),
             context,
-            chart2,
+            chart[0]['name'].toString(),
+            chart[0]['quantity'].toString(),
+            chart[0]['price'].toString(),
           );
           setState(() {
             const uuid = Uuid();

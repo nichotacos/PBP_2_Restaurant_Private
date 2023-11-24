@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/view/register.dart';
@@ -7,7 +8,7 @@ import 'package:pbp_2_restaurant/view/starting-page/boarding-page.dart';
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -116,4 +117,18 @@ class _TestPageState extends State<TestPage> {
       ),
     );
   }
+}
+
+void showSnackBar(BuildContext context, String msg, Color bg) {
+  final scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      content: Text(msg),
+      backgroundColor: bg,
+      action: SnackBarAction(
+        label: 'hide',
+        onPressed: scaffold.hideCurrentSnackBar,
+      ),
+    ),
+  );
 }
