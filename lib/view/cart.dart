@@ -221,7 +221,9 @@ class _CartPageState extends State<CartPage> {
             id,
             widget.user!.imageData.toString(),
             context,
-            chart2,
+            chart[index]['name'].toString(),
+            chart[0]['quantity'].toString(),
+            chart[0]['price'].toString(),
           );
           setState(() {
             const uuid = Uuid();
