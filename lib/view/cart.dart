@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 import 'package:pbp_2_restaurant/model/chart.dart';
@@ -11,10 +12,18 @@ import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
 import 'package:pbp_2_restaurant/view/pdf-and-printing/pdf_view.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/model/chart.dart';
+import 'package:pbp_2_restaurant/client/CartClient.dart';
+import 'package:pbp_2_restaurant/main.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:convert';
 
 class CartPage extends StatefulWidget {
   CartPage({super.key, required this.user});
+
+  final listCart = FutureProvider<List<toChart>>((ref) async {
+    return await CartClient.fetchAll();
+  });
 
   User? user;
 
@@ -35,10 +44,33 @@ class _CartPageState extends State<CartPage> {
   }
 
   Future<void> refresh() async {
-    final data = await SQLHelper.getChart();
+    final data = await CartClient.fetchAll();
     setState(() {
-      chart2 = data.cast<toChart>();
+      chart = List<Map<String, dynamic>>.from(data.map((item) => toCart(item)));
+      print(chart);
     });
+  }
+
+  Map<String, dynamic> toCart(dynamic item) {
+    return {
+      "id": item.id,
+      "name": item.name,
+      "desc": item.desc,
+      "id_user": item.id_user,
+      "image": item.image,
+      "price": item.price,
+      "quantity": item.quantity
+    };
+  }
+
+  void onDelete(id, context) async {
+    try {
+      await CartClient.destroy(id);
+      refresh();
+      showSnackBar(context, "Delete Success", Colors.green);
+    } catch (e) {
+      showSnackBar(context, e.toString(), Colors.red);
+    }
   }
 
   void incrementCounter(int index) {
@@ -206,9 +238,9 @@ class _CartPageState extends State<CartPage> {
                       caption: 'Delete',
                       color: Colors.red,
                       icon: Icons.delete,
-                      onTap: () async {
-                        await deleteChart(chart[index]['id']);
-                      },
+
+                      onTap: () => onDelete(chart[index]['id'], context),
+                      
                     )
                   ]);
             }),
@@ -235,10 +267,5 @@ class _CartPageState extends State<CartPage> {
         icon: const Icon(Icons.add),
       ),
     );
-  }
-
-  Future<void> deleteChart(int id) async {
-    await SQLHelper.deleteChart(id);
-    refresh();
   }
 }

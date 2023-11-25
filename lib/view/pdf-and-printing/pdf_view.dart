@@ -86,7 +86,6 @@ Future<void> createPdf(
                     children: [
                   pw.Container(
                     margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-                    margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
                   ),
                   // pw.Image(pw.MemoryImage(base64Decode(base64Image))),
                   personalDataFromInput(nameController, phoneController,
@@ -201,7 +200,6 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 10,
-                  fontSize: 10,
                 ),
               ),
             ),
@@ -225,7 +223,6 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 10,
                   fontSize: 10,
                 ),
               ),
@@ -322,7 +319,6 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 price,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
-                  fontSize: 10,
                   fontSize: 10,
                 ),
               ),

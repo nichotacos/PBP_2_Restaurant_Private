@@ -1,12 +1,12 @@
-import 'package:pbp_2_restaurant/cart/cartClient.dart';
+import 'package:pbp_2_restaurant/client/CartClient.dart';
 import 'package:pbp_2_restaurant/model/chart.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart';
 
-class cartClient {
+class CartClient {
   static final String url = '10.0.2.2:8000';
-  static final String endpoint = '/api/barang';
+  static final String endpoint = '/api/cart';
 
   static Future<List<toChart>> fetchAll() async {
     try {
