@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/view/home.dart';
 import 'package:pbp_2_restaurant/view/register.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pbp_2_restaurant/main.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/client/user_client.dart';
 import 'dart:async';
 
 class LoginView extends StatefulWidget {
@@ -24,42 +27,55 @@ class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
 
   void onPressedLogin() async {
-    await Future.delayed(const Duration(seconds: 1));
-    User? logUser = await SQLHelper.checkLogin(
-        usernameController.text, passwordController.text);
+    // await Future.delayed(const Duration(seconds: 1));
+    // User? logUser = await SQLHelper.checkLogin(
+    //     usernameController.text, passwordController.text);
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', usernameController.text);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setString('username', usernameController.text);
+    try {
+      var loggedUser = await UserClient.login(
+          usernameController.text, passwordController.text);
 
-    if (context.mounted) {
-      if (logUser != null) {
-        // Login success
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login Success!'),
-            duration: Duration(seconds: 3),
-          ),
-        );
+      showSnackBar(context, 'Login Success', Colors.green);
+      Navigator.pop(context);
 
+      if (context.mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => HomeView(
-              user: logUser,
+              user: loggedUser,
               pageIndex: 0,
             ),
           ),
         );
-      } else {
-        // Login failed
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login failed. Please try again.'),
-            duration: Duration(seconds: 3),
-          ),
-        );
       }
+    } catch (e) {
+      showSnackBar(context, e.toString(), Colors.red);
+      Navigator.pop(context);
     }
+
+    // if (context.mounted) {
+    //   if (logUser != null) {
+    //     // Login success
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       const SnackBar(
+    //         content: Text('Login Success!'),
+    //         duration: Duration(seconds: 3),
+    //       ),
+    //     );
+
+    //   } else {
+    //     // Login failed
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       const SnackBar(
+    //         content: Text('Login failed. Please try again.'),
+    //         duration: Duration(seconds: 3),
+    //       ),
+    //     );
+    //   }
+    // }
   }
 
   @override
@@ -287,7 +303,7 @@ class _LoginViewState extends State<LoginView> {
                                           minimumSize:
                                               const Size.fromHeight(20),
                                         ),
-                                        onPressed: () async {
+                                        onPressed: () {
                                           onPressedLogin();
                                         },
                                         label: const Text(

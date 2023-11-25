@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/qr_scan/scan_qr_page.dart';
 import 'package:pbp_2_restaurant/generate_qr/generate_qr_page.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class QRCameraPage extends StatefulWidget {
   const QRCameraPage({super.key, required this.user});
-  final User? user;
+  final User user;
   @override
   _QRCameraPageState createState() => _QRCameraPageState();
 }

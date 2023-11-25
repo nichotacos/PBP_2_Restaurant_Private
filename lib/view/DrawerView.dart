@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/login.dart';
+import 'package:pbp_2_restaurant/view/register.dart';
 
 class DrawerView extends StatefulWidget {
   const DrawerView({super.key, required this.user});
-  final User? user;
+  final User user;
 
   @override
   State<DrawerView> createState() => _DrawerViewState();
@@ -107,18 +110,20 @@ class _DrawerViewState extends State<DrawerView> {
               ),
             ),
           ),
-          const ListTile(
-            leading: Icon(
+          ListTile(
+            leading: const Icon(
               Icons.logout,
               color: Colors.black,
             ),
-            title: Text(
+            title: const Text(
               "Log out",
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            onTap: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const LoginView())),
           ),
         ],
       ),

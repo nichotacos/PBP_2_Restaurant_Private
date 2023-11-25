@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPagePizza.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class NewestItemView extends StatefulWidget {
   const NewestItemView({super.key, required this.user});
 
-  final User? user;
+  final User user;
 
   @override
   State<NewestItemView> createState() => _NewestItemViewState();

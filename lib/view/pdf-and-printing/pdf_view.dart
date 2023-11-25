@@ -86,13 +86,17 @@ Future<void> createPdf(
                     children: [
                   pw.Container(
                     margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                    margin: pw.EdgeInsets.symmetric(horizontal: 2, vertical: 2),
                   ),
                   // pw.Image(pw.MemoryImage(base64Decode(base64Image))),
-                  personalDataFromInput(
-                      nameController, phoneController, emailController,nama, qty, price),
+                  personalDataFromInput(nameController, phoneController,
+                      emailController, nama, qty, price),
+
                   pw.SizedBox(height: 1),
                   topOfInvoice(imageInvoice),
                   barcodeGaris(id),
+                  pw.SizedBox(height: 5),
+                  // contentOfInvoice(table),
                   pw.SizedBox(height: 5),
                   // contentOfInvoice(table),
                   barcodeKotak(id),
@@ -108,6 +112,14 @@ Future<void> createPdf(
         }),
   );
 
+  // if (context.mounted) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => PreviewScreen(doc: doc),
+    ),
+  );
+  // }
   // if (context.mounted) {
   Navigator.push(
     context,
@@ -189,6 +201,7 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 10,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -213,6 +226,7 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 10,
+                  fontSize: 10,
                 ),
               ),
             ),
@@ -236,6 +250,79 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 addressController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Makanan',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                nama,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Kuantitas',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                qty,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
+        pw.TableRow(
+          children: [
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                'Price',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: pw.Text(
+                price,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
                   fontSize: 10,
                 ),
               ),
@@ -351,7 +438,7 @@ pw.Padding topOfInvoice(pw.MemoryImage imageInvoice) {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text(
-                        'Our Cinema',
+                        'Our Restaurant',
                         style: const pw.TextStyle(
                           fontSize: 10,
                           color: PdfColors.blue800,

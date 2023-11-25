@@ -6,12 +6,13 @@ import 'package:pbp_2_restaurant/view/CategoriesView.dart';
 import 'package:pbp_2_restaurant/view/DrawerView.dart';
 import 'package:pbp_2_restaurant/view/NewestView.dart';
 import 'package:pbp_2_restaurant/view/PopularView.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.logUser});
 
-  final User? logUser;
+  final User logUser;
 
   @override
   State<HomePage> createState() => _HomePageState();

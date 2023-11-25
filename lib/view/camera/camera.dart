@@ -3,12 +3,13 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/utils/logging_utils.dart';
 import 'package:pbp_2_restaurant/view/camera/display_picture.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class CameraView extends StatefulWidget {
   const CameraView({super.key, required this.user});
 
-  final User? user;
+  final User user;
 
   @override
   State<CameraView> createState() => _CameraViewState();

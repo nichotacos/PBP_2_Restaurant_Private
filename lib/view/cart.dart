@@ -9,7 +9,8 @@ import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
 import 'package:pbp_2_restaurant/view/pdf-and-printing/pdf_view.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:uuid/uuid.dart';
 
 class CartPage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _CartPageState extends State<CartPage> {
   Future<void> refresh() async {
     final data = await SQLHelper.getChart();
     setState(() {
-      chart = data;
+      chart2 = data.cast<toChart>();
     });
   }
 

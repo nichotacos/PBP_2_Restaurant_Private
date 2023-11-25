@@ -1,10 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/view/cart.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
-import 'package:pbp_2_restaurant/model/user.dart';
+// import 'package:pbp_2_restaurant/model/user.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
@@ -14,7 +17,7 @@ import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
 class HomeView extends StatefulWidget {
   const HomeView({super.key, required this.user, required this.pageIndex});
 
-  final User? user;
+  final User user;
   final int pageIndex;
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -71,69 +74,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-
-// class HomeView extends StatefulWidget {
-//   const HomeView({super.key});
-
-//   @override
-//   State<HomeView> createState() => _HomeViewState();
-// }
-
-// class _HomeViewState extends State<HomeView> {
-//   int _selectedIndex = 0;
-
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
-
-//   static const List<Widget> _widgetOptions = <Widget>[
-//     Center(
-//       child: Text('Index 0: MainHome'),
-//     ),
-//     Center(
-//       child: Text('Index 1: Explore'),
-//     ),
-//     Center(
-//       child: Text('Index 2: BookMark'),
-//     ),
-//     Center(
-//       child: Text('Index 3: Profile'),
-//     ),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       bottomNavigationBar: BottomNavigationBar(
-//         items: const [
-//           BottomNavigationBarItem(
-//             icon: Icon(
-//               Icons.home,
-//             ),
-//             label: 'Home',
-//           ),
-//           BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-//           BottomNavigationBarItem(
-//               icon: Icon(Icons.bookmarks), label: 'Bookmarks'),
-//           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
-//         ],
-//         currentIndex: _selectedIndex,
-//         onTap: _onItemTapped,
-//         backgroundColor: Color.fromARGB(1, 66, 66, 66),
-//       ),
-//       body: _widgetOptions.elementAt(_selectedIndex),
-//     );
-//   }
-// }
