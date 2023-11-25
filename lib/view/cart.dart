@@ -221,7 +221,7 @@ class _CartPageState extends State<CartPage> {
             id,
             widget.user!.imageData.toString(),
             context,
-            chart[index]['name'].toString(),
+            chart[0]['name'].toString(),
             chart[0]['quantity'].toString(),
             chart[0]['price'].toString(),
           );
