@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'dart:io';
 import 'dart:convert';
-
+import 'package:pbp_2_restaurant/client/user_client.dart';
 import 'package:pbp_2_restaurant/utils/logging_utils.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/view/home.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
+import 'package:pbp_2_restaurant/main.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
@@ -49,6 +50,41 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
   }
 
+  void onSubmit() async {
+    User input = User(
+      id: widget.user.id,
+      username: widget.user.username,
+      password: widget.user.password,
+      email: widget.user.email,
+      telephone: widget.user.telephone,
+      bornDate: widget.user.bornDate,
+      imageData: base64File,
+      address: widget.user.address,
+      poin: widget.user.poin,
+    );
+
+    try {
+      if (widget.user.id != null) {
+        await UserClient.updateImage(widget.user);
+      }
+
+      await refresh();
+
+      showSnackBar(context, 'Update Photo Success', Colors.green);
+      Navigator.pop(context);
+
+      if (context.mounted) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (_) => HomeView(user: widget.user, pageIndex: 3)));
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString(), Colors.red);
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     LoggingUtils.logStartFunction('Build DisplayPictureScreen');
@@ -58,30 +94,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-              onPressed: () async {
-                await updateImage(widget.user!.id as int);
-                await refresh();
-
-                if (widget.user!.imageData == base64File) {
-                  print('true');
-                } else {
-                  print('false');
-                }
-
-                if (context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => HomeView(
-                        user: widget.user,
-                        pageIndex: 3,
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: const Text('Save')),
+          ElevatedButton(onPressed: onSubmit, child: const Text('Save')),
           WillPopScope(
               child: Image.file(
                 fileResult!,

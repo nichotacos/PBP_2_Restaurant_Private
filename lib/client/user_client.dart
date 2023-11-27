@@ -83,6 +83,22 @@ class UserClient {
     }
   }
 
+  static Future<Response> updateImage(User user) async {
+    try {
+      var response = await put(
+        Uri.http(url, '$endpoint/updateimage/${user.id}'),
+        headers: {"Content-Type": "application/json"},
+        body: user.toRawJson(),
+      );
+
+      if (response.statusCode != 200) throw Exception(response.reasonPhrase);
+
+      return response;
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
   static Future<Response> forgotPassword(User user) async {
     try {
       var response = await put(
