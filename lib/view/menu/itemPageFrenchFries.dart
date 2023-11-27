@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
+import 'package:pbp_2_restaurant/client/CartClient.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
+import 'package:pbp_2_restaurant/main.dart';
+import 'package:pbp_2_restaurant/model/chart.dart';
 
 class itemPageFrenchFries extends StatefulWidget {
   const itemPageFrenchFries(
@@ -20,6 +23,7 @@ class itemPageFrenchFries extends StatefulWidget {
 }
 
 class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
+  final _formKey = GlobalKey<FormState>();
   final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
   List<Map<String, dynamic>> chart = [];
@@ -29,6 +33,18 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
     await fLutterTts.setLanguage("en-US");
     await fLutterTts.setPitch(1);
     await fLutterTts.speak(text);
+  }
+
+  void initState() {
+    super.initState();
+    refresh(); // Panggil refresh saat halaman dimuat
+  }
+
+  Future<void> refresh() async {
+    final data = await SQLHelper.getChart();
+    setState(() {
+      chart = data;
+    });
   }
 
   void incrementCounter() {
@@ -53,6 +69,35 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
   var y = 0;
   @override
   Widget build(BuildContext context) {
+    void onSubmit() async {
+      //if (!_formKey.currentState!.validate()) return;
+      await fLutterTts.stop();
+
+      toChart input = toChart(
+        id: widget.id ?? 0,
+        name: "FrenchFries",
+        quantity: int.parse(controllerQuantity.text),
+        image: "assets/images/appBarView_images/FrenchFries.png",
+        desc: "The Best French Fries in the world",
+        price: 10,
+        id_user: 1,
+      );
+
+      try {
+        if (widget.id == null) {
+          await CartClient.create(input);
+        } else {
+          await CartClient.update(input);
+        }
+
+        showSnackBar(context, 'Success', Colors.green);
+        Navigator.pop(context);
+      } catch (err) {
+        showSnackBar(context, err.toString(), Colors.red);
+        Navigator.pop(context);
+      }
+    }
+
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
       y = 1;
