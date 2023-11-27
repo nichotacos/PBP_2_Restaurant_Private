@@ -28,6 +28,13 @@ class _HomeViewState extends State<HomeView> {
   int currentPageIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    int currentPageIndex = widget.pageIndex;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(

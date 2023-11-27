@@ -32,15 +32,16 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   File? image;
   String id = const Uuid().v1();
+  String username = '';
+  String telephone = '';
+  int point = 0;
 
   void refresh() async {
-    List<User> user = [];
-    // final data = await SQLHelper.getUser();
-    final data = await UserClient.fetchAll();
     final dataUser = await UserClient.find(widget.user.id);
     setState(() {
-      user = data;
-      // widget.user.password = widget.user.username;
+      username = dataUser.username!;
+      telephone = dataUser.telephone!;
+      point = dataUser.poin!;
     });
   }
 
@@ -59,8 +60,6 @@ class _ProfilePageState extends State<ProfilePage> {
       Navigator.pop(context);
     }
   }
-
-  String username = '';
 
   @override
   void initState() {
@@ -152,9 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       title: const Text('Edit Photo Profile'),
                                       actions: [
                                         TextButton.icon(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            pickImage();
+                                          onPressed: () async {
+                                            await pickImage();
                                           },
                                           icon:
                                               const Icon(Icons.image_outlined),
@@ -188,10 +186,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const Color.fromARGB(255, 255, 240, 240),
                               child: CircleAvatar(
                                 radius: 60,
-                                // backgroundImage: MemoryImage(
-                                //   base64
-                                //       .decode(widget.user!.imageData as String),
-                                // ),
+                                backgroundImage: MemoryImage(
+                                  base64.decode(widget.user.imageData!),
+                                ),
                               ),
                             ),
                           ),
@@ -255,7 +252,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.grey),
                           ),
                           Text(
-                            '${widget.user!.username}',
+                            // '${widget.user!.username}',
+                            username,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -277,7 +275,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.grey),
                           ),
                           Text(
-                            '${widget.user!.telephone}',
+                            // '${widget.user!.telephone}',
+                            telephone,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -299,7 +298,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.grey),
                           ),
                           Text(
-                            '${widget.user!.poin}',
+                            // '${widget.user!.poin}',
+                            point.toString(),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -428,10 +428,28 @@ class _ProfilePageState extends State<ProfilePage> {
       if (image == null) return;
 
       final imageTemp = File(image.path);
+      var pickedImage = base64Encode(imageTemp.readAsBytesSync());
       await SQLHelper.editImage(base64Encode(imageTemp.readAsBytesSync()),
           widget.user!.id!, widget.user!.username!.toString());
       setState(() =>
           widget.user!.imageData = base64Encode(imageTemp.readAsBytesSync()));
+
+      User input = User(
+        id: widget.user.id,
+        username: widget.user.username,
+        password: widget.user.password,
+        email: widget.user.email,
+        telephone: widget.user.telephone,
+        bornDate: widget.user.bornDate,
+        imageData: pickedImage,
+        address: widget.user.address,
+        poin: widget.user.poin,
+      );
+
+      await UserClient.updateImage(widget.user);
+
+      showSnackBar(context, 'Update Photo Success', Colors.green);
+      Navigator.pop(context);
     } on PlatformException catch (e) {
       const SnackBar(content: Text('Failed to Pick Image!'));
     }

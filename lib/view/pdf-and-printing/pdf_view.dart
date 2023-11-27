@@ -224,6 +224,7 @@ pw.Padding personalDataFromInput(String nameController, String phoneController,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 10,
+                  // fontSize: 10,
                 ),
               ),
             ),
