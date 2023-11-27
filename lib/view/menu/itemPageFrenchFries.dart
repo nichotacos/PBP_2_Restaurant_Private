@@ -37,7 +37,7 @@ class _itemPageFrenchFriesState extends State<itemPageFrenchFries> {
 
   void initState() {
     super.initState();
-    refresh(); // Panggil refresh saat halaman di muat
+    refresh(); // Panggil refresh saat halaman dimuat
   }
 
   Future<void> refresh() async {
