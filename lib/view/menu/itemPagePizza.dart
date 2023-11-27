@@ -75,10 +75,10 @@ class _itemPagePizzaState extends State<itemPagePizza> {
 
       toChart input = toChart(
         id: widget.id ?? 0,
-        name: "FrenchFries",
+        name: "Pizza",
         quantity: int.parse(controllerQuantity.text),
-        image: "assets/images/appBarView_images/FrenchFries.png",
-        desc: "The Best French Fries in the world",
+        image: "assets/images/Pizza.png",
+        desc: "The Best Pizza in the world",
         price: 10,
         id_user: 1,
       );
