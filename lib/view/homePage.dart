@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // Popular
-          const PopularView(),
+          PopularView(user: widget.logUser),
 
           // Newest Items
           Padding(

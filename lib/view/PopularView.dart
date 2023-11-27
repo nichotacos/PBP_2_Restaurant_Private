@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
 import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class PopularView extends StatelessWidget {
-  const PopularView({super.key});
+  const PopularView({super.key, required this.user});
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class PopularView extends StatelessWidget {
                         id: null,
                         name: null,
                         quantity: null,
-                        id_user: null,
+                        user: user,
                       ),
                     ),
                   );
@@ -102,7 +105,6 @@ class PopularView extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
-              
               child: InkWell(
                 onTap: () {
                   Navigator.push(

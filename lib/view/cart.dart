@@ -206,7 +206,7 @@ class _CartPageState extends State<CartPage> {
                                       id: chart[index]['id'],
                                       name: chart[index]['name'],
                                       quantity: chart[index]['quantity'],
-                                      id_user: chart[index]['id_user'],
+                                      user: chart[index]['id_user'],
                                     )),
                           ).then((_) => refresh());
                         } else if (chart[index]['name'] == "Spaghetti") {
@@ -238,9 +238,7 @@ class _CartPageState extends State<CartPage> {
                       caption: 'Delete',
                       color: Colors.red,
                       icon: Icons.delete,
-
                       onTap: () => onDelete(chart[index]['id'], context),
-                      
                     )
                   ]);
             }),

@@ -8,6 +8,7 @@ import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 import 'package:pbp_2_restaurant/client/CartClient.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/model/chart.dart';
+import 'package:pbp_2_restaurant/entity/user.dart';
 
 class itemPageBurger extends StatefulWidget {
   const itemPageBurger(
@@ -15,10 +16,11 @@ class itemPageBurger extends StatefulWidget {
       required this.id,
       required this.name,
       required this.quantity,
-      required this.id_user});
+      required this.user});
 
   final String? name;
-  final int? id, quantity, id_user;
+  final int? id, quantity;
+  final User user;
 
   @override
   State<itemPageBurger> createState() => _itemPageBurgerState();
@@ -76,16 +78,14 @@ class _itemPageBurgerState extends State<itemPageBurger> {
       await fLutterTts.stop();
 
       toChart input = toChart(
-          id: widget.id ?? 0,
-          name:  "Burger",
-          quantity: int.parse(controllerQuantity.text),
-          image: "assets/images/burger/beef-burger.png",
-          desc: "The Best Beef Burger in the world",
-          price : 10,
-          id_user: 1,
+        id: widget.id ?? 0,
+        name: "Burger",
+        quantity: int.parse(controllerQuantity.text),
+        image: "assets/images/burger/beef-burger.png",
+        desc: "The Best Beef Burger in the world",
+        price: 10,
+        id_user: 1,
       );
-
-      
 
       try {
         if (widget.id == null) {
@@ -101,8 +101,6 @@ class _itemPageBurgerState extends State<itemPageBurger> {
         Navigator.pop(context);
       }
     }
-
-
 
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
@@ -357,4 +355,3 @@ class _itemPageBurgerState extends State<itemPageBurger> {
         1);
   }
 }
-
