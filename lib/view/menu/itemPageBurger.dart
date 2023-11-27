@@ -76,16 +76,14 @@ class _itemPageBurgerState extends State<itemPageBurger> {
       await fLutterTts.stop();
 
       toChart input = toChart(
-          id: widget.id ?? 0,
-          name:  "Burger",
-          quantity: int.parse(controllerQuantity.text),
-          image: "assets/images/burger/beef-burger.png",
-          desc: "The Best Beef Burger in the world",
-          price : 10,
-          id_user: 1,
+        id: widget.id ?? 0,
+        name: "Burger",
+        quantity: int.parse(controllerQuantity.text),
+        image: "assets/images/burger/beef-burger.png",
+        desc: "The Best Beef Burger in the world",
+        price: 10,
+        id_user: 1,
       );
-
-      
 
       try {
         if (widget.id == null) {
@@ -101,8 +99,6 @@ class _itemPageBurgerState extends State<itemPageBurger> {
         Navigator.pop(context);
       }
     }
-
-
 
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
@@ -357,4 +353,3 @@ class _itemPageBurgerState extends State<itemPageBurger> {
         1);
   }
 }
-
