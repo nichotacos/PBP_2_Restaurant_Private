@@ -5,6 +5,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
+import 'package:pbp_2_restaurant/client/CartClient.dart';
+import 'package:pbp_2_restaurant/main.dart';
+import 'package:pbp_2_restaurant/model/chart.dart';
 
 class itemPageSpaghetti extends StatefulWidget {
   const itemPageSpaghetti(
@@ -20,6 +23,7 @@ class itemPageSpaghetti extends StatefulWidget {
 }
 
 class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
+  final _formKey = GlobalKey<FormState>();
   final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
   List<Map<String, dynamic>> chart = [];
@@ -29,6 +33,18 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
     await fLutterTts.setLanguage("en-US");
     await fLutterTts.setPitch(1);
     await fLutterTts.speak(text);
+  }
+
+  void initState() {
+    super.initState();
+    refresh(); // Panggil refresh saat halaman dimuat
+  }
+
+  Future<void> refresh() async {
+    final data = await SQLHelper.getChart();
+    setState(() {
+      chart = data;
+    });
   }
 
   void incrementCounter() {
@@ -54,6 +70,37 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
 
   @override
   Widget build(BuildContext context) {
+    void onSubmit() async {
+      //if (!_formKey.currentState!.validate()) return;
+      await fLutterTts.stop();
+
+      toChart input = toChart(
+          id: widget.id ?? 0,
+          name:  "Spaghetti",
+          quantity: int.parse(controllerQuantity.text),
+          image: "assets/images/Noodles.png",
+          desc: "The Best Beef Spaghetti in the world",
+          price : 10,
+          id_user: 1,
+      );
+
+      
+
+      try {
+        if (widget.id == null) {
+          await CartClient.create(input);
+        } else {
+          await CartClient.update(input);
+        }
+
+        showSnackBar(context, 'Success', Colors.green);
+        Navigator.pop(context);
+      } catch (err) {
+        showSnackBar(context, err.toString(), Colors.red);
+        Navigator.pop(context);
+      }
+    }
+
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
       y = 1;
@@ -61,6 +108,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
       controllerQuantity.text = "1";
       x = 1;
     }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -256,15 +304,7 @@ class _itemPageSpaghettiState extends State<itemPageSpaghetti> {
                 ],
               ),
               ElevatedButton.icon(
-                onPressed: () async {
-                  if (widget.id == null) {
-                    await addToChart();
-                  } else {
-                    await editChart(widget.id!);
-                  }
-                  await fLutterTts.stop();
-                  Navigator.pop(context);
-                },
+                onPressed: onSubmit,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                   padding: MaterialStateProperty.all(
