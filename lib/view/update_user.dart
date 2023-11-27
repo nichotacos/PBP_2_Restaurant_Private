@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/client/user_client.dart';
 import 'package:pbp_2_restaurant/view/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pbp_2_restaurant/main.dart';
 
 class UpdateUser extends StatefulWidget {
   const UpdateUser({super.key, required this.user});
@@ -44,6 +46,39 @@ class _UpdateUserState extends State<UpdateUser> {
     setState(() {
       user = data;
     });
+  }
+
+  void onSubmit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    User input = User(
+      id: widget.user.id,
+      username: usernameController.text,
+      password: passwordController.text,
+      email: emailController.text,
+      telephone: notelpController.text,
+      bornDate: birthDateController.text,
+      imageData: widget.user.imageData,
+      address: widget.user.address,
+      poin: widget.user.poin,
+    );
+
+    try {
+      if (widget.user.id != null) {
+        await UserClient.update(input);
+      }
+
+      showSnackBar(context, 'Update Success', Colors.green);
+      Navigator.pop(context);
+
+      if (context.mounted) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (_) => ProfilePage(user: widget.user)));
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString(), Colors.red);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -279,13 +314,7 @@ class _UpdateUserState extends State<UpdateUser> {
                                 title: const Text('Data Berhasil Disimpan'),
                                 actions: <Widget>[
                                   TextButton(
-                                    onPressed: () async {
-                                      await editUser(widget.user!.id);
-
-                                      if (context.mounted) {
-                                        Navigator.pop(context);
-                                      }
-                                    },
+                                    onPressed: onSubmit,
                                     child: const Text('Ok'),
                                   )
                                 ],

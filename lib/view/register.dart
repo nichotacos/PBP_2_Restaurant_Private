@@ -67,7 +67,7 @@ class _RegisterViewState extends State<RegisterView> {
       String base64Image = base64Encode(imageData);
 
       User input = User(
-        id: 4,
+        id: 0,
         username: usernameController.text,
         password: passwordController.text,
         email: emailController.text,
