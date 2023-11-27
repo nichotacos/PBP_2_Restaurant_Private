@@ -5,6 +5,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
+import 'package:pbp_2_restaurant/client/CartClient.dart';
+import 'package:pbp_2_restaurant/main.dart';
+import 'package:pbp_2_restaurant/model/chart.dart';
 
 class itemPageBurger extends StatefulWidget {
   const itemPageBurger(
@@ -22,6 +25,7 @@ class itemPageBurger extends StatefulWidget {
 }
 
 class _itemPageBurgerState extends State<itemPageBurger> {
+  final _formKey = GlobalKey<FormState>();
   final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
   List<Map<String, dynamic>> chart = [];
@@ -67,6 +71,39 @@ class _itemPageBurgerState extends State<itemPageBurger> {
   var x = 0;
   @override
   Widget build(BuildContext context) {
+    void onSubmit() async {
+      //if (!_formKey.currentState!.validate()) return;
+      await fLutterTts.stop();
+
+      toChart input = toChart(
+          id: widget.id ?? 0,
+          name:  "Burger",
+          quantity: int.parse(controllerQuantity.text),
+          image: "assets/images/burger/beef-burger.png",
+          desc: "The Best Beef Burger in the world",
+          price : 10,
+          id_user: 1,
+      );
+
+      
+
+      try {
+        if (widget.id == null) {
+          await CartClient.create(input);
+        } else {
+          await CartClient.update(input);
+        }
+
+        showSnackBar(context, 'Success', Colors.green);
+        Navigator.pop(context);
+      } catch (err) {
+        showSnackBar(context, err.toString(), Colors.red);
+        Navigator.pop(context);
+      }
+    }
+
+
+
     if (widget.id != null && y == 0) {
       controllerQuantity.text = widget.quantity.toString();
       y = 1;
@@ -273,15 +310,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                 ],
               ),
               ElevatedButton.icon(
-                onPressed: () async {
-                  if (widget.id == null) {
-                    await addToChart();
-                  } else {
-                    await editChart(widget.id!);
-                  }
-                  await fLutterTts.stop();
-                  Navigator.pop(context);
-                },
+                onPressed: onSubmit,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                   padding: MaterialStateProperty.all(
@@ -328,3 +357,4 @@ class _itemPageBurgerState extends State<itemPageBurger> {
         1);
   }
 }
+
