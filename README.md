@@ -45,6 +45,6 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 - Proses CRUD Transaksi (Dave Sebastian Petrus, Elyn Geby Monica Panjaitan, Hariyanto Tandung, Kevin Julian Rahadinata)
 
 ### UGD Unit Testing
--Widget testing Login Page (Kevin Julian, Nicholas Yang)
--Widget testing Register Page (Dave Sebastian, Hariyanto Tandung)
--Widget testing CRUD (Kevin Julian, Elyn Geby, Nicholas Yang)
+- Widget testing Login Page (Kevin Julian, Nicholas Yang)
+- Widget testing Register Page (Dave Sebastian, Hariyanto Tandung)
+- Widget testing CRUD (Kevin Julian, Elyn Geby, Nicholas Yang)
