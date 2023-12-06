@@ -126,12 +126,4 @@ class UserClient {
       return Future.error(e.toString());
     }
   }
-
-  // static Future<Response> checkUniqueUsername($username) async {
-  //   try {
-  //     var response = await post(
-
-  //     )
-  //   }
-  // }
 }

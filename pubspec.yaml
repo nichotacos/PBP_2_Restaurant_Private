@@ -92,6 +92,8 @@ flutter:
     - assets/icons/google.png
     - assets/icons/facebook.png
     - assets/splash/splash_image.png
+    - assets/images/categories/cat-chicken.png
+    - assets/images/categories/cat-drinks.jpeg
 
 linter:
   rules:

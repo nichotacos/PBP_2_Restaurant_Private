@@ -16,7 +16,7 @@ class PopularView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 15,
-          horizontal: 5,
+          horizontal: 15,
         ),
         child: Row(
           children: [
@@ -48,7 +48,7 @@ class PopularView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
+                          spreadRadius: 5,
                           blurRadius: 10,
                           offset: const Offset(0, 3),
                         )
@@ -56,48 +56,48 @@ class PopularView extends StatelessWidget {
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        // alignment: Alignment.center,
-                        child: Image.asset(
-                          "assets/images/appBarView_images/Burger.jpeg",
-                          height: 120,
-                        ),
-                      ),
-                      const Text(
-                        "BURGER",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        "Komposisi: Roti Burger, Daging Ayam, Keju, Selada, "
-                        "Tomat, Bawang Bombay, Timun, Jalapeno, Cabe Hijau / Merah",
-                        style: TextStyle(
-                          fontSize: 10,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 9),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "\Rp 25.000",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "assets/images/burger/cheeseburger-deluxe.png",
+                              height: 100,
                             ),
-                          ),
-                          Icon(
-                            Icons.favorite_border,
-                            color: Colors.red,
-                            size: 25,
-                          )
-                        ],
-                      )
+                            const SizedBox(height: 8),
+                            const Text(
+                              "Cheeseburger Deluxe",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              "100 gr chicken + tomato + cheese Lettuce",
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Rp 25.000",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

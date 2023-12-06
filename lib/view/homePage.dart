@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                   ]),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
+                  horizontal: 20,
                 ),
                 child: Row(
                   children: [
@@ -81,12 +81,12 @@ class _HomePageState extends State<HomePage> {
 
           // Category
           const Padding(
-            padding: EdgeInsets.only(top: 20, left: 10),
+            padding: EdgeInsets.only(top: 20, left: 20),
             child: Text(
               "Categories",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 35,
+                fontSize: 24,
               ),
             ),
           ),
@@ -95,12 +95,12 @@ class _HomePageState extends State<HomePage> {
 
           // Popular Items
           const Padding(
-            padding: EdgeInsets.only(top: 20, left: 10),
+            padding: EdgeInsets.only(top: 20, left: 20),
             child: Text(
               "Popular",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 35,
+                fontSize: 24,
               ),
             ),
           ),
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
               "Newest",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 35,
+                fontSize: 24,
               ),
             ),
           ),

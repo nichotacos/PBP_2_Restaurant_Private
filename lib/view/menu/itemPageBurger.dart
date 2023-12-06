@@ -32,7 +32,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
   TextEditingController controllerQuantity = TextEditingController();
   List<Map<String, dynamic>> chart = [];
   var desc =
-      "A burger is a delicious sandwich typically made with a grilled or fried patty of ground meat, often beef, served in a bun. It's often garnished with various toppings like lettuce, tomato, cheese, onions, and condiments such as ketchup and mayonnaise, creating a satisfying and flavorful meal that's a favorite among many";
+      "Savor the Cheeseburger Deluxe, an exquisite blend of flavors and textures. A succulent beef patty, flame-kissed to perfection, harmonizes with melted cheese atop a toasted bun. Crisp lettuce, juicy tomatoes, pickles, and a tangy sauce add layers of freshness and zing. Elevate your burger experience with this culinary masterpiece, marrying classic charm with gourmet finesse—a symphony of taste in every bite.";
   speak(String text) async {
     await fLutterTts.setLanguage("en-US");
     await fLutterTts.setPitch(1);
@@ -81,7 +81,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
         id: widget.id ?? 0,
         name: "Burger",
         quantity: int.parse(controllerQuantity.text),
-        image: "assets/images/burger/beef-burger.png",
+        image: "assets/images/burger/cheeseburger-deluxe.png",
         desc: "The Best Beef Burger in the world",
         price: 10,
         id_user: 1,
@@ -118,7 +118,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
-                "assets/images/appBarView_images/Burger.jpeg",
+                "assets/images/burger/cheeseburger-deluxe.png",
                 height: 300,
                 width: double.infinity,
               ),
@@ -171,9 +171,9 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                         child: Row(
                           children: [
                             const Text(
-                              "Krabby Patty",
+                              "Cheeseburger \nDeluxe",
                               style: TextStyle(
-                                fontSize: 28,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -181,10 +181,10 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                               icon: const Icon(Icons.volume_up),
                               onPressed: () => speak(desc),
                             ),
-                            SizedBox(width: 40),
+                            const SizedBox(width: 40),
                             Container(
                               width: 120,
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
@@ -198,7 +198,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                     onPressed: () {
                                       decrementCounter();
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       CupertinoIcons.minus,
                                       color: Colors.white,
                                       size: 20,
@@ -207,7 +207,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                   Text(
                                     key: const Key('Quantity'),
                                     controllerQuantity.text,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
@@ -230,14 +230,14 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 10,
                         ),
                         child: Column(
                           children: [
                             Text(
                               desc,
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 14),
                               textAlign: TextAlign.justify,
                             ),
                           ],
@@ -292,7 +292,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
+              const Row(
                 children: [
                   Text(
                     "Total",

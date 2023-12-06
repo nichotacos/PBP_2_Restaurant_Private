@@ -27,17 +27,9 @@ class LoginViewState extends State<LoginView> {
   bool showPassword = false;
 
   void onPressedLogin() async {
-    // await Future.delayed(const Duration(seconds: 1));
-    // User? logUser = await SQLHelper.checkLogin(
-    //     usernameController.text, passwordController.text);
-
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setString('username', usernameController.text);
     try {
       var loggedUser = await UserClient.login(
           usernameController.text, passwordController.text);
-
-      // showSnackBar(context, 'Login Success', Colors.green);
 
       if (context.mounted) {
         showToast(context, 'Login Success', Colors.green, Icons.check);

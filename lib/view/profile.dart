@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String username = '';
   String telephone = '';
   int point = 0;
+  var imageData;
 
   void refresh() async {
     final dataUser = await UserClient.find(widget.user.id);
@@ -61,10 +62,16 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void setImage() async {
+    Uint8List imageData =
+        (await rootBundle.load('assets/images/test.jpeg')).buffer.asUint8List();
+  }
+
   @override
   void initState() {
     super.initState();
     refresh(); // Panggil refresh saat halaman dimuat
+    setImage();
   }
 
   // Future<void> refresh() async {
@@ -185,9 +192,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const Color.fromARGB(255, 255, 240, 240),
                               child: CircleAvatar(
                                 radius: 60,
-                                backgroundImage: MemoryImage(
-                                  base64Decode(widget.user.imageData as String),
-                                ),
+                                backgroundImage: MemoryImage(base64Decode(
+                                    widget.user.imageData as String)),
                               ),
                             ),
                           ),
