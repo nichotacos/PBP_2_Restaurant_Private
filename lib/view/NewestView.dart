@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPagePizza.dart';
+// import 'package:pbp_2_restaurant/view/menu/itemPagePizza.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
 
@@ -44,16 +44,17 @@ class _NewestItemViewState extends State<NewestItemView> {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => itemPagePizza(
-                              id: null,
-                              name: 'Pizza',
-                              quantity: null,
-                              id_user: widget.user!.id),
-                        ),
-                      ),
+                      onTap: () {},
+                      // onTap: () => Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (_) => itemPagePizza(
+                      //         id: null,
+                      //         name: 'Pizza',
+                      //         quantity: null,
+                      //         id_user: widget.user!.id),
+                      //   ),
+                      // ),
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(

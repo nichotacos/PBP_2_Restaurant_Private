@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
+// import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
+// import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
+// import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/view/menu/item_page.dart';
 
 class PopularView extends StatelessWidget {
   const PopularView({super.key, required this.user});
@@ -26,14 +27,13 @@ class PopularView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: InkWell(
                 key: const Key('BurgerPage'),
+                // onTap: () {},
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => itemPageBurger(
-                        id: null,
-                        name: null,
-                        quantity: null,
+                      builder: (context) => ItemPage(
+                        itemId: 1,
                         user: user,
                       ),
                     ),
@@ -107,19 +107,20 @@ class PopularView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => itemPageSpaghetti(
-                        id: null,
-                        name: null,
-                        quantity: null,
-                        id_user: null,
-                      ),
-                    ),
-                  );
-                },
+                onTap: () {},
+                // onTap: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => itemPageSpaghetti(
+                //         id: null,
+                //         name: null,
+                //         quantity: null,
+                //         id_user: null,
+                //       ),
+                //     ),
+                //   );
+                // },
                 child: Container(
                   width: 200,
                   height: 225,
@@ -190,19 +191,20 @@ class PopularView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => itemPageFrenchFries(
-                        id: null,
-                        name: null,
-                        quantity: null,
-                        id_user: null,
-                      ),
-                    ),
-                  );
-                },
+                onTap: () {},
+                // onTap: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => itemPageFrenchFries(
+                //         id: null,
+                //         name: null,
+                //         quantity: null,
+                //         id_user: null,
+                //       ),
+                //     ),
+                //   );
+                // },
                 child: Container(
                   width: 200,
                   height: 225,

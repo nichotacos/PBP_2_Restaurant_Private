@@ -6,9 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 import 'package:pbp_2_restaurant/model/chart.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageBurger.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageFrenchFries.dart';
-import 'package:pbp_2_restaurant/view/menu/itemPageSpaghetti.dart';
 import 'package:pbp_2_restaurant/view/pdf-and-printing/pdf_view.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
@@ -21,9 +18,9 @@ import 'dart:convert';
 class CartPage extends StatefulWidget {
   CartPage({super.key, required this.user});
 
-  final listCart = FutureProvider<List<toChart>>((ref) async {
-    return await CartClient.fetchAll();
-  });
+  // final listCart = FutureProvider<List<toChart>>((ref) async {
+  //   return await CartClient.fetchAll();
+  // });
 
   User? user;
 
@@ -33,7 +30,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   List<Map<String, dynamic>> chart = [];
-  List<toChart> chart2 = [];
+  // List<toChart> chart2 = [];
   String id = const Uuid().v1();
   File? image;
 
@@ -193,47 +190,47 @@ class _CartPageState extends State<CartPage> {
                   ),
                   actionPane: SlidableBehindActionPane(),
                   secondaryActions: [
-                    IconSlideAction(
-                      caption: 'Update',
-                      color: Colors.blue,
-                      icon: Icons.update,
-                      onTap: () async {
-                        if (chart[index]['name'] == "Burger") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => itemPageBurger(
-                                      id: chart[index]['id'],
-                                      name: chart[index]['name'],
-                                      quantity: chart[index]['quantity'],
-                                      user: chart[index]['id_user'],
-                                    )),
-                          ).then((_) => refresh());
-                        } else if (chart[index]['name'] == "Spaghetti") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => itemPageSpaghetti(
-                                      id: chart[index]['id'],
-                                      name: chart[index]['name'],
-                                      quantity: chart[index]['quantity'],
-                                      id_user: chart[index]['id_user'],
-                                    )),
-                          ).then((_) => refresh());
-                        } else if (chart[index]['name'] == "French Fries") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => itemPageFrenchFries(
-                                      id: chart[index]['id'],
-                                      name: chart[index]['name'],
-                                      quantity: chart[index]['quantity'],
-                                      id_user: chart[index]['id_user'],
-                                    )),
-                          ).then((_) => refresh());
-                        }
-                      },
-                    ),
+                    // IconSlideAction(
+                    //   caption: 'Update',
+                    //   color: Colors.blue,
+                    //   icon: Icons.update,
+                    //   onTap: () async {
+                    //     if (chart[index]['name'] == "Burger") {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => itemPageBurger(
+                    //                   id: chart[index]['id'],
+                    //                   name: chart[index]['name'],
+                    //                   quantity: chart[index]['quantity'],
+                    //                   user: chart[index]['id_user'],
+                    //                 )),
+                    //       ).then((_) => refresh());
+                    //     } else if (chart[index]['name'] == "Spaghetti") {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => itemPageSpaghetti(
+                    //                   id: chart[index]['id'],
+                    //                   name: chart[index]['name'],
+                    //                   quantity: chart[index]['quantity'],
+                    //                   id_user: chart[index]['id_user'],
+                    //                 )),
+                    //       ).then((_) => refresh());
+                    //     } else if (chart[index]['name'] == "French Fries") {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => itemPageFrenchFries(
+                    //                   id: chart[index]['id'],
+                    //                   name: chart[index]['name'],
+                    //                   quantity: chart[index]['quantity'],
+                    //                   id_user: chart[index]['id_user'],
+                    //                 )),
+                    //       ).then((_) => refresh());
+                    //     }
+                    //   },
+                    // ),
                     IconSlideAction(
                       caption: 'Delete',
                       color: Colors.red,

@@ -1,5 +1,4 @@
-import 'package:pbp_2_restaurant/client/CartClient.dart';
-import 'package:pbp_2_restaurant/model/chart.dart';
+import 'package:pbp_2_restaurant/model/cart_model.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart';
@@ -8,34 +7,33 @@ class CartClient {
   static final String url = '10.0.2.2:8000';
   static final String endpoint = '/api/cart';
 
-  static Future<List<toChart>> fetchAll() async {
+  static Future<List<Cart>> fetchAll() async {
     try {
-      var response = await get(
-        Uri.http(url, endpoint));
+      var response = await get(Uri.http(url, endpoint));
 
       if (response.statusCode != 200) throw Exception(response.reasonPhrase);
 
       Iterable list = json.decode(response.body)['data'];
 
-      return list.map((e) => toChart.fromJson(e)).toList();
+      return list.map((e) => Cart.fromJson(e)).toList();
     } catch (e) {
       return Future.error(e.toString());
     }
   }
 
-  static Future<toChart> find(id) async {
+  static Future<Cart> find(id) async {
     try {
       var response = await get(Uri.http(url, '$endpoint/$id'));
 
       if (response.statusCode != 200) throw Exception(response.reasonPhrase);
 
-      return toChart.fromJson(json.decode(response.body)['data']);
+      return Cart.fromJson(json.decode(response.body)['data']);
     } catch (e) {
       return Future.error(e.toString());
     }
   }
 
-  static Future<Response> create(toChart cart) async {
+  static Future<Response> create(Cart cart) async {
     try {
       var response = await post(Uri.http(url, endpoint),
           headers: {"Content-Type": "application/json"},
@@ -48,7 +46,7 @@ class CartClient {
     }
   }
 
-  static Future<Response> update(toChart cart) async {
+  static Future<Response> update(Cart cart) async {
     try {
       var response = await put(Uri.http(url, '$endpoint/${cart.id}'),
           headers: {"Content-Type": "application/json"},

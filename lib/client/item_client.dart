@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 
 class ItemClient {
   static final String url = '10.0.2.2:8000';
-  static final String endpoint = '/api/item';
+  static final String endpoint = '/api/items';
 
   static Future<List<Item>> fetchAll() async {
     try {

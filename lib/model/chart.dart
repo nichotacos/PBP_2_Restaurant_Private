@@ -1,38 +1,26 @@
 import 'dart:convert';
 
-class toChart {
-  final int? id, quantity, price, id_user;
+class Cart {
+  final int? id, itemId, userId, quantity;
+  final double? totalPrice;
 
-  String? name, desc, image;
+  Cart({this.id, this.itemId, this.userId, this.quantity, this.totalPrice});
 
-  toChart(
-      {this.id,
-      this.name,
-      this.quantity,
-      this.image,
-      this.desc,
-      this.price,
-      this.id_user});
-
-  factory toChart.fromRawJson(String str) => toChart.fromJson(json.decode(str));
-  factory toChart.fromJson(Map<String, dynamic> json) => toChart(
+  factory Cart.fromRawJson(String str) => Cart.fromJson(json.decode(str));
+  factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         id: json["id"],
-        name: json["name"],
+        itemId: json["itemId"],
         quantity: json["quantity"],
-        image: json["image"],
-        desc: json["desc"],
-        price: json["price"],
-        id_user: json["id_user"],
+        userId: json["userId"],
+        totalPrice: json["totalPrice"],
       );
 
   String toRawJson() => json.encode(toJson());
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "itemId": itemId,
         "quantity": quantity,
-        "image": image,
-        "desc": desc,
-        "price": price,
-        "id_user": id_user,
+        "userId": userId,
+        "totalPrice": totalPrice,
       };
 }

@@ -20,9 +20,11 @@ class Item {
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json['id'],
         name: json['name'],
-        price: json['price'],
+        price: json['price'] is int
+            ? (json['price'] as int).toDouble()
+            : json['harga'],
         description: json['description'],
-        imageData: json['image'],
+        imageData: json['imageData'],
       );
 
   String toRawJson() => json.encode(toJson());

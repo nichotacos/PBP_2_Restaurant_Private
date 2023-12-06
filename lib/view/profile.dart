@@ -74,29 +74,6 @@ class _ProfilePageState extends State<ProfilePage> {
     setImage();
   }
 
-  // Future<void> refresh() async {
-  //   List<Map<String, dynamic>> user = [];
-  //   final data = await SQLHelper.getUser();
-  //   setState(() {
-  //     widget.user!.imageData = widget.user!.imageData;
-  //   });
-  // }
-
-  // void _getUser() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   int? savedId = prefs.getInt('id');
-  //   String? savedUsername = prefs.getString('username');
-  //   print(savedUsername);
-
-  //   if (savedUsername != null) {
-  //     setState(() {
-  //       username = savedUsername;
-  //     });
-  //   } else {
-  //     print('No data');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     // Uint8List bytes =
@@ -192,8 +169,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const Color.fromARGB(255, 255, 240, 240),
                               child: CircleAvatar(
                                 radius: 60,
-                                backgroundImage: MemoryImage(base64Decode(
-                                    widget.user.imageData as String)),
+                                backgroundImage: MemoryImage(
+                                  base64Decode(widget.user.imageData as String),
+                                ),
                               ),
                             ),
                           ),

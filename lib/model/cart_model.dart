@@ -6,16 +6,15 @@ String cartModelToJson(CartModel data) => json.encode(data.toJson());
 class CartModel {
   String message;
   Cart data;
-  CartModel({
-    required this.message,
-    required this.data,
-  });
+  String status;
+  CartModel({required this.message, required this.data, required this.status});
   factory CartModel.fromRawJson(String str) =>
       CartModel.fromJson(json.decode(str));
   String toRawJson() => json.encode(toJson());
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
         message: json["message"],
         data: Cart.fromJson(json["data"]),
+        status: json['status'],
       );
   Map<String, dynamic> toJson() => {
         "message": message,
@@ -24,34 +23,30 @@ class CartModel {
 }
 
 class Cart {
-  String name;
-  String quantity;
-  String desc;
-  String price;
-  String id_user;
-  String image;
-  Cart({
-    required this.name,
-    required this.quantity,
-    required this.desc,
-    required this.price,
-    required this.id_user,
-    required this.image,
-  });
+  final int id, itemId, userId, quantity;
+  final double totalPrice;
+  Cart(
+      {required this.id,
+      required this.itemId,
+      required this.userId,
+      required this.quantity,
+      required this.totalPrice});
+
+  factory Cart.fromRawJson(String str) => Cart.fromJson(json.decode(str));
+  String toRawJson() => json.encode(toJson());
+
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
-        name: json["name"],
+        id: json["id"],
+        itemId: json["itemId"],
         quantity: json["quantity"],
-        desc: json["desc"],
-        price: json["price"],
-        id_user: json["id_user"],
-        image: json["image"],
+        userId: json["userId"],
+        totalPrice: json["totalPrice"],
       );
   Map<String, dynamic> toJson() => {
-        "name": name,
+        "id": id,
+        "itemId": itemId,
         "quantity": quantity,
-        "desc": desc,
-        "price": price,
-        "id_user": id_user,
-        "image": image,
+        "userId": userId,
+        "totalPrice": totalPrice,
       };
 }
