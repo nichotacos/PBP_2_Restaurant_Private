@@ -35,3 +35,16 @@ Membuat sebuah aplikasi pemesanan makanan di sebuah restoran yang berbasis di An
 
 - Implementasi Geolocator untuk menetapkan alamat pengguna berdasarkan lokasi utama (Elyn Geby Monica Panjaitan)
 - Penggunaan text-to-speech pada deskripsi makanan (Kevin Julian Rahadinata)
+
+### UGD API
+- Login (Nicholas Yang)
+- Register (Nicholas Yang)
+- Tampil Profil (Nicholas Yang)
+- Fitur Forgot Password (Nicholas Yang)
+- Update Profile (Nicholas Yang)
+- Proses CRUD Transaksi (Dave Sebastian Petrus, Elyn Geby Monica Panjaitan, Hariyanto Tandung, Kevin Julian Rahadinata)
+
+### UGD Unit Testing
+- Widget testing Login Page (Kevin Julian, Nicholas Yang)
+- Widget testing Register Page (Dave Sebastian, Hariyanto Tandung)
+- Widget testing CRUD (Kevin Julian, Elyn Geby, Nicholas Yang)
