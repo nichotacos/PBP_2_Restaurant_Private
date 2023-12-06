@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class User {
+class Item {
   final int? id;
 
   final String? name;
@@ -8,7 +8,7 @@ class User {
   final String? description;
   final String? imageData;
 
-  User({
+  Item({
     this.id,
     this.name,
     this.price,
@@ -16,8 +16,8 @@ class User {
     this.imageData,
   });
 
-  factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory Item.fromRawJson(String str) => Item.fromJson(json.decode(str));
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json['id'],
         name: json['name'],
         price: json['price'],

@@ -9,6 +9,7 @@ import 'package:pbp_2_restaurant/client/CartClient.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/model/chart.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/entity/item.dart';
 
 class itemPageBurger extends StatefulWidget {
   const itemPageBurger(

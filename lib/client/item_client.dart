@@ -7,7 +7,7 @@ class ItemClient {
   static final String url = '10.0.2.2:8000';
   static final String endpoint = '/api/item';
 
-  static Future<List<User>> fetchAll() async {
+  static Future<List<Item>> fetchAll() async {
     try {
       var response = await get(Uri.http(url, endpoint));
 
@@ -15,19 +15,19 @@ class ItemClient {
 
       Iterable list = json.decode(response.body)['data'];
 
-      return list.map((e) => User.fromJson(e)).toList();
+      return list.map((e) => Item.fromJson(e)).toList();
     } catch (e) {
       return Future.error(e.toString());
     }
   }
 
-  static Future<User> find(id) async {
+  static Future<Item> find(id) async {
     try {
       var response = await get(Uri.http(url, '$endpoint/$id'));
 
       if (response.statusCode != 200) throw Exception(response.reasonPhrase);
 
-      return User.fromJson(json.decode(response.body)['data']);
+      return Item.fromJson(json.decode(response.body)['data']);
     } catch (e) {
       return Future.error(e.toString());
     }
