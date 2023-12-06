@@ -40,11 +40,11 @@ class _QRCameraPageState extends State<QRCameraPage> {
       ),
       body: PageView(
         controller: _pageController,
-        children: _pages,
         onPageChanged: (index) {
           _changePage(index);
         },
         physics: const BouncingScrollPhysics(),
+        children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentPageIndex,

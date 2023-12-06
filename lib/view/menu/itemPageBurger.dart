@@ -194,6 +194,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
+                                    key: const Key('DecrementOrder'),
                                     onPressed: () {
                                       decrementCounter();
                                     },
@@ -204,6 +205,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                     ),
                                   ),
                                   Text(
+                                    key: const Key('Quantity'),
                                     controllerQuantity.text,
                                     style: TextStyle(
                                         fontSize: 16,
@@ -211,6 +213,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   IconButton(
+                                    key: const Key('IncrementOrder'),
                                     onPressed: () {
                                       incrementCounter();
                                     },
@@ -308,6 +311,7 @@ class _itemPageBurgerState extends State<itemPageBurger> {
                 ],
               ),
               ElevatedButton.icon(
+                key: const Key('AddtoCart'),
                 onPressed: onSubmit,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),

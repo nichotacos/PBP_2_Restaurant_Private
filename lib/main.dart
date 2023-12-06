@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/view/register.dart';
@@ -35,6 +36,8 @@ class TestPage extends StatefulWidget {
   State<TestPage> createState() => _TestPageState();
 }
 
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class _TestPageState extends State<TestPage> {
   //getData
   List<Map<String, dynamic>> user = [];
@@ -45,10 +48,14 @@ class _TestPageState extends State<TestPage> {
     });
   }
 
+  late FToast fToast;
+
   @override
   void initState() {
     refresh();
     super.initState();
+    fToast = FToast();
+    fToast.init(navigatorKey.currentContext!);
   }
 
   @override
@@ -130,5 +137,36 @@ void showSnackBar(BuildContext context, String msg, Color bg) {
         onPressed: scaffold.hideCurrentSnackBar,
       ),
     ),
+  );
+}
+
+void showToast(BuildContext context, String msg, Color bg, IconData icons) {
+  FToast fToast = FToast();
+  Widget toast = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: bg,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icons, color: Colors.white),
+        const SizedBox(
+          width: 12.0,
+        ),
+        Text(
+          msg,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
+
+  fToast.showToast(
+    child: toast,
+    gravity: ToastGravity.BOTTOM,
+    toastDuration: const Duration(seconds: 2),
   );
 }

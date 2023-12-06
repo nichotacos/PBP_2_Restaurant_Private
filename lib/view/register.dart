@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:checkbox_formfield/checkbox_formfield.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/component/form_component.dart';
 import 'package:pbp_2_restaurant/main.dart';
@@ -11,6 +12,7 @@ import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/client/user_client.dart';
+import 'package:pbp_2_restaurant/view/starting-page/boarding-page.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView(
@@ -45,12 +47,35 @@ class _RegisterViewState extends State<RegisterView> {
   bool successful = false;
   bool passwordVisible = false;
 
-  int validateUsername = 0;
-  int validateEmail = 0;
+  bool validateUsername = true;
+  bool validateEmail = true;
   int validatePhone = 0;
+
+  late List<String?> userEmails;
+  late List<String?> userUsernames;
+
+  late Future<List<User>> allUser;
+  late FToast ftoast;
+
+  Future<List<User>> getAllUser() async {
+    var getUser = await UserClient.fetchAll();
+    return getUser;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ftoast = FToast();
+    getAllUser().then((users) {
+      userEmails = users.map((user) => user.email).toList();
+      userUsernames = users.map((user) => user.username).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    ftoast.init(context);
     if (widget.id != null) {
       usernameController.text = widget.username!;
       emailController.text = widget.email!;
@@ -83,18 +108,24 @@ class _RegisterViewState extends State<RegisterView> {
           await UserClient.create(input);
         }
 
-        showSnackBar(context, 'Register Success', Colors.green);
-        Navigator.pop(context);
-
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => const MyApp(),
-        //   ),
-        // );
+        if (context.mounted) {
+          showToast(context, 'Register Success', Colors.green, Icons.check);
+          await Future.delayed(const Duration(seconds: 2));
+          if (context.mounted) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const LoginView(),
+              ),
+            );
+          }
+        }
+        // showSnackBar(context, 'Register Success', Colors.green);
       } catch (e) {
-        showSnackBar(context, e.toString(), Colors.red);
-        Navigator.pop(context);
+        if (context.mounted) {
+          showToast(context, 'Register Failed', Colors.green, Icons.close);
+          await Future.delayed(const Duration(seconds: 2));
+        }
       }
     }
 
@@ -163,6 +194,7 @@ class _RegisterViewState extends State<RegisterView> {
                         height: 5,
                       ),
                       TextFormField(
+                        key: const Key('UsernameField'),
                         controller: usernameController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(
@@ -180,16 +212,18 @@ class _RegisterViewState extends State<RegisterView> {
                         onChanged: (value) async {
                           final checkUser = await uniqueValidation(
                               usernameController.text, 'username');
-                          setState(() => validateUsername = checkUser);
+                          setState(() =>
+                              validateUsername = isUsernameAvailable(value));
                         },
                         validator: (value) => value == ''
                             ? 'Please enter your username!'
-                            : validateUsername == 1
-                                ? 'Username has been used!'
+                            : validateUsername == false
+                                ? 'Username has been taken!'
                                 : null,
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        key: const Key('EmailField'),
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         decoration: InputDecoration(
@@ -208,18 +242,20 @@ class _RegisterViewState extends State<RegisterView> {
                         onChanged: (value) async {
                           final checkEmail = await uniqueValidation(
                               emailController.text, 'email');
-                          setState(() => validateEmail = checkEmail);
+                          setState(
+                              () => validateEmail = isEmailAvailable(value));
                         },
                         validator: (value) => value == ''
                             ? 'Please enter your email!'
                             : (!value!.contains('@')
                                 ? 'Email format incorrect!'
-                                : validateEmail == 1
-                                    ? 'Email has been used!'
+                                : validateEmail == false
+                                    ? 'Email has been taken!'
                                     : null),
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        key: const Key('PasswordField'),
                         controller: passwordController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(
@@ -255,6 +291,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        key: const Key('TelephoneField'),
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
@@ -291,6 +328,7 @@ class _RegisterViewState extends State<RegisterView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextFormField(
+                              key: const Key('DateField'),
                               controller: birthDateController,
                               readOnly:
                                   true, // Ini akan membuatnya hanya bisa dibaca
@@ -339,6 +377,7 @@ class _RegisterViewState extends State<RegisterView> {
                           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           width: double.infinity,
                           child: CheckboxListTileFormField(
+                            key: const Key('CheckboxField'),
                             title: const Text(
                                 "I agree to the Privacy Policy, Terms of Use, and Terms of Services"),
                             validator: (bool? value) {
@@ -361,6 +400,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
+                        key: const Key('SignUpButton'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               const Color.fromARGB(255, 214, 19, 85),
@@ -368,56 +408,9 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            String message = '';
-
-                            if (!isAgreementAccepted) {
-                              message +=
-                                  'Anda belum menyetujui User Agreement.';
-                            }
-
-                            if (message.isEmpty) {
-                              showDialog(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                  title: const Text('Data Berhasil Disimpan'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      // onPressed: () async {
-                                      //   if (widget.id == null) {
-                                      //     await addUser();
-                                      //   }
-
-                                      //   // ignore: use_build_context_synchronously
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (_) => const MyApp(),
-                                      //     ),
-                                      //   );
-                                      // },
-                                      onPressed: onSubmit,
-                                      child: const Text('Ok'),
-                                    )
-                                  ],
-                                ),
-                              );
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                  title: const Text('Data Gagal Disimpan'),
-                                  content: Text(message),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Tutup'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
+                            onSubmit();
+                            // showToast(context, 'asdfaasdf', Colors.amber,
+                            //     Icons.check);
                           }
                         },
                         child: const Text(
@@ -449,5 +442,15 @@ class _RegisterViewState extends State<RegisterView> {
   Future<int> uniqueValidation(String element, String column) async {
     int check = await SQLHelper.uniqueValidation(element, column);
     return check;
+  }
+
+  bool isUsernameAvailable(String value) {
+    print(userUsernames);
+    return !userUsernames.contains(value);
+  }
+
+  bool isEmailAvailable(String value) {
+    print(userEmails);
+    return !userEmails.contains(value);
   }
 }

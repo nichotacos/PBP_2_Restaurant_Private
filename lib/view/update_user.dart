@@ -36,7 +36,6 @@ class _UpdateUserState extends State<UpdateUser> {
   @override
   void initState() {
     super.initState();
-
     refresh(); // Panggil refresh saat halaman dimuat
   }
 
@@ -72,8 +71,9 @@ class _UpdateUserState extends State<UpdateUser> {
       Navigator.pop(context);
 
       if (context.mounted) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => ProfilePage(user: widget.user)));
+        // Navigator.pushReplacement(context,
+        //     MaterialPageRoute(builder: (_) => ProfilePage(user: widget.user)));
+        Navigator.pop(context);
       }
     } catch (e) {
       showSnackBar(context, e.toString(), Colors.red);

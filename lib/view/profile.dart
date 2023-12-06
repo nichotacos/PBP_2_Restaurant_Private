@@ -64,7 +64,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    // _getUser();
     refresh(); // Panggil refresh saat halaman dimuat
   }
 
@@ -187,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: CircleAvatar(
                                 radius: 60,
                                 backgroundImage: MemoryImage(
-                                  base64.decode(widget.user.imageData!),
+                                  base64Decode(widget.user.imageData as String),
                                 ),
                               ),
                             ),

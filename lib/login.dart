@@ -14,13 +14,13 @@ class LoginView extends StatefulWidget {
   const LoginView({Key? key, this.data}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<LoginView> createState() => LoginViewState();
 }
 
 bool passwordVisible = false;
 User user = User();
 
-class _LoginViewState extends State<LoginView> {
+class LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -37,45 +37,27 @@ class _LoginViewState extends State<LoginView> {
       var loggedUser = await UserClient.login(
           usernameController.text, passwordController.text);
 
-      showSnackBar(context, 'Login Success', Colors.green);
-      Navigator.pop(context);
+      // showSnackBar(context, 'Login Success', Colors.green);
 
       if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => HomeView(
-              user: loggedUser,
-              pageIndex: 0,
+        showToast(context, 'Login Success', Colors.green, Icons.check);
+        await Future.delayed(const Duration(seconds: 2));
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => HomeView(
+                user: loggedUser,
+                pageIndex: 0,
+              ),
             ),
-          ),
-        );
+          );
+        }
       }
     } catch (e) {
-      showSnackBar(context, e.toString(), Colors.red);
-      Navigator.pop(context);
+      showToast(context, 'Login Failed', Colors.red, Icons.close);
+      await Future.delayed(const Duration(seconds: 2));
     }
-
-    // if (context.mounted) {
-    //   if (logUser != null) {
-    //     // Login success
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(
-    //         content: Text('Login Success!'),
-    //         duration: Duration(seconds: 3),
-    //       ),
-    //     );
-
-    //   } else {
-    //     // Login failed
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(
-    //         content: Text('Login failed. Please try again.'),
-    //         duration: Duration(seconds: 3),
-    //       ),
-    //     );
-    //   }
-    // }
   }
 
   @override
@@ -151,6 +133,7 @@ class _LoginViewState extends State<LoginView> {
                                   height: 5,
                                 ),
                                 TextFormField(
+                                  key: const Key('UsernameField'),
                                   controller: usernameController,
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
@@ -171,6 +154,7 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                                 const SizedBox(height: 10),
                                 TextFormField(
+                                  key: const Key('PasswordField'),
                                   controller: passwordController,
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
@@ -230,6 +214,7 @@ class _LoginViewState extends State<LoginView> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ElevatedButton(
+                                        key: const Key('LoginButton'),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: const Color.fromARGB(
                                               255, 214, 19, 85),
@@ -365,4 +350,3 @@ class _LoginViewState extends State<LoginView> {
         usernameController.text, passwordController.text);
   }
 }
-

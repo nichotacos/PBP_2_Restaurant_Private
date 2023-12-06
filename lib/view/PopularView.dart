@@ -25,6 +25,7 @@ class PopularView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: InkWell(
+                key: const Key('BurgerPage'),
                 onTap: () {
                   Navigator.push(
                     context,
