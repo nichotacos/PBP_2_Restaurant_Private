@@ -205,7 +205,7 @@ void main() {
           .controller!
           .text,
     );
-    final result = FeedbackRepository.feedbackCreate(data: input);
+    final result = FeedbackRepository.feedbackCreate2(data: input);
 
     expect(result, "Berhasil menambahkan Feedback");
 
