@@ -2,7 +2,7 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-// import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
 import 'package:pbp_2_restaurant/client/cart_client.dart';
@@ -24,7 +24,7 @@ class ItemPage extends StatefulWidget {
 
 class _ItemPageState extends State<ItemPage> {
   final _formKey = GlobalKey<FormState>();
-  // final FlutterTts fLutterTts = FlutterTts();
+  final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
 
   String itemName = '';
@@ -34,11 +34,11 @@ class _ItemPageState extends State<ItemPage> {
   int quantity = 0;
   double total = 0.0;
 
-  // speak(String text) async {
-  //   await fLutterTts.setLanguage("en-US");
-  //   await fLutterTts.setPitch(1);
-  //   await fLutterTts.speak(text);
-  // }
+  speak(String text) async {
+    await fLutterTts.setLanguage("en-US");
+    await fLutterTts.setPitch(1);
+    await fLutterTts.speak(text);
+  }
 
   void refresh() async {
     final itemData = await ItemClient.find(widget.itemId);
@@ -89,7 +89,7 @@ class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
     void onSubmit() async {
-      // await fLutterTts.stop();
+      await fLutterTts.stop();
 
       try {
         var availCart = await CartClient.findAvail(widget.itemId);
@@ -193,8 +193,7 @@ class _ItemPageState extends State<ItemPage> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.volume_up),
-                              // onPressed: () => speak(itemDescription),
-                              onPressed: () {},
+                              onPressed: () => speak(itemDescription),
                             ),
                             const SizedBox(width: 35),
                             Container(
