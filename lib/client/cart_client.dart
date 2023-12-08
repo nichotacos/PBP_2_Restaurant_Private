@@ -21,6 +21,20 @@ class CartClient {
     }
   }
 
+  static Future<List<Cart>> fetchCertain(id) async {
+    try {
+      var response = await get(Uri.http(url, '$endpoint/findCart/$id'));
+
+      if (response.statusCode != 200) throw Exception(response.reasonPhrase);
+
+      Iterable list = json.decode(response.body)['data'];
+
+      return list.map((e) => Cart.fromJson(e)).toList();
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
   static Future<Cart> find(id) async {
     try {
       var response = await get(Uri.http(url, '$endpoint/$id'));
@@ -86,13 +100,58 @@ class CartClient {
     }
   }
 
-  static Future<Cart> findCurrent(id) async {
+  static Future<bool> checkZeroQty(id) async {
+    try {
+      var response = await get(Uri.http(url, '$endpoint/findAvail/$id'));
+
+      if (response.statusCode != 200) throw Exception(response.reasonPhrase);
+
+      var decode = jsonDecode(response.body);
+      if (decode["data"] == null) {
+        return true;
+      } else if (decode["quantity"] == 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<Cart> findCart(id) async {
     try {
       var response = await get(Uri.http(url, '$endpoint/findAvail/$id'));
 
       if (response.statusCode != 200) throw Exception(response.reasonPhrase);
 
       return Cart.fromJson(json.decode(response.body)['data']);
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<List<Cart>> findOnProgress(id) async {
+    try {
+      var response = await get(Uri.http(url, '$endpoint/getOnProgress/$id'));
+
+      if (response.statusCode != 200) throw Exception(response.reasonPhrase);
+
+      Iterable list = json.decode(response.body)['data'];
+
+      return list.map((e) => Cart.fromJson(e)).toList();
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<Response> changeStatus(id) async {
+    try {
+      var response = await put(Uri.http(url, '$endpoint/changeStatus/$id'));
+
+      if (response.statusCode != 200) throw Exception(response.reasonPhrase);
+
+      return response;
     } catch (e) {
       return Future.error(e.toString());
     }

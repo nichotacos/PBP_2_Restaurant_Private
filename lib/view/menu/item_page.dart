@@ -11,6 +11,7 @@ import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/model/cart_model.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/entity/item.dart';
+import 'package:pbp_2_restaurant/main.dart';
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key, required this.itemId, required this.user});
@@ -42,15 +43,25 @@ class _ItemPageState extends State<ItemPage> {
 
   void refresh() async {
     final itemData = await ItemClient.find(widget.itemId);
-    final cartData = await CartClient.findCurrent(widget.itemId);
+    final cartData = await CartClient.checkZeroQty(widget.itemId);
+    Cart? foundCart;
+
+    if (!cartData) {
+      foundCart = await CartClient.findCart(widget.itemId);
+    }
 
     setState(() {
       itemName = itemData.name ?? '';
       itemPrice = itemData.price ?? 0.0;
       itemDescription = itemData.description ?? '';
       itemImage = itemData.imageData ?? '';
-      controllerQuantity.text = cartData.quantity.toString();
-      total = (itemPrice * cartData.quantity).toDouble();
+      if (cartData) {
+        controllerQuantity.text = "0";
+        total = 0.0;
+      } else {
+        controllerQuantity.text = foundCart!.quantity.toString();
+        total = (itemPrice * foundCart.quantity).toDouble();
+      }
     });
   }
 
@@ -104,8 +115,28 @@ class _ItemPageState extends State<ItemPage> {
 
         if (availCart == false) {
           await CartClient.create(input);
+
+          if (context.mounted) {
+            showToast(context, "Added to cart", Colors.green, Icons.check);
+            await Future.delayed(const Duration(seconds: 2));
+          }
         } else {
-          await CartClient.update(input);
+          var foundCart = await CartClient.findCart(widget.itemId);
+          Cart update = Cart(
+            id: foundCart.id,
+            itemId: widget.itemId,
+            userId: widget.user.id!,
+            quantity: quantity,
+            totalPrice: total,
+            status: "On progress",
+          );
+          await CartClient.update(update);
+
+          if (context.mounted) {
+            showToast(
+                context, "Cart updated", Colors.orangeAccent, Icons.check);
+            await Future.delayed(const Duration(seconds: 2));
+          }
         }
       } catch (e) {
         throw ('Error: ${e.toString()}');

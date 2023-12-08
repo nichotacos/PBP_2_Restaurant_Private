@@ -4,23 +4,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
+import 'package:pbp_2_restaurant/client/transaction_client.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
-import 'package:pbp_2_restaurant/model/chart.dart';
+import 'package:pbp_2_restaurant/view/home.dart';
+import 'package:pbp_2_restaurant/view/homePage.dart';
 import 'package:pbp_2_restaurant/view/pdf-and-printing/pdf_view.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
-import 'package:pbp_2_restaurant/model/chart.dart';
+import 'package:pbp_2_restaurant/model/cart_model.dart';
 import 'package:pbp_2_restaurant/client/cart_client.dart';
 import 'package:pbp_2_restaurant/main.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
+import 'package:pbp_2_restaurant/model/transaction_model.dart';
 import 'dart:convert';
 
 class CartPage extends StatefulWidget {
   CartPage({super.key, required this.user});
-
-  // final listCart = FutureProvider<List<toChart>>((ref) async {
-  //   return await CartClient.fetchAll();
-  // });
 
   User? user;
 
@@ -29,10 +30,59 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List<Map<String, dynamic>> chart = [];
-  // List<toChart> chart2 = [];
+  List<Cart> carts = [];
   String id = const Uuid().v1();
   File? image;
+  double total = 0.0;
+  int qty = 0;
+
+  void refresh() async {
+    final data = await CartClient.fetchCertain(widget.user!.id);
+    setState(() {
+      carts = data;
+      total = countTotal(carts);
+      qty = countQty(carts);
+    });
+  }
+
+  void onSubmit() async {
+    Transactions input = Transactions(
+        id: 0,
+        review: '',
+        status: 'Completed',
+        totalAmount: total,
+        transactionDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+        userId: widget.user!.id!);
+
+    try {
+      if (input.totalAmount == 0.0) throw Exception;
+      await TransactionClient.create(input);
+
+      for (int i = 0; i < carts.length; i++) {
+        await CartClient.changeStatus(carts[i].id);
+      }
+
+      if (context.mounted) {
+        showToast(context, 'Order Completed', Colors.green, Icons.check);
+        await Future.delayed(const Duration(seconds: 2));
+
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeView(user: widget.user!, pageIndex: 0),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showToast(context, e.toString(), Colors.red, Icons.close);
+        await Future.delayed(const Duration(seconds: 2));
+        // print(e);
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -40,24 +90,22 @@ class _CartPageState extends State<CartPage> {
     refresh(); // Panggil refresh saat halaman dimuat
   }
 
-  Future<void> refresh() async {
-    final data = await CartClient.fetchAll();
-    setState(() {
-      chart = List<Map<String, dynamic>>.from(data.map((item) => toCart(item)));
-      print(chart);
-    });
+  double countTotal(List<Cart> carts) {
+    double temp = 0.0;
+    for (int i = 0; i < carts.length; i++) {
+      temp += carts[i].totalPrice;
+    }
+
+    return temp;
   }
 
-  Map<String, dynamic> toCart(dynamic item) {
-    return {
-      "id": item.id,
-      "name": item.name,
-      "desc": item.desc,
-      "id_user": item.id_user,
-      "image": item.image,
-      "price": item.price,
-      "quantity": item.quantity
-    };
+  int countQty(List<Cart> carts) {
+    int temp = 0;
+    for (int i = 0; i < carts.length; i++) {
+      temp += carts[i].quantity;
+    }
+
+    return temp;
   }
 
   void onDelete(id, context) async {
@@ -70,197 +118,213 @@ class _CartPageState extends State<CartPage> {
     }
   }
 
-  void incrementCounter(int index) {
-    setState(() {
-      int counter = chart[index]['quantity'];
-      counter++;
-      chart[index]['quantity'] = counter;
-    });
-  }
-
-  void decrementCounter(int index) {
-    setState(() {
-      int counter = chart[index]['quantity'];
-      if (counter > 1) {
-        counter--;
-        chart[index]['quantity'] = counter;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-            itemCount: chart.length,
-            itemBuilder: (context, index) {
-              return Slidable(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 9),
-                    child: Container(
-                      width: 380,
-                      height: 150,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 80, 15, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Order List',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 410,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: carts.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 10,
-                              offset: Offset(0, 3),
-                            )
-                          ]),
+                        border: Border.all(color: Colors.black, width: 2),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                      ),
                       child: Row(
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            child: Image.asset(chart[index]['image'],
-                                height: 80, width: 150),
+                          Image.asset(carts[index].itemImage ?? '', height: 90),
+                          const SizedBox(
+                            width: 10,
                           ),
-                          Container(
-                            width: 190,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    chart[index]['name'],
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    chart[index]['desc'],
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    "\$" + chart[index]['price'].toString(),
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.red),
-                                  )
-                                ]),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Container(
-                              width: 40,
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                carts[index].itemName ?? '',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                              child: Column(children: [
-                                IconButton(
-                                  onPressed: () {
-                                    incrementCounter(index);
-                                  },
-                                  icon: Icon(
-                                    CupertinoIcons.plus,
-                                    color: Colors.white,
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const Text('Quantity: '),
+                                  Text(
+                                    carts[index].quantity.toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
                                   ),
+                                  const Text(' pax'),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Rp ${carts[index].totalPrice.toString()}0',
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 214, 19, 85),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
                                 ),
-                                Text(
-                                  chart[index]['quantity'].toString(),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    decrementCounter(index);
-                                  },
-                                  icon: Icon(
-                                    CupertinoIcons.minus,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ]),
-                            ),
+                              ),
+                            ],
                           )
                         ],
                       ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                margin: const EdgeInsets.all(5),
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 214, 19, 85),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Column(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Items',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  'Sub-Total',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              qty.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.white),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Rp ${total.toString()}0',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                  actionPane: SlidableBehindActionPane(),
-                  secondaryActions: [
-                    // IconSlideAction(
-                    //   caption: 'Update',
-                    //   color: Colors.blue,
-                    //   icon: Icons.update,
-                    //   onTap: () async {
-                    //     if (chart[index]['name'] == "Burger") {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => itemPageBurger(
-                    //                   id: chart[index]['id'],
-                    //                   name: chart[index]['name'],
-                    //                   quantity: chart[index]['quantity'],
-                    //                   user: chart[index]['id_user'],
-                    //                 )),
-                    //       ).then((_) => refresh());
-                    //     } else if (chart[index]['name'] == "Spaghetti") {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => itemPageSpaghetti(
-                    //                   id: chart[index]['id'],
-                    //                   name: chart[index]['name'],
-                    //                   quantity: chart[index]['quantity'],
-                    //                   id_user: chart[index]['id_user'],
-                    //                 )),
-                    //       ).then((_) => refresh());
-                    //     } else if (chart[index]['name'] == "French Fries") {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => itemPageFrenchFries(
-                    //                   id: chart[index]['id'],
-                    //                   name: chart[index]['name'],
-                    //                   quantity: chart[index]['quantity'],
-                    //                   id_user: chart[index]['id_user'],
-                    //                 )),
-                    //       ).then((_) => refresh());
-                    //     }
-                    //   },
-                    // ),
-                    IconSlideAction(
-                      caption: 'Delete',
-                      color: Colors.red,
-                      icon: Icons.delete,
-                      onTap: () => onDelete(chart[index]['id'], context),
-                    )
-                  ]);
-            }),
+                    const Divider(
+                      color: Colors.white,
+                      thickness: 2.0,
+                      height: 40,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: onSubmit,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text(
+                          'Place My Order',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 214, 19, 85),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await createPdf(
-            widget.user!.username.toString(),
-            widget.user!.telephone.toString(),
-            widget.user!.email.toString(),
-            id,
-            widget.user!.imageData.toString(),
-            context,
-            chart[0]['name'].toString(),
-            chart[0]['quantity'].toString(),
-            chart[0]['price'].toString(),
-          );
-          setState(() {
-            const uuid = Uuid();
-            id = uuid.v1();
-          });
-        },
-        label: const Text('Get Invoice'),
-        icon: const Icon(Icons.add),
-      ),
+      // ListView.builder(
+      //   itemCount: carts.length,
+
+      //   itemBuilder: (context, index) {
+      //     return
+      //     // return ListTile(
+      //     //   title: Text(carts[index].itemName ?? ''),
+      //     // );
+      //   },
+      // ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () async {
+      //     // await createPdf(
+      //     //   widget.user!.username.toString(),
+      //     //   widget.user!.telephone.toString(),
+      //     //   widget.user!.email.toString(),
+      //     //   id,
+      //     //   widget.user!.imageData.toString(),
+      //     //   context,
+      //     //   chart[0]['name'].toString(),
+      //     //   chart[0]['quantity'].toString(),
+      //     //   chart[0]['price'].toString(),
+      //     // );
+      //     // setState(() {
+      //     //   const uuid = Uuid();
+      //     //   id = uuid.v1();
+      //     // });
+      //   },
+      //   label: const Text('Get Invoice'),
+      //   icon: const Icon(Icons.add),
+      // ),
     );
   }
 }

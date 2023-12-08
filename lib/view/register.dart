@@ -109,7 +109,6 @@ class _RegisterViewState extends State<RegisterView> {
         }
 
         if (context.mounted) {
-          MemoryImage(imageData);
           showToast(context, 'Register Success', Colors.green, Icons.check);
           await Future.delayed(const Duration(seconds: 2));
           if (context.mounted) {
