@@ -10,7 +10,7 @@ import 'package:pbp_2_restaurant/view/pdf-and-printing/pdf_view.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/model/chart.dart';
-import 'package:pbp_2_restaurant/client/CartClient.dart';
+import 'package:pbp_2_restaurant/client/cart_client.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:convert';

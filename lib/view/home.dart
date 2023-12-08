@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/login.dart';
@@ -52,14 +50,14 @@ class _HomeViewState extends State<HomeView> {
             label: 'Home',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.explore),
-            icon: Icon(Icons.explore_outlined),
-            label: 'Explore',
+            selectedIcon: Icon(Icons.shopping_cart),
+            icon: Icon(Icons.shopping_cart_outlined),
+            label: 'Orders',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.bookmarks),
-            icon: Icon(Icons.bookmarks_outlined),
-            label: 'Bookmarks',
+            selectedIcon: Icon(Icons.history),
+            icon: Icon(Icons.history_outlined),
+            label: 'History',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.person),
@@ -70,11 +68,11 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: <Widget>[
         HomePage(logUser: widget.user),
-        const TestPage(
-          title: 'keranjang dek',
-        ),
         CartPage(
           user: widget.user,
+        ),
+        const TestPage(
+          title: 'keranjang dek',
         ),
         ProfilePage(user: widget.user),
       ][currentPageIndex],

@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String username = '';
   String telephone = '';
   int point = 0;
-  var imageData;
+  String imageData = '';
 
   void refresh() async {
     final dataUser = await UserClient.find(widget.user.id);
@@ -43,6 +43,8 @@ class _ProfilePageState extends State<ProfilePage> {
       username = dataUser.username!;
       telephone = dataUser.telephone!;
       point = dataUser.poin!;
+      imageData = dataUser.imageData!;
+      print('length adalah: ${imageData.toString().length}');
     });
   }
 
@@ -62,23 +64,14 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  void setImage() async {
-    Uint8List imageData =
-        (await rootBundle.load('assets/images/test.jpeg')).buffer.asUint8List();
-  }
-
   @override
   void initState() {
     super.initState();
     refresh(); // Panggil refresh saat halaman dimuat
-    setImage();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Uint8List bytes =
-    //     Uint8List.fromList(base64.decode(widget.user!.imageData as String));
-    // MemoryImage memoryImage = MemoryImage(bytes);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -170,7 +163,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: CircleAvatar(
                                 radius: 60,
                                 backgroundImage: MemoryImage(
-                                  base64Decode(widget.user.imageData as String),
+                                  base64Decode(
+                                    // widget.user.imageData!,
+                                    imageData,
+                                  ),
                                 ),
                               ),
                             ),

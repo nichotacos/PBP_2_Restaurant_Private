@@ -25,28 +25,34 @@ class CartModel {
 class Cart {
   final int id, itemId, userId, quantity;
   final double totalPrice;
-  Cart(
-      {required this.id,
-      required this.itemId,
-      required this.userId,
-      required this.quantity,
-      required this.totalPrice});
+  final String status;
+  Cart({
+    required this.id,
+    required this.itemId,
+    required this.userId,
+    required this.quantity,
+    required this.totalPrice,
+    required this.status,
+  });
 
   factory Cart.fromRawJson(String str) => Cart.fromJson(json.decode(str));
   String toRawJson() => json.encode(toJson());
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
-        id: json["id"],
-        itemId: json["itemId"],
-        quantity: json["quantity"],
-        userId: json["userId"],
-        totalPrice: json["totalPrice"],
-      );
+      id: json["id"],
+      itemId: json["itemId"],
+      quantity: json["quantity"],
+      userId: json["userId"],
+      totalPrice: json["totalPrice"] is int
+          ? (json["totalPrice"] as int).toDouble()
+          : json["totalPrice"],
+      status: json["status"]);
   Map<String, dynamic> toJson() => {
         "id": id,
         "itemId": itemId,
         "quantity": quantity,
         "userId": userId,
         "totalPrice": totalPrice,
+        "status": status,
       };
 }

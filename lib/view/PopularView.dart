@@ -74,7 +74,7 @@ class PopularView extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             const Text(
-                              "100 gr chicken + tomato + cheese Lettuce",
+                              "100 gr chicken + tomato + cheese + lettuce",
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
@@ -86,7 +86,7 @@ class PopularView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Rp 25.000",
+                                  "Rp 32.000",
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.red,
@@ -107,20 +107,18 @@ class PopularView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: InkWell(
-                onTap: () {},
-                // onTap: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => itemPageSpaghetti(
-                //         id: null,
-                //         name: null,
-                //         quantity: null,
-                //         id_user: null,
-                //       ),
-                //     ),
-                //   );
-                // },
+                // key: const Key('BurgerPage'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemPage(
+                        itemId: 2,
+                        user: user,
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
                   width: 200,
                   height: 225,
@@ -130,59 +128,57 @@ class PopularView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
+                          spreadRadius: 5,
                           blurRadius: 10,
                           offset: const Offset(0, 3),
                         )
                       ]),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          // alignment: Alignment.center,
-                          child: Image.asset(
-                            "assets/images/appBarView_images/Spaghetti.jpeg",
-                            height: 120,
-                          ),
-                        ),
-                        const Text(
-                          "SPAGHETTI",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          "Komposisi: Italian Spaghetti Noodles, Sausage, Parsley Leaves",
-                          style: TextStyle(
-                            fontSize: 10,
-                            // fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 9),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
                           children: [
-                            Text(
-                              "\Rp 35.000",
+                            Image.asset(
+                              "assets/images/burger/bigmac.png",
+                              height: 100,
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              "BigBen",
                               style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.red,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 25,
-                            )
+                            const SizedBox(height: 8),
+                            const Text(
+                              "2 beef patties + special sauce + cheese + awesome pickles",
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Rp 41.000",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -191,20 +187,18 @@ class PopularView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: InkWell(
-                onTap: () {},
-                // onTap: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => itemPageFrenchFries(
-                //         id: null,
-                //         name: null,
-                //         quantity: null,
-                //         id_user: null,
-                //       ),
-                //     ),
-                //   );
-                // },
+                // key: const Key('BurgerPage'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemPage(
+                        itemId: 3,
+                        user: user,
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
                   width: 200,
                   height: 225,
@@ -214,59 +208,57 @@ class PopularView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
+                          spreadRadius: 5,
                           blurRadius: 10,
                           offset: const Offset(0, 3),
                         )
                       ]),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          // alignment: Alignment.center,
-                          child: Image.asset(
-                            "assets/images/appBarView_images/FrenchFries.jpeg",
-                            height: 120,
-                          ),
-                        ),
-                        const Text(
-                          "FRENCH FRIES",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          "Komposisi: French Fries, Sauce (Spicy / Sweet / Spicy and Sweet) ",
-                          style: TextStyle(
-                            fontSize: 10,
-                            // fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 9),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
                           children: [
-                            Text(
-                              "\Rp 20.000",
+                            Image.asset(
+                              "assets/images/etc/rica-chicken-rice.png",
+                              height: 100,
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              "Rica-Rica Chicken Rice",
                               style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.red,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 25,
-                            )
+                            const SizedBox(height: 8),
+                            const Text(
+                              "120 gr chicken + rica sauces + warm rice",
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Rp 24.000",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

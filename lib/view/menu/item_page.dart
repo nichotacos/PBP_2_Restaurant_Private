@@ -2,13 +2,13 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+// import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 import 'package:pbp_2_restaurant/database/sql_helper_chart.dart';
-import 'package:pbp_2_restaurant/client/CartClient.dart';
+import 'package:pbp_2_restaurant/client/cart_client.dart';
 import 'package:pbp_2_restaurant/client/item_client.dart';
 import 'package:pbp_2_restaurant/main.dart';
-import 'package:pbp_2_restaurant/model/chart.dart';
+import 'package:pbp_2_restaurant/model/cart_model.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/entity/item.dart';
 
@@ -24,9 +24,8 @@ class ItemPage extends StatefulWidget {
 
 class _ItemPageState extends State<ItemPage> {
   final _formKey = GlobalKey<FormState>();
-  final FlutterTts fLutterTts = FlutterTts();
+  // final FlutterTts fLutterTts = FlutterTts();
   TextEditingController controllerQuantity = TextEditingController();
-  List<Map<String, dynamic>> chart = [];
 
   String itemName = '';
   double itemPrice = 0.0;
@@ -35,19 +34,23 @@ class _ItemPageState extends State<ItemPage> {
   int quantity = 0;
   double total = 0.0;
 
-  speak(String text) async {
-    await fLutterTts.setLanguage("en-US");
-    await fLutterTts.setPitch(1);
-    await fLutterTts.speak(text);
-  }
+  // speak(String text) async {
+  //   await fLutterTts.setLanguage("en-US");
+  //   await fLutterTts.setPitch(1);
+  //   await fLutterTts.speak(text);
+  // }
 
   void refresh() async {
     final itemData = await ItemClient.find(widget.itemId);
+    final cartData = await CartClient.findCurrent(widget.itemId);
+
     setState(() {
       itemName = itemData.name ?? '';
       itemPrice = itemData.price ?? 0.0;
       itemDescription = itemData.description ?? '';
       itemImage = itemData.imageData ?? '';
+      controllerQuantity.text = cartData.quantity.toString();
+      total = (itemPrice * cartData.quantity).toDouble();
     });
   }
 
@@ -64,6 +67,7 @@ class _ItemPageState extends State<ItemPage> {
       counter++;
       total = (itemPrice * counter).toDouble();
       controllerQuantity.text = counter.toString();
+      quantity = counter;
     });
   }
 
@@ -74,6 +78,7 @@ class _ItemPageState extends State<ItemPage> {
         counter--;
         total = (itemPrice * counter).toDouble();
         controllerQuantity.text = counter.toString();
+        quantity = counter;
       }
     });
   }
@@ -84,7 +89,27 @@ class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
     void onSubmit() async {
-      await fLutterTts.stop();
+      // await fLutterTts.stop();
+
+      try {
+        var availCart = await CartClient.findAvail(widget.itemId);
+
+        Cart input = Cart(
+            id: 0,
+            itemId: widget.itemId,
+            quantity: quantity,
+            totalPrice: total,
+            userId: widget.user.id!,
+            status: "On progress");
+
+        if (availCart == false) {
+          await CartClient.create(input);
+        } else {
+          await CartClient.update(input);
+        }
+      } catch (e) {
+        throw ('Error: ${e.toString()}');
+      }
     }
 
     if (widget.user.id != null && y == 0) {
@@ -135,7 +160,7 @@ class _ItemPageState extends State<ItemPage> {
                                   const EdgeInsets.symmetric(horizontal: 4),
                               itemBuilder: (context, _) => const Icon(
                                 Icons.star,
-                                color: Colors.red,
+                                color: Colors.amber,
                               ),
                               onRatingUpdate: (index) {},
                             ),
@@ -168,14 +193,15 @@ class _ItemPageState extends State<ItemPage> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.volume_up),
-                              onPressed: () => speak(itemDescription),
+                              // onPressed: () => speak(itemDescription),
+                              onPressed: () {},
                             ),
                             const SizedBox(width: 35),
                             Container(
                               width: 125,
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                color: Colors.red,
+                                color: const Color.fromARGB(255, 214, 19, 85),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
@@ -252,7 +278,7 @@ class _ItemPageState extends State<ItemPage> {
                                   padding: EdgeInsets.symmetric(horizontal: 5),
                                   child: Icon(
                                     CupertinoIcons.clock,
-                                    color: Colors.red,
+                                    color: Color.fromARGB(255, 214, 19, 85),
                                   ),
                                 ),
                                 Text(
@@ -295,7 +321,7 @@ class _ItemPageState extends State<ItemPage> {
                     style: const TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red),
+                        color: Color.fromARGB(255, 214, 19, 85)),
                   ),
                 ],
               ),
@@ -303,7 +329,8 @@ class _ItemPageState extends State<ItemPage> {
                 key: const Key('AddtoCart'),
                 onPressed: onSubmit,
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  backgroundColor: MaterialStateProperty.all(
+                      const Color.fromARGB(255, 214, 19, 85)),
                   padding: MaterialStateProperty.all(
                     const EdgeInsets.symmetric(
                       vertical: 13,
@@ -314,7 +341,7 @@ class _ItemPageState extends State<ItemPage> {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                icon: Icon(CupertinoIcons.cart),
+                icon: const Icon(CupertinoIcons.cart),
                 label: const Text(
                   "Add to Cart",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

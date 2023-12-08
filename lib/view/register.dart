@@ -109,6 +109,7 @@ class _RegisterViewState extends State<RegisterView> {
         }
 
         if (context.mounted) {
+          MemoryImage(imageData);
           showToast(context, 'Register Success', Colors.green, Icons.check);
           await Future.delayed(const Duration(seconds: 2));
           if (context.mounted) {
@@ -123,7 +124,7 @@ class _RegisterViewState extends State<RegisterView> {
         // showSnackBar(context, 'Register Success', Colors.green);
       } catch (e) {
         if (context.mounted) {
-          showToast(context, 'Register Failed', Colors.green, Icons.close);
+          showToast(context, 'Register Failed', Colors.red, Icons.close);
           await Future.delayed(const Duration(seconds: 2));
         }
       }

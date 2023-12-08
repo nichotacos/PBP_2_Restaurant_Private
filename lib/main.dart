@@ -55,7 +55,7 @@ class _TestPageState extends State<TestPage> {
     refresh();
     super.initState();
     fToast = FToast();
-    fToast.init(navigatorKey.currentContext!);
+    fToast.init(context);
   }
 
   @override

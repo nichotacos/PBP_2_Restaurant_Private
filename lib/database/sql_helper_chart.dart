@@ -25,7 +25,8 @@ class SQLHelper {
   }
 
   //insert Employee
-  static Future<int> addToChart(String name, int quantity, String image, String desc, int price, int id_user) async {
+  static Future<int> addToChart(String name, int quantity, String image,
+      String desc, int price, int id_user) async {
     final db = await SQLHelper.db();
 
     // Cek apakah "name" sudah ada dalam database
@@ -38,11 +39,25 @@ class SQLHelper {
       int existingQt = result.first['quantity'] as int;
       int Qt = existingQt + quantity;
 
-      final data = {'name': name, 'quantity': Qt, 'image' : image ,'desc': desc, 'price': price  ,'id_user': id_user};
+      final data = {
+        'name': name,
+        'quantity': Qt,
+        'image': image,
+        'desc': desc,
+        'price': price,
+        'id_user': id_user
+      };
       return await db.update('toChart', data, where: "id = $existingId");
     } else {
       // "name" belum ada dalam database, lakukan penambahan
-      final data = {'name': name, 'quantity': quantity, 'image' : image ,'desc': desc, 'price': price  ,'id_user': id_user};
+      final data = {
+        'name': name,
+        'quantity': quantity,
+        'image': image,
+        'desc': desc,
+        'price': price,
+        'id_user': id_user
+      };
       return await db.insert('toChart', data);
     }
   }
@@ -54,10 +69,17 @@ class SQLHelper {
   }
 
   //update Employee
-  static Future<int> editChart(
-      int id, String name, int quantity, String image, String desc, int price, int id_user) async {
+  static Future<int> editChart(int id, String name, int quantity, String image,
+      String desc, int price, int id_user) async {
     final db = await SQLHelper.db();
-    final data = {'name': name, 'quantity': quantity, 'image' : image ,'desc': desc, 'price': price  ,'id_user': id_user};
+    final data = {
+      'name': name,
+      'quantity': quantity,
+      'image': image,
+      'desc': desc,
+      'price': price,
+      'id_user': id_user
+    };
     return await db.update('toChart', data, where: "id = $id");
   }
 
