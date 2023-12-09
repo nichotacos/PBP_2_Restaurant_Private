@@ -47,10 +47,10 @@ class Transactions {
 
   factory Transactions.fromJson(Map<String, dynamic> json) => Transactions(
         id: json["id"],
-        userId: json["itemId"],
+        userId: json["userId"],
         status: json["status"],
         transactionDate: json["transaction_date"],
-        review: json["review"],
+        review: json["reviews"] ?? '',
         totalAmount: json["total_amount"] is int
             ? (json["total_amount"] as int).toDouble()
             : json["total_amount"],
@@ -60,7 +60,7 @@ class Transactions {
         "userId": userId,
         "status": status,
         "transaction_date": transactionDate,
-        "review": review,
+        "reviews": review,
         "total_amount": totalAmount,
       };
 }
