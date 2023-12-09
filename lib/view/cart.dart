@@ -15,9 +15,11 @@ import 'package:pbp_2_restaurant/entity/user.dart';
 import 'package:pbp_2_restaurant/model/cart_model.dart';
 import 'package:pbp_2_restaurant/client/cart_client.dart';
 import 'package:pbp_2_restaurant/main.dart';
+import 'package:pbp_2_restaurant/client/transaction_cart_client.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 import 'package:pbp_2_restaurant/model/transaction_model.dart';
+import 'package:pbp_2_restaurant/model/transaction_cart_model.dart';
 import 'dart:convert';
 
 class CartPage extends StatefulWidget {
@@ -52,14 +54,22 @@ class _CartPageState extends State<CartPage> {
         status: 'Completed',
         totalAmount: total,
         transactionDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-        userId: widget.user!.id!);
+        userId: widget.user!.id ?? 0);
 
     try {
       if (input.totalAmount == 0.0) throw Exception;
       await TransactionClient.create(input);
+      var lastTransaction = await TransactionClient.findLast();
+
+      int lastTrId = lastTransaction;
 
       for (int i = 0; i < carts.length; i++) {
         await CartClient.changeStatus(carts[i].id);
+
+        var trInput =
+            TransactionCart(id: 0, trId: lastTrId, cartId: carts[i].id);
+
+        await TransactionCartClient.create(trInput);
       }
 
       if (context.mounted) {

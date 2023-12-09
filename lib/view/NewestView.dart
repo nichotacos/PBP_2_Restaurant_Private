@@ -169,7 +169,7 @@ class _NewestItemViewState extends State<NewestItemView> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           const Text(
-                            "Taste Our Pizza, We Provide Our Great Foods ",
+                            "A succulent and flavorful burger crafted to perfection ",
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -262,7 +262,7 @@ class _NewestItemViewState extends State<NewestItemView> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           const Text(
-                            "Taste Our Pizza, We Provide Our Great Foods ",
+                            "French fries are thin strips of potatoes that are deep-fried until crispy and golden brown ",
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -355,7 +355,7 @@ class _NewestItemViewState extends State<NewestItemView> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           const Text(
-                            "Taste Our Pizza, We Provide Our Great Foods ",
+                            "Spaghetti is a popular Italian pasta dish characterized by long, thin cylindrical noodles ",
                             style: TextStyle(
                               fontSize: 15,
                             ),

@@ -27,6 +27,7 @@ class Cart {
   final double totalPrice;
   final String status;
   final String? itemName, itemImage;
+  final double? itemPrice;
   Cart(
       {required this.id,
       required this.itemId,
@@ -35,7 +36,8 @@ class Cart {
       required this.totalPrice,
       required this.status,
       this.itemName,
-      this.itemImage});
+      this.itemImage,
+      this.itemPrice});
 
   factory Cart.fromRawJson(String str) => Cart.fromJson(json.decode(str));
   String toRawJson() => json.encode(toJson());

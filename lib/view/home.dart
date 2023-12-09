@@ -3,6 +3,7 @@ import 'package:pbp_2_restaurant/burger_grid.dart';
 import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/view/cart.dart';
+import 'package:pbp_2_restaurant/view/history.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
@@ -71,9 +72,7 @@ class _HomeViewState extends State<HomeView> {
         CartPage(
           user: widget.user,
         ),
-        const TestPage(
-          title: 'keranjang dek',
-        ),
+        HistoryPage(user: widget.user),
         ProfilePage(user: widget.user),
       ][currentPageIndex],
     );
