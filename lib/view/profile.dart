@@ -19,6 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'package:pbp_2_restaurant/client/user_client.dart';
 import 'package:pbp_2_restaurant/view/homePage.dart';
+import 'package:pbp_2_restaurant/feedback.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.user});
@@ -40,6 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void refresh() async {
     final dataUser = await UserClient.find(widget.user.id);
     setState(() {
+      id = dataUser.id.toString();
       username = dataUser.username!;
       telephone = dataUser.telephone!;
       point = dataUser.poin!;
@@ -164,7 +166,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 radius: 60,
                                 backgroundImage: MemoryImage(
                                   base64Decode(
-                                    // widget.user.imageData!,
                                     imageData,
                                   ),
                                 ),
@@ -384,6 +385,30 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(
                 height: 25,
+              ),ElevatedButton(
+                key: const Key('BtnFeedback'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 214, 19, 85),
+                  padding: const EdgeInsetsDirectional.symmetric(vertical: 18),
+                  minimumSize: const Size.fromHeight(20),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FeedbackPage(
+                        id: id,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Feedback',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
               // SizedBox(
               //   height: 120,
@@ -396,6 +421,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  
   Future<void> getUser() async {
     await SQLHelper.getUser();
   }
