@@ -89,4 +89,26 @@ class FeedbackRepository {
       return "Gagal";
     }
   }
+
+  static Future<String?> feedbackCreate2({
+    required FeedbackModel data,
+    // ignore: non_constant_identifier_names
+  }) async {
+    String apiUrl = 'http://127.0.0.1:8000/api/cart';
+
+    try {
+      var apiResult = await http.post(Uri.parse(apiUrl),
+          headers: {'Content-Type': 'application/json'},
+          body: data.toRawJson());
+      if (apiResult.statusCode == 200) {
+        final result = "Berhasil menambahkan Feedback";
+        return result;
+      } else {
+        throw Exception('Failed to Create');
+      }
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
 }
