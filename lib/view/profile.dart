@@ -6,12 +6,15 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pbp_2_restaurant/appBar/appbarView.dart';
 // import 'package:pbp_2_restaurant/model/user.dart';
 import 'package:pbp_2_restaurant/entity/user.dart';
+import 'package:pbp_2_restaurant/login.dart';
 import 'package:pbp_2_restaurant/main.dart';
 import 'package:pbp_2_restaurant/view/update_user.dart';
 import 'package:pbp_2_restaurant/database/sql_helper.dart';
 import 'package:pbp_2_restaurant/view/viewMap/home_screen.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pbp_2_restaurant/view/camera/camera.dart';
 import 'package:pbp_2_restaurant/QRView/QrCamera.dart';
@@ -72,6 +75,8 @@ class _ProfilePageState extends State<ProfilePage> {
     refresh(); // Panggil refresh saat halaman dimuat
   }
 
+  static const IconData logout = IconData(0xe3b3, fontFamily: 'MaterialIcons');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,8 +96,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         backgroundColor: const Color.fromARGB(40, 255, 0, 0),
                         foregroundColor: const Color.fromARGB(1000, 255, 0, 0),
                       ),
-                      child: const Icon(CupertinoIcons.back),
-                      onPressed: () => Navigator.pop(context),
+                      child: const Icon(logout),
+                      onPressed: () => _showLogoutConfirmation(),
                     ),
                   )
                 ],
@@ -420,6 +425,40 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+  
+  void _showLogoutConfirmation() {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Logout Confirmation",
+      desc: "Are you sure you want to logout?",
+      buttons: [
+        DialogButton(
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => LoginView()), // Ganti dengan halaman login yang sesuai
+            );
+          },
+          child: Text(
+            "Logout",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          color: Color.fromARGB(255, 214, 19, 85),
+        ),
+        DialogButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            "Cancel",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          color: Colors.grey,
+        )
+      ],
+    ).show();
+  }
+
 
   
   Future<void> getUser() async {
