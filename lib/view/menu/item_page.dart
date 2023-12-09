@@ -156,7 +156,26 @@ class _ItemPageState extends State<ItemPage> {
         padding: const EdgeInsets.only(top: 5),
         child: ListView(
           children: [
-            appBarView(),
+            Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(40, 255, 0, 0),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: const Icon(
+                      CupertinoIcons.back,
+                      color: const Color.fromARGB(1000, 255, 0, 0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.asset(
